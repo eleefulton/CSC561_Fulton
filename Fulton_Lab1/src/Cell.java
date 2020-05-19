@@ -3,10 +3,34 @@
  */
 public class Cell {
 
+  private LifeForm myLifeForm;
+
   /**
    * @return the LifeForm in this Cell.
    */
   public LifeForm getLifeForm() {
-    return null;
+    return myLifeForm;
+  }
+
+  /**
+   * Tries to add the LifeForm to the Cell. Will not add if a LifeForm is already
+   * present.
+   * 
+   * @return true if the LifeForm was added to the Cell, false otherwise.
+   */
+  public boolean addLifeForm(LifeForm entity) {
+    if (myLifeForm == null) {
+      myLifeForm = entity;
+      return true;
+    } else
+      return false;
+  }
+
+  /**
+   * Removes the LifeForm from the cell
+   */
+  public void removeLifeForm() {
+    myLifeForm = null;
+    
   }
 }

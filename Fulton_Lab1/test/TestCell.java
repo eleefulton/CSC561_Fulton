@@ -15,4 +15,36 @@ public class TestCell {
     Cell cell = new Cell();
     assertNull(cell.getLifeForm());
   }
+
+  /**
+   * Checks to see if we change the LifeForm held by the Cell that getLifeForm
+   * properly responds to this change.
+   */
+  @Test
+  public void testSetLifeForm() {
+    LifeForm bob = new LifeForm("Bob", 40);
+    LifeForm fred = new LifeForm("Fred", 40);
+    Cell cell = new Cell();
+    // The cell is empty so this should work.
+    boolean success = cell.addLifeForm(bob);
+    assertTrue(success);
+    assertEquals(bob, cell.getLifeForm());
+    // The cell is not empty so this should fail.
+    success = cell.addLifeForm(fred);
+    assertFalse(success);
+    assertEquals(bob, cell.getLifeForm());
+  }
+  
+  /**
+   * Checks if a Cell is empty after a LifeForm is removed
+   */
+  @Test
+  public void testRemoveLifeForm() {
+    LifeForm bob = new LifeForm("Bob", 40);
+    Cell cell = new Cell();
+    cell.addLifeForm(bob);
+    assertEquals(bob, cell.getLifeForm());
+    cell.removeLifeForm();
+    assertNull(cell.getLifeForm());
+  }
 }

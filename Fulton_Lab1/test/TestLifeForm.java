@@ -20,4 +20,5 @@ public class TestLifeForm {
     assertEquals("Bob", entity.getName());
     assertEquals(40, entity.getCurrentLifePoints());
   }
+  
 }
