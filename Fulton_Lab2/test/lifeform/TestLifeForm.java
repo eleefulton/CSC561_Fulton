@@ -15,7 +15,7 @@ public class TestLifeForm {
     LifeForm entity = new MockLifeForm("Bob", 40, 2);
     assertEquals(2, entity.attack());
   }
-  
+
   @Test
   public void testTakeHitFromLifeForm() {
     LifeForm entity = new MockLifeForm("Bob", 40, 2);
@@ -23,7 +23,7 @@ public class TestLifeForm {
     entity.takeHit(entity2.attack());
     assertEquals(38, entity.getCurrentLifePoints());
   }
-  
+
   @Test
   public void testNoDamageDealtWhenDead() {
     LifeForm entity = new MockLifeForm("Bob", 0, 2);
@@ -61,3 +61,4 @@ public class TestLifeForm {
   }
 
 }
+
