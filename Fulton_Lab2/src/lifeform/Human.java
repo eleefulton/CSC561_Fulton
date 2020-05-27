@@ -33,4 +33,17 @@ public class Human extends LifeForm {
     currentArmorPoints = newPoints < 0 ? 0 : newPoints;
   }
 
+  /**
+   * Override the default takeHit so the Humans armor absorbs damage less than or
+   * equal to the armor points
+   * 
+   * @param damage
+   *          The amount of damage to take
+   */
+  @Override
+  public void takeHit(int damage) {
+    int damageToTake = damage > currentArmorPoints ? damage - currentArmorPoints : 0;
+    currentLifePoints -= damageToTake;
+  }
+
 }

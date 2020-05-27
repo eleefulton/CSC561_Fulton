@@ -13,11 +13,22 @@ public class TestHuman {
   }
   
   @Test
-  public void testTakeDamageNoArmor() {
+  public void testTakeDamageNoArmorFromAttack() {
     Human h1 = new Human("Bob", 40, 0);
     LifeForm entity = new MockLifeForm("Fred", 40, 10);
     h1.takeHit(entity.attack());
     assertEquals(30, h1.getCurrentLifePoints());
+  }
+  
+  @Test
+  public void testTakeDamageWithArmor() {
+    Human h1 = new Human("Bob", 40, 10);
+    h1.takeHit(1);
+    assertEquals(40, h1.getCurrentLifePoints());
+    h1.takeHit(10);
+    assertEquals(40, h1.getCurrentLifePoints());
+    h1.takeHit(11);
+    assertEquals(39, h1.getCurrentLifePoints());
   }
   
   /**
