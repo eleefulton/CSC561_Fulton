@@ -11,6 +11,12 @@ import lifeform.MockLifeForm;
  *
  */
 public class TestCell {
+  
+  
+  /**
+   * begin tests for Strategy Pattern
+   */
+  
   /**
    * At initialization, the Cell should be empty and not contain a LifeForm.
    */

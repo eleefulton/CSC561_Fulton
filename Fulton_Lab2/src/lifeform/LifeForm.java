@@ -9,6 +9,7 @@ package lifeform;
 public abstract class LifeForm {
   private String myName;
   protected int currentLifePoints;
+  protected int attackStrength;
 
   /**
    * Create an instance
@@ -45,5 +46,9 @@ public abstract class LifeForm {
    */
   public void takeHit(int damage) {
     currentLifePoints = currentLifePoints-damage<0?0:currentLifePoints-damage;
+  }
+
+  public int attack() {
+    return currentLifePoints == 0? 0 : attackStrength;
   }
 }

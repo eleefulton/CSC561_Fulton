@@ -8,6 +8,11 @@ import recovery.RecoveryLinear;
 import recovery.RecoveryNone;
 
 public class TestAlien {
+  
+  
+  /**
+   * begin tests for Strategy Pattern
+   */
 
   /**
    * check that an Alien can be initialized with only a name and max life points

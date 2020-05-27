@@ -5,6 +5,10 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 public class TestRecoveryNone {
+  
+  /**
+   * begin tests for Strategy Pattern
+   */
 
   /**
    * check that the max life points of an alien stays at max after recovery

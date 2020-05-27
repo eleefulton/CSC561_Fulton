@@ -5,6 +5,11 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 public class TestHuman {
+  
+  
+  /**
+   * begin tests for Strategy Pattern
+   */
 
   /**
    * Check that a human can be initialized with an armor value no less than 0

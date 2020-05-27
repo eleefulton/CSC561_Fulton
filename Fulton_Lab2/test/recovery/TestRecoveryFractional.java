@@ -5,6 +5,10 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 public class TestRecoveryFractional {
+  
+  /**
+   * begin tests for Strategy Pattern
+   */
 
   /**
    * check that a fractional recovery behavior can be created and recovers the

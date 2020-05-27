@@ -5,6 +5,10 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 public class TestRecoveryLinear {
+  
+  /**
+   * begin tests for Strategy Pattern
+   */
 
   /**
    * check if already at max life points no recovery occurs

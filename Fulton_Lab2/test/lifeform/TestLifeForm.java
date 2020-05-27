@@ -1,6 +1,5 @@
 package lifeform;
 
-
 import static org.junit.Assert.*;
 
 import org.junit.Test;
@@ -10,6 +9,31 @@ import org.junit.Test;
  *
  */
 public class TestLifeForm {
+
+  @Test
+  public void testInitializeWithStrength() {
+    LifeForm entity = new MockLifeForm("Bob", 40, 2);
+    assertEquals(2, entity.attack());
+  }
+  
+  @Test
+  public void testTakeHitFromLifeForm() {
+    LifeForm entity = new MockLifeForm("Bob", 40, 2);
+    LifeForm entity2 = new MockLifeForm("Dave", 40, 2);
+    entity.takeHit(entity2.attack());
+    assertEquals(38, entity.getCurrentLifePoints());
+  }
+  
+  @Test
+  public void testNoDamageDealtWhenDead() {
+    LifeForm entity = new MockLifeForm("Bob", 0, 2);
+    assertEquals(0, entity.attack());
+  }
+
+  /**
+   * begin tests for Strategy Pattern
+   */
+
   /**
    * When a LifeForm is created, it should know its name and how many life points
    * it has.
@@ -21,7 +45,7 @@ public class TestLifeForm {
     assertEquals("Bob", entity.getName());
     assertEquals(40, entity.getCurrentLifePoints());
   }
-  
+
   /**
    * Check a LifeForm can take damage but not go below 0 life points
    */
@@ -35,5 +59,5 @@ public class TestLifeForm {
     entity.takeHit(1);
     assertEquals(0, entity.getCurrentLifePoints());
   }
-  
+
 }

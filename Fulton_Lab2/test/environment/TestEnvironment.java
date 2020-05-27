@@ -12,6 +12,11 @@ import lifeform.MockLifeForm;
  *
  */
 public class TestEnvironment {
+  
+  
+  /**
+   * begin tests for Strategy Pattern
+   */
 
   /**
    * Tests a 1x1 environment can be created and populated with a single cell

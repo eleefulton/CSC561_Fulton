@@ -5,4 +5,9 @@ public class MockLifeForm extends LifeForm {
     super(name, points);
   }
 
+  public MockLifeForm(String name, int points, int attack) {
+    this(name, points);
+    attackStrength = attack;
+  }
+
 }
