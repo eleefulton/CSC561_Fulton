@@ -23,6 +23,7 @@ public class Alien extends LifeForm {
     super(name, points);
     maxLifePoints = points;
     myRecoveryBehavior = rb;
+    attackStrength = 10;
   }
 
   /**

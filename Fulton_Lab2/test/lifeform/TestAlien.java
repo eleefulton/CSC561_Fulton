@@ -9,6 +9,19 @@ import recovery.RecoveryNone;
 
 public class TestAlien {
   
+  @Test
+  public void testInitializeWithDefaultAttack() {
+    Alien alien = new Alien("alie", 40);
+    assertEquals(10, alien.attack());
+  }
+  
+  @Test
+  public void testTakeDamageFromAttack() {
+    Alien alien = new Alien("Alie", 40);
+    LifeForm entity = new MockLifeForm("Bob", 40, 10);
+    alien.takeHit(entity.attack());
+    assertEquals(30, alien.getCurrentLifePoints());
+  }
   
   /**
    * begin tests for Strategy Pattern
