@@ -13,6 +13,7 @@ public class Human extends LifeForm {
   public Human(String name, int lifepoints, int armor) {
     super(name, lifepoints);
     this.setArmorPoints(armor);
+    attackStrength = 5;
   }
 
   /**

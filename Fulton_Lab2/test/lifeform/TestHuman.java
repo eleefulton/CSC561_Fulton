@@ -6,6 +6,19 @@ import org.junit.Test;
 
 public class TestHuman {
   
+  @Test
+  public void testDefaultAttack() {
+    Human h1 = new Human("Bob", 40, 10);
+    assertEquals(5, h1.attack());
+  }
+  
+  @Test
+  public void testTakeDamageNoArmor() {
+    Human h1 = new Human("Bob", 40, 0);
+    LifeForm entity = new MockLifeForm("Fred", 40, 10);
+    h1.takeHit(entity.attack());
+    assertEquals(30, h1.getCurrentLifePoints());
+  }
   
   /**
    * begin tests for Strategy Pattern
