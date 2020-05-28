@@ -17,8 +17,10 @@ import recovery.TestRecoveryNone;
  */
 
 @RunWith(Suite.class)
-@Suite.SuiteClasses({ TestCell.class, TestLifeForm.class, TestEnvironment.class, TestHuman.class, TestAlien.class,
-    TestRecoveryNone.class, TestRecoveryLinear.class, TestRecoveryFractional.class, TestSimpleTimer.class })
-public class AllGameTests {
+@Suite.SuiteClasses(
+{ TestCell.class, TestLifeForm.class, TestEnvironment.class, TestHuman.class, TestAlien.class, TestRecoveryNone.class,
+		TestRecoveryLinear.class, TestRecoveryFractional.class, TestSimpleTimer.class })
+public class AllGameTests
+{
 
 }
