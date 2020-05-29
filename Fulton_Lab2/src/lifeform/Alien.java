@@ -1,5 +1,7 @@
 package lifeform;
 
+import exceptions.AlienConstructorException;
+import gameplay.TimeObserver;
 import recovery.RecoveryBehavior;
 import recovery.RecoveryNone;
 
@@ -10,11 +12,12 @@ import recovery.RecoveryNone;
  * @author Ethan Fulton
  *
  */
-public class Alien extends LifeForm
+public class Alien extends LifeForm implements TimeObserver
 {
 
 	private int maxLifePoints;
 	private RecoveryBehavior myRecoveryBehavior;
+	private int recoveryRate;
 
 	public Alien(String name, int points)
 	{
@@ -29,15 +32,44 @@ public class Alien extends LifeForm
 		attackStrength = 10;
 	}
 
+	public Alien(String name, int points, RecoveryBehavior rb, int rr) throws AlienConstructorException
+	{
+		this(name, points, rb);
+		if (rr <= 0)
+		{
+			throw new AlienConstructorException();
+		}
+		recoveryRate = rr;
+	}
+
 	/**
 	 * calculate the aliens recovery based on it's RecoveryBehavior
 	 */
-	public void recover()
+	protected void recover()
 	{
 		if (myRecoveryBehavior != null)
 		{
-			currentLifePoints = myRecoveryBehavior.calculateRecovery(getCurrentLifePoints(), maxLifePoints);
+			currentLifePoints = myRecoveryBehavior.calculateRecovery(currentLifePoints, maxLifePoints);
 		}
+	}
+
+	/**
+	 * 
+	 * @return Return the recovery rate that determines on what round to update
+	 */
+	public int getRecoveryRate()
+	{
+		return recoveryRate;
+	}
+
+	@Override
+	public void updateTime(int time)
+	{
+		if (time % recoveryRate == 0)
+		{
+			recover();
+		}
+
 	}
 
 }

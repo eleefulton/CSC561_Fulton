@@ -73,9 +73,13 @@ public class SimpleTimer extends Thread implements Timer
 		}
 	}
 
+	/**
+	 * update the round every cycle (determined by waitTime) until it is at 50
+	 */
+	@Override
 	public void run()
 	{
-		while (round < 5)
+		while (round < 50)
 		{
 			try
 			{

@@ -4,10 +4,47 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
+import exceptions.AlienConstructorException;
+import gameplay.SimpleTimer;
 import recovery.RecoveryLinear;
 
 public class TestAlien
 {
+
+	@Test
+	public void testRecoverOverTime() throws AlienConstructorException
+	{
+		RecoveryLinear rl = new RecoveryLinear(1);
+		Alien alien1 = new Alien("alie", 40, rl, 2);
+		SimpleTimer timer = new SimpleTimer();
+		alien1.takeHit(30);
+		timer.timeChanged();
+		timer.addTimeObserver(alien1);
+		assertEquals(1, timer.getRound());
+		assertEquals(10, alien1.getCurrentLifePoints());
+		timer.timeChanged();
+		assertEquals(2, timer.getRound());
+		assertEquals(11, alien1.getCurrentLifePoints());
+		alien1.takeHit(11);
+		timer.timeChanged();
+		assertEquals(0, alien1.getCurrentLifePoints());
+	}
+
+	@Test(expected = AlienConstructorException.class)
+	public void testInitalizeWithRecoveryRate() throws AlienConstructorException
+	{
+		RecoveryLinear rl = new RecoveryLinear(1);
+		Alien alien1 = new Alien("alie", 40, rl, 1);
+		assertEquals(1, alien1.getRecoveryRate());
+		Alien alien2 = new Alien("balie", 40, rl, 0);
+	}
+
+	@Test(expected = AlienConstructorException.class)
+	public void testInitalizeWithNegativeRecoveryRate() throws AlienConstructorException
+	{
+		RecoveryLinear rl = new RecoveryLinear(1);
+		Alien alien2 = new Alien("balie", 40, rl, -1);
+	}
 
 	@Test
 	public void testInitializeWithDefaultAttack()
