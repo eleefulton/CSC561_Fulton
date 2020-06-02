@@ -51,4 +51,11 @@ public class Human extends LifeForm
 		currentLifePoints -= damageToTake;
 	}
 
+	@Override
+	public void updateTime(int time)
+	{
+		// TODO Auto-generated method stub
+
+	}
+
 }

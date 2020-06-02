@@ -4,6 +4,8 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
+import gameplay.SimpleTimer;
+
 /**
  * Tests the functionality provided by the LifeForm class
  *
@@ -32,6 +34,17 @@ public class TestLifeForm
 	{
 		LifeForm entity = new MockLifeForm("Bob", 0, 2);
 		assertEquals(0, entity.attack());
+	}
+
+	@Test
+	public void testTrackPassageOfTime()
+	{
+		MockLifeForm entity = new MockLifeForm("Bob", 0, 2);
+		SimpleTimer timer = new SimpleTimer(1);
+		timer.addTimeObserver(entity);
+		assertEquals(0, entity.getTime());
+		timer.timeChanged();
+		assertEquals(1, entity.getTime());
 	}
 
 	/**

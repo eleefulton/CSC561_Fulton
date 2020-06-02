@@ -30,12 +30,34 @@ public class TestAlien
 		assertEquals(0, alien1.getCurrentLifePoints());
 	}
 
+	@Test
+	public void testRecoveryAfterRemovedFromObservers() throws AlienConstructorException
+	{
+		RecoveryLinear rl = new RecoveryLinear(1);
+		Alien alien1 = new Alien("alie", 40, rl, 2);
+		SimpleTimer timer = new SimpleTimer();
+		alien1.takeHit(30);
+		timer.timeChanged();
+		timer.addTimeObserver(alien1);
+		assertEquals(1, timer.getRound());
+		assertEquals(10, alien1.getCurrentLifePoints());
+		timer.timeChanged();
+		assertEquals(2, timer.getRound());
+		assertEquals(11, alien1.getCurrentLifePoints());
+		timer.removeTimeObserver(alien1);
+		timer.timeChanged();
+		assertEquals(3, timer.getRound());
+		assertEquals(11, alien1.getCurrentLifePoints());
+	}
+
 	@Test(expected = AlienConstructorException.class)
 	public void testInitalizeWithRecoveryRate() throws AlienConstructorException
 	{
 		RecoveryLinear rl = new RecoveryLinear(1);
 		Alien alien1 = new Alien("alie", 40, rl, 1);
 		assertEquals(1, alien1.getRecoveryRate());
+		alien1.setRecoveryRate(5);
+		assertEquals(5, alien1.getRecoveryRate());
 		Alien alien2 = new Alien("balie", 40, rl, 0);
 	}
 
@@ -60,6 +82,14 @@ public class TestAlien
 		LifeForm entity = new MockLifeForm("Bob", 40, 10);
 		alien.takeHit(entity.attack());
 		assertEquals(30, alien.getCurrentLifePoints());
+	}
+
+	@Test
+	public void testSetRecoveryRate()
+	{
+		Alien alien = new Alien("Alie", 40);
+		alien.setRecoveryRate(1);
+		assertEquals(1, alien.getRecoveryRate());
 	}
 
 	/**

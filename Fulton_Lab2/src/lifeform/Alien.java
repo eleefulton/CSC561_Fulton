@@ -1,7 +1,6 @@
 package lifeform;
 
 import exceptions.AlienConstructorException;
-import gameplay.TimeObserver;
 import recovery.RecoveryBehavior;
 import recovery.RecoveryNone;
 
@@ -12,7 +11,7 @@ import recovery.RecoveryNone;
  * @author Ethan Fulton
  *
  */
-public class Alien extends LifeForm implements TimeObserver
+public class Alien extends LifeForm
 {
 
 	private int maxLifePoints;
@@ -69,6 +68,18 @@ public class Alien extends LifeForm implements TimeObserver
 		{
 			recover();
 		}
+
+	}
+
+	/**
+	 * change the aliens recovery rate
+	 * 
+	 * @param i
+	 *            the value to make the aliens recovery rate
+	 */
+	public void setRecoveryRate(int i)
+	{
+		recoveryRate = i;
 
 	}
 

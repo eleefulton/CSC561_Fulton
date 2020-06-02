@@ -1,12 +1,14 @@
 package lifeform;
 
+import gameplay.TimeObserver;
+
 /**
  * Keeps track of the information associated with a simple life form. Also
  * provides the functionality related to the life form.
  * 
  * @author Ethan Fulton
  */
-public abstract class LifeForm
+public abstract class LifeForm implements TimeObserver
 {
 	private String myName;
 	protected int currentLifePoints;
