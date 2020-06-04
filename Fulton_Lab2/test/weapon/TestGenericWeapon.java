@@ -34,7 +34,7 @@ public class TestGenericWeapon
 		assertEquals(4, w.getRemainingAmmo());
 		w.Reload();
 		assertEquals(5, w.getRemainingAmmo());
-		w.setReaminingAmmo(0);
+		w.setRemainingAmmo(0);
 		w.Reload();
 		assertEquals(5, w.getRemainingAmmo());
 	}

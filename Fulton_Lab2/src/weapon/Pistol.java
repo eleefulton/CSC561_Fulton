@@ -15,13 +15,6 @@ public class Pistol extends GenericWeapon implements Weapon
 		super(bd, mr, rof, ma);
 	}
 
-	@Override
-	public void updateTime(int time)
-	{
-		// TODO Auto-generated method stub
-
-	}
-
 	/**
 	 * @return Return the adjusted damage based on range
 	 */

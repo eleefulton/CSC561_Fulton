@@ -98,7 +98,7 @@ public abstract class GenericWeapon implements Weapon
 	}
 
 	@Override
-	public void setReaminingAmmo(int newAmmo)
+	public void setRemainingAmmo(int newAmmo)
 	{
 		remainingAmmo = newAmmo;
 
@@ -108,6 +108,12 @@ public abstract class GenericWeapon implements Weapon
 	public void updateTime(int time)
 	{
 		resetShotsFired();
+	}
+
+	@Override
+	public void updateShotsFired()
+	{
+		shotsFired++;
 	}
 
 }

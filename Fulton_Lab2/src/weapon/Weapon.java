@@ -67,6 +67,11 @@ public interface Weapon extends TimeObserver
 	/**
 	 * set the ammo amount left
 	 */
-	public void setReaminingAmmo(int newAmmo);
+	public void setRemainingAmmo(int newAmmo);
+
+	/**
+	 * increment shots fired
+	 */
+	public void updateShotsFired();
 
 }

@@ -10,81 +10,85 @@ package weapon;
 
 public abstract class Attachment implements Weapon
 {
-	private Weapon myWeapon;
+	protected Weapon myWeapon;
 
 	public Attachment(Weapon w)
 	{
 		myWeapon = w;
 	}
 
+	public Weapon getWeapon()
+	{
+		return myWeapon;
+	}
+
 	@Override
 	public int fireWeapon(int distance)
 	{
-		// TODO Auto-generated method stub
-		return 0;
+		return myWeapon.fireWeapon(distance);
 	}
 
 	@Override
 	public void Reload()
 	{
-		// TODO Auto-generated method stub
+		myWeapon.Reload();
 
 	}
 
 	@Override
 	public int getRange()
 	{
-		// TODO Auto-generated method stub
-		return 0;
+		return myWeapon.getRange();
 	}
 
 	@Override
 	public int getBaseDamage()
 	{
-		// TODO Auto-generated method stub
-		return 0;
+		return myWeapon.getBaseDamage();
 	}
 
 	@Override
 	public int getRemainingAmmo()
 	{
-		// TODO Auto-generated method stub
-		return 0;
+		return myWeapon.getRemainingAmmo();
 	}
 
 	@Override
 	public int getMaxAmmo()
 	{
-		// TODO Auto-generated method stub
-		return 0;
+		return myWeapon.getMaxAmmo();
 	}
 
 	@Override
 	public int getRateOfFire()
 	{
-		// TODO Auto-generated method stub
-		return 0;
+		return myWeapon.getRateOfFire();
 	}
 
 	@Override
 	public int getShotsFired()
 	{
-		// TODO Auto-generated method stub
-		return 0;
+		return myWeapon.getShotsFired();
 	}
 
 	@Override
 	public void resetShotsFired()
 	{
-		// TODO Auto-generated method stub
+		myWeapon.resetShotsFired();
 
 	}
 
 	@Override
-	public void setReaminingAmmo(int newAmmo)
+	public void setRemainingAmmo(int newAmmo)
 	{
-		// TODO Auto-generated method stub
+		myWeapon.setRemainingAmmo(newAmmo);
 
+	}
+
+	@Override
+	public void updateShotsFired()
+	{
+		myWeapon.updateShotsFired();
 	}
 
 }
