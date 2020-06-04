@@ -58,6 +58,7 @@ public class TestGenericWeapon
 		MockWeapon w = new MockWeapon(10, 10, 1, 5);
 		assertEquals(0, w.fireWeapon(11));
 		assertEquals(4, w.getRemainingAmmo());
+		assertEquals(1, w.getShotsFired());
 
 	}
 

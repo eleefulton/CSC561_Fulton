@@ -31,18 +31,7 @@ public class Scope extends Attachment
 	@Override
 	public int fireWeapon(int distance)
 	{
-		int newDamage = (int) (getBaseDamage() * (1 + (double) (getRange() - distance) / getRange()));
-		if (getShotsFired() < getRateOfFire() && distance <= getRange())
-		{
-			setRemainingAmmo(-1);
-			updateShotsFired();
-			return newDamage;
-		} else if (distance > getRange())
-		{
-			setRemainingAmmo(-1);
-			return 0;
-		} else
-			return 0;
+		return (int) (myWeapon.fireWeapon(distance) * (1 + (double) (getRange() - distance) / getRange()));
 	}
 
 }

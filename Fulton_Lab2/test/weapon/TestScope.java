@@ -17,16 +17,27 @@ public class TestScope
 	public void testInitialize()
 	{
 		Weapon w = new MockWeapon(10, 10, 1, 5);
-		weapon.Scope s = new weapon.Scope(w);
+		Scope s = new Scope(w);
 		assertEquals(w, s.getWeapon());
 	}
 
 	@Test
-	public void testScopeDamage()
+	public void testScopePistolDamageAtDifferentRanges()
 	{
-		Weapon w = new MockWeapon(10, 10, 1, 5);
-		weapon.Scope s = new weapon.Scope(w);
+		Weapon w = new Pistol(10, 10, 1, 5);
+		Scope s = new Scope(w);
 		assertEquals(15, s.fireWeapon(5));
+		s.resetShotsFired();
+		assertEquals(20, s.fireWeapon(3));
+	}
+
+	@Test
+	public void testScopeScopePistolDamage()
+	{
+		Weapon w = new Pistol(10, 10, 1, 5);
+		Scope s1 = new Scope(w);
+		Scope s2 = new Scope(s1);
+		assertEquals(22, s2.fireWeapon(5));
 	}
 
 }

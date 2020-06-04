@@ -42,6 +42,7 @@ public abstract class GenericWeapon implements Weapon
 		} else if (distance > maxRange)
 		{
 			remainingAmmo--;
+			shotsFired++;
 			return 0;
 		} else
 			return 0;
