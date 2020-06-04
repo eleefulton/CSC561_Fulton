@@ -30,7 +30,7 @@ public class TestGenericWeapon
 	public void testFireAndReloadWeapon()
 	{
 		MockWeapon w = new MockWeapon(10, 10, 1, 5);
-		assertEquals(10, w.FireWeapon());
+		assertEquals(10, w.FireWeapon(5));
 		assertEquals(4, w.getRemainingAmmo());
 		w.Reload();
 		assertEquals(5, w.getRemainingAmmo());
@@ -45,11 +45,19 @@ public class TestGenericWeapon
 		SimpleTimer t = new SimpleTimer(1);
 		MockWeapon w = new MockWeapon(10, 10, 1, 5);
 		t.addTimeObserver(w);
-		assertEquals(10, w.FireWeapon());
+		assertEquals(10, w.FireWeapon(5));
 		assertEquals(1, w.getShotsFired());
-		assertEquals(0, w.FireWeapon());
+		assertEquals(0, w.FireWeapon(5));
 		t.timeChanged();
-		assertEquals(10, w.FireWeapon());
+		assertEquals(10, w.FireWeapon(5));
+	}
+
+	@Test
+	public void testOutOfRange()
+	{
+		MockWeapon w = new MockWeapon(10, 10, 1, 5);
+		assertEquals(0, w.FireWeapon(11));
+
 	}
 
 }

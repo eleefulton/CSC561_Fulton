@@ -32,9 +32,9 @@ public abstract class GenericWeapon implements Weapon
 	 * fire the weapon if shots left this round, if not return 0 damage
 	 */
 	@Override
-	public int FireWeapon()
+	public int FireWeapon(int distance)
 	{
-		if (shotsFired < rateOfFire)
+		if (shotsFired < rateOfFire && distance < maxRange)
 		{
 			remainingAmmo--;
 			shotsFired++;
