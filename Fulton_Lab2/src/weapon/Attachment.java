@@ -18,7 +18,7 @@ public abstract class Attachment implements Weapon
 	}
 
 	@Override
-	public int FireWeapon(int distance)
+	public int fireWeapon(int distance)
 	{
 		// TODO Auto-generated method stub
 		return 0;

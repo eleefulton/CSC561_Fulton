@@ -9,13 +9,13 @@ package weapon;
  */
 public abstract class GenericWeapon implements Weapon
 {
-	private int baseDamage;
-	private int maxRange;
-	private int rateOfFire;
+	protected int baseDamage;
+	protected int maxRange;
+	protected int rateOfFire;
 	private int maxAmmo;
-	private int remainingAmmo;
+	protected int remainingAmmo;
 	private int numAttachments;
-	private int shotsFired;
+	protected int shotsFired;
 
 	public GenericWeapon(int bd, int mr, int rof, int ma)
 	{
@@ -32,17 +32,19 @@ public abstract class GenericWeapon implements Weapon
 	 * fire the weapon if shots left this round, if not return 0 damage
 	 */
 	@Override
-	public int FireWeapon(int distance)
+	public int fireWeapon(int distance)
 	{
-		if (shotsFired < rateOfFire && distance < maxRange)
+		if (shotsFired < rateOfFire && distance <= maxRange)
 		{
 			remainingAmmo--;
 			shotsFired++;
 			return baseDamage;
-		} else
+		} else if (distance > maxRange)
 		{
+			remainingAmmo--;
 			return 0;
-		}
+		} else
+			return 0;
 	}
 
 	@Override

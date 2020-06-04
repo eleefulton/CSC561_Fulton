@@ -11,6 +11,7 @@ import recovery.TestRecoveryFractional;
 import recovery.TestRecoveryLinear;
 import recovery.TestRecoveryNone;
 import weapon.TestGenericWeapon;
+import weapon.TestPistol;
 
 /**
  * Runs all of the tests in this project
@@ -20,7 +21,8 @@ import weapon.TestGenericWeapon;
 @RunWith(Suite.class)
 @Suite.SuiteClasses(
 { TestCell.class, TestLifeForm.class, TestEnvironment.class, TestHuman.class, TestAlien.class, TestRecoveryNone.class,
-		TestRecoveryLinear.class, TestRecoveryFractional.class, TestSimpleTimer.class, TestGenericWeapon.class })
+		TestRecoveryLinear.class, TestRecoveryFractional.class, TestSimpleTimer.class, TestGenericWeapon.class,
+		TestPistol.class })
 public class AllGameTests
 {
 

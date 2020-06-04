@@ -16,7 +16,7 @@ public interface Weapon extends TimeObserver
 	 * 
 	 * @return damage done
 	 */
-	public int FireWeapon(int distance);
+	public int fireWeapon(int distance);
 
 	/**
 	 * reset the amount of shots
