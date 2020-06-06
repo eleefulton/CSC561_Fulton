@@ -10,6 +10,7 @@ import lifeform.TestLifeForm;
 import recovery.TestRecoveryFractional;
 import recovery.TestRecoveryLinear;
 import recovery.TestRecoveryNone;
+import weapon.TestPlasmaCannon;
 
 /**
  * Runs all of the tests in this project
@@ -18,8 +19,16 @@ import recovery.TestRecoveryNone;
 
 @RunWith(Suite.class)
 @Suite.SuiteClasses(
-{ TestCell.class, TestLifeForm.class, TestEnvironment.class, TestHuman.class, TestAlien.class, TestRecoveryNone.class,
-		TestRecoveryLinear.class, TestRecoveryFractional.class, TestSimpleTimer.class })
+{ TestCell.class, 
+  TestLifeForm.class, 
+  TestEnvironment.class, 
+  TestHuman.class, 
+  TestAlien.class, 
+  TestRecoveryNone.class,
+  TestRecoveryLinear.class, 
+  TestRecoveryFractional.class, 
+  TestSimpleTimer.class,
+  TestPlasmaCannon.class})
 public class AllGameTests
 {
 
