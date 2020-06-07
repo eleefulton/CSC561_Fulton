@@ -10,7 +10,9 @@ import lifeform.TestLifeForm;
 import recovery.TestRecoveryFractional;
 import recovery.TestRecoveryLinear;
 import recovery.TestRecoveryNone;
+import weapon.TestGenericWeapon;
 import weapon.TestPlasmaCannon;
+import weapon.TestStabilizer;
 
 /**
  * Runs all of the tests in this project
@@ -28,7 +30,10 @@ import weapon.TestPlasmaCannon;
   TestRecoveryLinear.class, 
   TestRecoveryFractional.class, 
   TestSimpleTimer.class,
-  TestPlasmaCannon.class})
+  TestGenericWeapon.class,
+  TestPlasmaCannon.class,
+  TestStabilizer.class
+  })
 public class AllGameTests
 {
 

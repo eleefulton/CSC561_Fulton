@@ -1,7 +1,9 @@
 package weapon;
 
+import exceptions.NegativeDistanceException;
+
 /**
- * 
+ *
  * @author Moumouni Noma
  *
  */
@@ -24,20 +26,25 @@ public class PlasmaCannon extends GenericWeapon implements Weapon
 	 *  damage = baseDamage * (actualAmmo/maxAmmo)
 	 */
 	@Override
-	public int fireWeapon(int distance) 
+	public int fireWeapon(int distance) throws NegativeDistanceException
 	{
 		int damage = (int) (baseDamage * ((double) this.getRemainingAmmo() / this.getMaxAmmo()));
-		if (this.getShotsFired() < this.getRateOfFire() 
-				&& distance <= this.getRange() && distance >= 0)
+		if(distance < 0)
+		{
+			throw new NegativeDistanceException();
+		}
+		else if (this.getShotsFired() < this.getRateOfFire() && distance <= this.getRange())
 		{
 			remainingAmmo--;
 			shotsFired++;
 			return damage;
-		} else if (distance > this.getRange())
+		} 
+		else if (distance > this.getRange())
 		{
 			remainingAmmo--;
 			return 0;
-		} else
+		}
+		else
 			return 0;
 	}
 
