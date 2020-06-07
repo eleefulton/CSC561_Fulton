@@ -23,6 +23,7 @@ public class TestChainGun
 	public void testFireWeaponDamage()
 	{
 		ChainGun cg = new ChainGun(15,30,4,30);
+		assertEquals(2, cg.fireWeapon(5));
 		assertEquals(12, cg.fireWeapon(25));
 		assertEquals(15, cg.fireWeapon(30));
 	}

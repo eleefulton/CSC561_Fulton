@@ -26,8 +26,6 @@ public class ChainGun extends GenericWeapon implements Weapon{
 	@Override
 	public int fireWeapon(int distance) throws NegativeDistanceException 
 	{
-		System.out.println("distance: "+distance);
-		System.out.println("Range: "+ super.getRange());
 		if (distance < 0 )
 		{
 			throw new NegativeDistanceException();
@@ -37,15 +35,10 @@ public class ChainGun extends GenericWeapon implements Weapon{
 			return 0;
 		}
 			
-		System.out.println("shots fired: "+ getShotsFired());
-		System.out.println("rate of fire: "+ super.getRateOfFire());
 		if (super.getShotsFired() < super.getRateOfFire())
 		{
-			System.out.println("In the if");
-			System.out.println("super.getBaseDamage() "+ super.getBaseDamage());
 			remainingAmmo--;
 			shotsFired++;
-			System.out.println((float)super.getBaseDamage() * ((float)distance / (float)super.getRange() ));
 			int damage = (int)((float)super.getBaseDamage() * ((float)distance / (float)super.getRange() ));
 			return damage;
 		} else
