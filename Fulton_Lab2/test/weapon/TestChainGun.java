@@ -4,6 +4,9 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
+import exceptions.AlienConstructorException;
+import exceptions.NegativeDistanceException;
+
 public class TestChainGun 
 {
 
@@ -17,18 +20,25 @@ public class TestChainGun
 	}
 	
 	@Test
-	public void testFireWeapon()
+	public void testFireWeaponDamage()
 	{
 		ChainGun cg = new ChainGun(15,30,4,30);
+		assertEquals(12, cg.fireWeapon(25));
 		assertEquals(15, cg.fireWeapon(30));
-		assertEquals(30, cg.fireWeapon(60));
 	}
 	
 	@Test
-	public void testFireWeaponInvalid()
+	public void testFireWeaponTooFar()
 	{
 		ChainGun cg = new ChainGun(15,30,4,30);
-		assertEquals(0, cg.fireWeapon(-1));
+		assertEquals(0, cg.fireWeapon(31));
+	}
+	
+	@Test (expected = NegativeDistanceException.class)
+	public void testFireWeaponNegative() throws NegativeDistanceException 
+	{
+		ChainGun cg = new ChainGun(15,30,4,30);
+		cg.fireWeapon(-1);
 	}
 
 }
