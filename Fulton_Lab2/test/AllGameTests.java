@@ -10,6 +10,7 @@ import lifeform.TestLifeForm;
 import recovery.TestRecoveryFractional;
 import recovery.TestRecoveryLinear;
 import recovery.TestRecoveryNone;
+import weapon.TestAttachment;
 import weapon.TestGenericWeapon;
 import weapon.TestPlasmaCannon;
 import weapon.TestStabilizer;
@@ -30,6 +31,7 @@ import weapon.TestStabilizer;
   TestRecoveryLinear.class, 
   TestRecoveryFractional.class, 
   TestSimpleTimer.class,
+  TestAttachment.class,
   TestGenericWeapon.class,
   TestPlasmaCannon.class,
   TestStabilizer.class
