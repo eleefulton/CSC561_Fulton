@@ -4,6 +4,8 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
+import exceptions.NegativeDistanceException;
+
 /**
  * Test functionality of pistol
  * 
@@ -33,6 +35,13 @@ public class TestPistol
 		assertEquals(14, p.fireWeapon(3));
 		p.resetShotsFired();
 		assertEquals(0, p.fireWeapon(6));
+	}
+
+	@Test(expected = NegativeDistanceException.class)
+	public void testFireWeaponEgdeCases()
+	{
+		Pistol p = new Pistol(10, 5, 1, 5);
+		assertEquals(0, p.fireWeapon(-1)); // negative distance it will throw an exception
 	}
 
 }
