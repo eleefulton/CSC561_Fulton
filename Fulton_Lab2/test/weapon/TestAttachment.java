@@ -52,4 +52,16 @@ class MockAttachment extends Attachment
 
 	}
 
+	@Override
+	public int getNumAttachments() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public void addAttachment() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

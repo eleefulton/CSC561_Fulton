@@ -70,5 +70,15 @@ public class TestStabilizer {
 		Stabilizer st = new Stabilizer(pb);
 		assertEquals(77, st.fireWeapon(5));
 	}
+	
+	@Test
+	public void testPlasmaCannonPowerBoosterStabilzerMoreThan3Damage()
+	{
+		Weapon w = new PlasmaCannon(50, 20, 1, 4);
+		PowerBooster pb = new PowerBooster(w);
+		Stabilizer st = new Stabilizer(pb);
+		Stabilizer st1 = new Stabilizer(st);
+		assertNull(st1.myWeapon);
+	}
 
 }

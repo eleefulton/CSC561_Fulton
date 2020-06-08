@@ -17,6 +17,8 @@ public interface Weapon extends TimeObserver
 	 * @return damage done
 	 */
 	public int fireWeapon(int distance);
+	
+	
 
 	/**
 	 * reset the amount of shots
@@ -73,5 +75,15 @@ public interface Weapon extends TimeObserver
 	 * increment shots fired
 	 */
 	public void updateShotsFired();
+	
+	/**
+	 * returns the number of attachment that the weapon holds.
+	 */
+	public int getNumAttachments();
+	
+	/**
+	 * add new attachment
+	 */
+	public void addAttachment();
 
 }

@@ -31,5 +31,18 @@ public class PowerBooster extends Attachment
 	{
 		return (int) (myWeapon.fireWeapon(distance) * (1 + (double) (distance) / getRange()));
 	}
+	
+	@Override
+	public int getNumAttachments() 
+	{
+		return myWeapon.getNumAttachments();
+	}
+
+	@Override
+	public void addAttachment() 
+	{
+		myWeapon.addAttachment();
+	}
+	
 
 }

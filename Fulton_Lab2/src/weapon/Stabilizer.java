@@ -14,9 +14,10 @@ public class Stabilizer extends Attachment
 	 * Class default constructor.
 	 * @param w the weapon on which the attachment is applied to.
 	 */
-	public Stabilizer(Weapon w) 
+	public Stabilizer(Weapon w)
 	{
-		super(w);
+	      super(w);
+		
 	}
 
 	@Override
@@ -41,6 +42,19 @@ public class Stabilizer extends Attachment
 			this.Reload();
 		}
 		return damage;
+	}
+	
+	
+	@Override
+	public int getNumAttachments() 
+	{
+		return myWeapon.getNumAttachments();
+	}
+
+	@Override
+	public void addAttachment() 
+	{
+		myWeapon.addAttachment();
 	}
 
 }

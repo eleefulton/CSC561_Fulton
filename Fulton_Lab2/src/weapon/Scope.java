@@ -34,4 +34,16 @@ public class Scope extends Attachment
 		return (int) (myWeapon.fireWeapon(distance) * (1 + (double) (getRange() - distance) / getRange()));
 	}
 
+	@Override
+	public int getNumAttachments() 
+	{
+		return myWeapon.getNumAttachments();
+	}
+
+	@Override
+	public void addAttachment() 
+	{
+		myWeapon.addAttachment();
+	}
+
 }

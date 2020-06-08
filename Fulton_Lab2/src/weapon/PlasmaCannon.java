@@ -21,6 +21,7 @@ public class PlasmaCannon extends GenericWeapon implements Weapon
 	public PlasmaCannon(int damage, int range, int rof, int maxAmmo)
 	{
 		super(damage, range, rof, maxAmmo);
+		this.numAttachments = 0;
 	}
 	
 	/**
@@ -52,5 +53,5 @@ public class PlasmaCannon extends GenericWeapon implements Weapon
 		else
 			return 0;
 	}
-
+	
 }
