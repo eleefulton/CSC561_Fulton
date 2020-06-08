@@ -5,7 +5,8 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 
 /**
- * test the functionality of the Scope Attachment
+ * test the functionality of the Scope Attachment in combination with other
+ * attachments and weapons
  * 
  * @author Ethan Fulton
  *
@@ -38,6 +39,28 @@ public class TestScope
 		Scope s1 = new Scope(w);
 		Scope s2 = new Scope(s1);
 		assertEquals(22, s2.fireWeapon(5));
+	}
+
+	@Test
+	public void testPistolStabilizerScope()
+	{
+		Weapon w = new MockWeapon(10, 10, 1, 5);
+		Stabilizer sb = new Stabilizer(w);
+		Scope sc = new Scope(sb);
+		assertEquals(18, sc.fireWeapon(5));
+		sc.setRemainingAmmo(1);
+		sc.fireWeapon(5);
+		assertEquals(5, sc.getRemainingAmmo());
+	}
+
+	@Test
+	public void testPistolPowerBoosterScope()
+	{
+		Weapon w = new MockWeapon(10, 10, 1, 5);
+		PowerBooster pb = new PowerBooster(w);
+		Scope sc = new Scope(pb);
+		assertEquals(30, sc.fireWeapon(5));
+		assertEquals(27, sc.fireWeapon(5));
 	}
 
 }

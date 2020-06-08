@@ -1,5 +1,7 @@
 package weapon;
 
+import exceptions.NegativeDistanceException;
+
 /**
  * A simple pistol where damage = base damage * (max range - distance + 5)/max
  * range
@@ -21,6 +23,10 @@ public class Pistol extends GenericWeapon implements Weapon
 	@Override
 	public int fireWeapon(int distance)
 	{
+		if (distance < 0)
+		{
+			throw new NegativeDistanceException();
+		}
 		int newDamage = (int) (baseDamage * ((double) (maxRange - distance + 5) / maxRange));
 		if (this.getShotsFired() < this.getRateOfFire() && distance <= this.getRange())
 		{
