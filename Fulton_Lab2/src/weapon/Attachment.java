@@ -14,7 +14,7 @@ public abstract class Attachment implements Weapon
 
 	public Attachment(Weapon w)
 	{
-		if(w.getNumAttachments() < 3)
+		if(w.getNumAttachments() < 2)
 		{
 			myWeapon = w;
 			myWeapon.addAttachment();

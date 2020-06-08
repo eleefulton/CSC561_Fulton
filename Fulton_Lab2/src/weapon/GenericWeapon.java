@@ -125,7 +125,7 @@ public abstract class GenericWeapon implements Weapon
 	@Override
 	public void addAttachment() 
 	{
-		if (numAttachments < 3)
+		if (numAttachments < 2)
 			numAttachments++;
 	}
 }
