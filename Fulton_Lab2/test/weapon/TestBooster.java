@@ -38,9 +38,8 @@ public class TestBooster {
 		assertEquals(1, cg.getNumAttachments());
 		Booster b1 = new Booster(cg);
 		assertEquals(2, cg.getNumAttachments());
-		Booster b2 = new Booster(cg);
-		assertEquals(3, cg.getNumAttachments());
-		Booster b3 = new Booster(cg);
-		assertEquals(3, cg.getNumAttachments());
+		Booster b2 = new Booster(cg); //can't add more than 2 attachments
+		assertEquals(2, cg.getNumAttachments());
+
 	}
 }
