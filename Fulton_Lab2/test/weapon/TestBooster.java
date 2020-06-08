@@ -27,7 +27,36 @@ public class TestBooster {
 		Weapon cg = new ChainGun(15,30,4,30);
 		Booster b = new Booster(cg);
 		assertEquals(3, b.fireWeapon(5));
-		assertEquals(2, cg.fireWeapon(5));
+		assertEquals(3, b.fireWeapon(5));
+	}
+	
+
+	@Test
+	public void testChainGunPowerBoosterStabilzerDamage()
+	{
+		Weapon cg = new ChainGun(15,30,4,30);
+		Scope s = new Scope(cg);
+		Booster b = new Booster(s);
+		assertEquals(29, b.fireWeapon(30));
+	}
+	
+	@Test
+	public void testChainGunPowerBoosterScopeDamage()
+	{
+		Weapon cg = new ChainGun(15,30,4,30);
+		Booster b = new Booster(cg);
+		Booster b1 = new Booster(b);
+		assertEquals(57, b1.fireWeapon(30));
+	}
+	
+	@Test
+	public void testChainGunBoosterBoosterDamage()
+	{
+		Weapon cg = new ChainGun(15,30,4,30);
+		Booster b = new Booster(cg);
+		assertEquals(1, b.getNumAttachments());
+		Booster b1 = new Booster(b);
+		assertEquals(2, b1.getNumAttachments());
 	}
 	
 	@Test
@@ -35,11 +64,8 @@ public class TestBooster {
 	{
 		Weapon cg = new ChainGun(15,30,4,30);
 		Booster b = new Booster(cg);
-		assertEquals(1, cg.getNumAttachments());
-		Booster b1 = new Booster(cg);
-		assertEquals(2, cg.getNumAttachments());
-		Booster b2 = new Booster(cg); //can't add more than 2 attachments
-		assertEquals(2, cg.getNumAttachments());
-
+		assertEquals(1, b.getNumAttachments());
+		Booster b1 = new Booster(b);
+		assertEquals(2, b1.getNumAttachments());
 	}
 }
