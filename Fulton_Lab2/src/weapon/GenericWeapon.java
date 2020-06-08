@@ -116,14 +116,15 @@ public abstract class GenericWeapon implements Weapon
 	{
 		shotsFired++;
 	}
-	
+
 	@Override
 	public int getNumAttachments()
 	{
 		return numAttachments;
 	}
+
 	@Override
-	public void addAttachment() 
+	public void addAttachment()
 	{
 		if (numAttachments < 2)
 			numAttachments++;

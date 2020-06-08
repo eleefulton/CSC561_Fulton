@@ -48,7 +48,9 @@ public class TestScope
 		Stabilizer sb = new Stabilizer(w);
 		Scope sc = new Scope(sb);
 		assertEquals(18, sc.fireWeapon(5));
+		sc.resetShotsFired();
 		sc.setRemainingAmmo(1);
+		assertEquals(1, sc.getRemainingAmmo());
 		sc.fireWeapon(5);
 		assertEquals(5, sc.getRemainingAmmo());
 	}
@@ -56,10 +58,11 @@ public class TestScope
 	@Test
 	public void testPistolPowerBoosterScope()
 	{
-		Weapon w = new MockWeapon(10, 10, 1, 5);
+		Weapon w = new Pistol(10, 10, 1, 5);
 		PowerBooster pb = new PowerBooster(w);
 		Scope sc = new Scope(pb);
 		assertEquals(30, sc.fireWeapon(5));
+		sc.resetShotsFired();
 		assertEquals(27, sc.fireWeapon(5));
 	}
 

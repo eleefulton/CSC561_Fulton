@@ -44,4 +44,12 @@ public class TestPistol
 		assertEquals(0, p.fireWeapon(-1)); // negative distance it will throw an exception
 	}
 
+	@Test
+	public void testFirePistolOutOfAmmo()
+	{
+		Pistol p = new Pistol(10, 5, 1, 5);
+		p.setRemainingAmmo(0);
+		assertEquals(0, p.fireWeapon(5));
+	}
+
 }

@@ -6,6 +6,7 @@ import static org.junit.Assert.assertNull;
 import org.junit.Test;
 
 import gameplay.SimpleTimer;
+import weapon.Pistol;
 import weapon.PlasmaCannon;
 
 /**

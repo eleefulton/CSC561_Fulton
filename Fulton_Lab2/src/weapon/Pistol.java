@@ -28,7 +28,7 @@ public class Pistol extends GenericWeapon implements Weapon
 			throw new NegativeDistanceException();
 		}
 		int newDamage = (int) (baseDamage * ((double) (maxRange - distance + 5) / maxRange));
-		if (this.getShotsFired() < this.getRateOfFire() && distance <= this.getRange())
+		if (this.getShotsFired() < this.getRateOfFire() && distance <= this.getRange() && this.getRemainingAmmo() > 0)
 		{
 			remainingAmmo--;
 			shotsFired++;

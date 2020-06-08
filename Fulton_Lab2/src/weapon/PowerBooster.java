@@ -1,9 +1,10 @@
 package weapon;
 
 /**
- * The scope increases the damage done to a target the further away it is
+ * The power booster increases the damage done to a target the more ammo is left
+ * in the weapon
  * 
- * damage = base damage * (1 + (distance) / max range)
+ * damage = base damage * (1 + (remaining ammo / max ammo))
  *
  */
 public class PowerBooster extends Attachment
@@ -29,20 +30,20 @@ public class PowerBooster extends Attachment
 	@Override
 	public int fireWeapon(int distance)
 	{
-		return (int) (myWeapon.fireWeapon(distance) * (1 + (double) (distance) / getRange()));
+		int newDamage = (int) (myWeapon.fireWeapon(distance) * (1 + (double) (getRemainingAmmo() + 1) / getMaxAmmo()));
+		return newDamage;
 	}
-	
+
 	@Override
-	public int getNumAttachments() 
+	public int getNumAttachments()
 	{
 		return myWeapon.getNumAttachments();
 	}
 
 	@Override
-	public void addAttachment() 
+	public void addAttachment()
 	{
 		myWeapon.addAttachment();
 	}
-	
 
 }
