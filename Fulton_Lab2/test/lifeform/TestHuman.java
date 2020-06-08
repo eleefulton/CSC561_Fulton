@@ -11,7 +11,7 @@ public class TestHuman
 	public void testDefaultAttack()
 	{
 		Human h1 = new Human("Bob", 40, 10);
-		assertEquals(5, h1.attack());
+		assertEquals(5, h1.attack(5));
 	}
 
 	@Test
@@ -19,7 +19,7 @@ public class TestHuman
 	{
 		Human h1 = new Human("Bob", 40, 0);
 		LifeForm entity = new MockLifeForm("Fred", 40, 10);
-		h1.takeHit(entity.attack());
+		h1.takeHit(entity.attack(5));
 		assertEquals(30, h1.getCurrentLifePoints());
 	}
 
