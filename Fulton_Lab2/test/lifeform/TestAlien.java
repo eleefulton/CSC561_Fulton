@@ -72,7 +72,7 @@ public class TestAlien
 	public void testInitializeWithDefaultAttack()
 	{
 		Alien alien = new Alien("alie", 40);
-		assertEquals(10, alien.attack());
+		assertEquals(10, alien.attack(5));
 	}
 
 	@Test
@@ -80,7 +80,7 @@ public class TestAlien
 	{
 		Alien alien = new Alien("Alie", 40);
 		LifeForm entity = new MockLifeForm("Bob", 40, 10);
-		alien.takeHit(entity.attack());
+		alien.takeHit(entity.attack(5));
 		assertEquals(30, alien.getCurrentLifePoints());
 	}
 

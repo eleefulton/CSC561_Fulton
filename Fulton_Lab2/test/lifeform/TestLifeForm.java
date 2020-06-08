@@ -1,10 +1,13 @@
 package lifeform;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 import org.junit.Test;
 
 import gameplay.SimpleTimer;
+import weapon.Pistol;
+import weapon.PlasmaCannon;
 
 /**
  * Tests the functionality provided by the LifeForm class
@@ -14,10 +17,98 @@ public class TestLifeForm
 {
 
 	@Test
+	public void testLifeFormPickingAWeapon()
+	{
+		LifeForm entity = new MockLifeForm("Bob", 40, 2);
+		PlasmaCannon pc = new PlasmaCannon(50, 20, 1, 4);
+		entity.pickWeapon(pc);
+		assertEquals(pc, entity.getWeapon());
+	}
+
+	@Test
+	public void testLifeFormCannotPickUpAWeaponWhileHoldOne()
+	{
+		LifeForm entity = new MockLifeForm("Bob", 40, 2);
+		PlasmaCannon pc = new PlasmaCannon(50, 20, 1, 4);
+		entity.pickWeapon(pc);
+		assertEquals(pc, entity.getWeapon());
+
+		PlasmaCannon pc2 = new PlasmaCannon(20, 10, 2, 5);
+		entity.pickWeapon(pc2); // Already holds one cannot pick up a second one
+		assertEquals(pc, entity.getWeapon());
+	}
+
+	@Test
+	public void testLifeFormDopAWeapon()
+	{
+		LifeForm entity = new MockLifeForm("Bob", 40, 2);
+		PlasmaCannon pc = new PlasmaCannon(50, 20, 1, 4);
+		entity.pickWeapon(pc);
+		assertEquals(pc, entity.getWeapon());
+		entity.dropWeapon();
+		assertNull(entity.getWeapon());
+	}
+
+	@Test
+	public void testLifeFormAttackWithPlasmaCannon()
+	{
+		LifeForm entity = new MockLifeForm("Bob", 40, 2);
+		PlasmaCannon pc = new PlasmaCannon(50, 20, 1, 4);
+		entity.pickWeapon(pc);
+		assertEquals(50, entity.attack(10));
+		pc.reload();
+		pc.resetShotsFired();
+		assertEquals(50, entity.attack(5));
+		pc.resetShotsFired();
+		pc.setRemainingAmmo(0);
+		assertEquals(0, entity.attack(10));
+	}
+
+	@Test
+	public void testLifeFormAttackWithPistol()
+	{
+		LifeForm entity = new MockLifeForm("Bob", 40, 2);
+		Pistol p = new Pistol(50, 20, 1, 4);
+		entity.pickWeapon(p);
+		assertEquals(37, entity.attack(10));
+		p.reload();
+		p.resetShotsFired();
+		assertEquals(50, entity.attack(5));
+		p.resetShotsFired();
+		p.setRemainingAmmo(0);
+		assertEquals(0, entity.attack(10));
+		p.resetShotsFired();
+		assertEquals(2, entity.attack(5));
+	}
+
+	@Test
+	public void testLifeFormDamageNoWeapon()
+	{
+		LifeForm entity = new MockLifeForm("Bob", 40, 2);
+		assertNull(entity.getWeapon());
+		assertEquals(2, entity.attack(5));
+		assertEquals(0, entity.attack(6));
+	}
+
+	@Test
+	public void testLifeFormCanReload()
+	{
+		LifeForm entity = new MockLifeForm("Bob", 40, 2);
+		Pistol p = new Pistol(50, 20, 1, 4);
+		entity.pickWeapon(p);
+		p.setRemainingAmmo(0);
+		entity.reload();
+		assertEquals(4, p.getRemainingAmmo());
+	}
+	/*
+	 * Start Section for Observer Pattern Tests
+	 */
+
+	@Test
 	public void testInitializeWithStrength()
 	{
 		LifeForm entity = new MockLifeForm("Bob", 40, 2);
-		assertEquals(2, entity.attack());
+		assertEquals(2, entity.attack(5));
 	}
 
 	@Test
@@ -25,7 +116,7 @@ public class TestLifeForm
 	{
 		LifeForm entity = new MockLifeForm("Bob", 40, 2);
 		LifeForm entity2 = new MockLifeForm("Dave", 40, 2);
-		entity.takeHit(entity2.attack());
+		entity.takeHit(entity2.attack(5));
 		assertEquals(38, entity.getCurrentLifePoints());
 	}
 
@@ -33,7 +124,7 @@ public class TestLifeForm
 	public void testNoDamageDealtWhenDead()
 	{
 		LifeForm entity = new MockLifeForm("Bob", 0, 2);
-		assertEquals(0, entity.attack());
+		assertEquals(0, entity.attack(5));
 	}
 
 	@Test

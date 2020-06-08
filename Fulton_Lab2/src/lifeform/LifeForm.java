@@ -1,6 +1,7 @@
 package lifeform;
 
 import gameplay.TimeObserver;
+import weapon.Weapon;
 
 /**
  * Keeps track of the information associated with a simple life form. Also
@@ -13,6 +14,7 @@ public abstract class LifeForm implements TimeObserver
 	private String myName;
 	protected int currentLifePoints;
 	protected int attackStrength;
+	protected Weapon weapon; // The weapon held by the lifeform
 
 	/**
 	 * Create an instance
@@ -55,8 +57,62 @@ public abstract class LifeForm implements TimeObserver
 		currentLifePoints = currentLifePoints - damage < 0 ? 0 : currentLifePoints - damage;
 	}
 
-	public int attack()
+	public int attack(int distance)
 	{
-		return currentLifePoints == 0 ? 0 : attackStrength;
+		if (weapon == null)
+		{
+			if (distance > 5)
+			{
+				return 0;
+			} else
+			{
+				return currentLifePoints == 0 ? 0 : attackStrength;
+			}
+		} else
+		{
+			if (weapon.getRemainingAmmo() == 0 && distance <= 5)
+			{
+				return currentLifePoints == 0 ? 0 : attackStrength;
+			} else
+			{
+				return weapon.fireWeapon(distance);
+			}
+		}
+	}
+
+	/**
+	 * This allow a lifeform to pick a weapon that they can use to fight.
+	 * 
+	 * @param wep
+	 *            The weapon to be picked up by the lifeform
+	 */
+	public void pickWeapon(Weapon wep)
+	{
+		if (this.weapon == null)
+			this.weapon = wep;
+
+	}
+
+	/**
+	 * @return returns the weapon held by the Lifeform.
+	 */
+	public Object getWeapon()
+	{
+		return this.weapon;
+	}
+
+	public void dropWeapon()
+	{
+		if (this.weapon != null)
+			this.weapon = null;
+
+	}
+
+	public void reload()
+	{
+		if (weapon != null)
+		{
+			weapon.reload();
+		}
 	}
 }
