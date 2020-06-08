@@ -1,10 +1,15 @@
 package lifeform;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 import org.junit.Test;
 
 import gameplay.SimpleTimer;
+import weapon.PlasmaCannon;
+
+
+
 
 /**
  * Tests the functionality provided by the LifeForm class
@@ -12,6 +17,44 @@ import gameplay.SimpleTimer;
  */
 public class TestLifeForm
 {
+	
+	@Test
+	public void testLifeFormPickingAWeapon()
+	{
+		LifeForm entity = new MockLifeForm("Bob", 40, 2);
+		PlasmaCannon pc = new PlasmaCannon(50,20,1,4);
+		entity.pickWeapon(pc);
+		assertEquals(pc,entity.getWeapon());
+	}
+	
+	@Test
+	public void testLifeFormCannotPickUpAWeaponWhileHoldOne()
+	{
+		LifeForm entity = new MockLifeForm("Bob", 40, 2);
+		PlasmaCannon pc = new PlasmaCannon(50,20,1,4);
+		entity.pickWeapon(pc);
+		assertEquals(pc,entity.getWeapon());
+
+		PlasmaCannon pc2 = new PlasmaCannon(20,10,2,5);
+		entity.pickWeapon(pc2);       //Already holds one cannot pick up a second one
+		assertEquals(pc,entity.getWeapon());
+	}
+	
+
+	@Test
+	public void testLifeFormDopAWeapon()
+	{
+		LifeForm entity = new MockLifeForm("Bob", 40, 2);
+		PlasmaCannon pc = new PlasmaCannon(50,20,1,4);
+		entity.pickWeapon(pc);
+		assertEquals(pc,entity.getWeapon());
+		entity.dropWeapon();
+		assertNull(entity.getWeapon());
+	}
+	
+	/*
+	 * Start Section for Observer Pattern Tests
+	 */ 
 
 	@Test
 	public void testInitializeWithStrength()

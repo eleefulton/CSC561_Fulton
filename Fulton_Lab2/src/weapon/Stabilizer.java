@@ -17,13 +17,12 @@ public class Stabilizer extends Attachment
 	public Stabilizer(Weapon w)
 	{
 	      super(w);
-		
 	}
 
 	@Override
 	public void updateTime(int time) 
 	{
-		
+
 	}
 	
 	/**
