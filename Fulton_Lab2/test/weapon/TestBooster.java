@@ -29,4 +29,18 @@ public class TestBooster {
 		assertEquals(3, b.fireWeapon(5));
 		assertEquals(2, cg.fireWeapon(5));
 	}
+	
+	@Test
+	public void testBoosterAttachmentNum()
+	{
+		Weapon cg = new ChainGun(15,30,4,30);
+		Booster b = new Booster(cg);
+		assertEquals(1, cg.getNumAttachments());
+		Booster b1 = new Booster(cg);
+		assertEquals(2, cg.getNumAttachments());
+		Booster b2 = new Booster(cg);
+		assertEquals(3, cg.getNumAttachments());
+		Booster b3 = new Booster(cg);
+		assertEquals(3, cg.getNumAttachments());
+	}
 }

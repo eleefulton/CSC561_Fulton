@@ -37,4 +37,17 @@ public class Booster extends Attachment{
 			throw new NegativeDistanceException();
 		}
 	}
+
+	@Override
+	public int getNumAttachments() 
+	{
+		return myWeapon.getNumAttachments();
+	}
+
+	@Override
+	public void addAttachment() 
+	{
+		myWeapon.addAttachment();
+	}
+
 }
