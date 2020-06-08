@@ -60,18 +60,18 @@ public class TestScope
 	public void testPistolPowerBoosterScope()
 	{
 		Weapon w = new Pistol(10, 10, 1, 5);
-		PowerBooster pb = new PowerBooster(w);
+		Booster pb = new Booster(w);
 		Scope sc = new Scope(pb);
-		assertEquals(30, sc.fireWeapon(5));
-		sc.resetShotsFired();
 		assertEquals(27, sc.fireWeapon(5));
+		sc.resetShotsFired();
+		assertEquals(24, sc.fireWeapon(5));
 	}
 
 	@Test
 	public void testMoreThanTwoAttachments()
 	{
 		Weapon w = new Pistol(10, 10, 1, 5);
-		PowerBooster pb = new PowerBooster(w);
+		Booster pb = new Booster(w);
 		Scope sc = new Scope(pb);
 		Scope sc2 = new Scope(sc);
 		assertNull(sc2.getWeapon());

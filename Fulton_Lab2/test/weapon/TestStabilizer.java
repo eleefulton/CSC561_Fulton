@@ -69,16 +69,16 @@ public class TestStabilizer
 	public void testPlasmaCannonPowerBoosterStabilzerDamage()
 	{
 		Weapon w = new PlasmaCannon(50, 20, 1, 4);
-		PowerBooster pb = new PowerBooster(w);
+		Booster pb = new Booster(w);
 		Stabilizer st = new Stabilizer(pb);
-		assertEquals(125, st.fireWeapon(5));
+		assertEquals(108, st.fireWeapon(5));
 	}
 
 	@Test
 	public void testPlasmaCannonPowerBoosterStabilzerMoreThan3Damage()
 	{
 		Weapon w = new PlasmaCannon(50, 20, 1, 4);
-		PowerBooster pb = new PowerBooster(w);
+		Booster pb = new Booster(w);
 		Stabilizer st = new Stabilizer(pb);
 		Stabilizer st1 = new Stabilizer(st);
 		assertNull(st1.myWeapon);
