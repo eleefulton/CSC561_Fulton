@@ -70,7 +70,13 @@ public abstract class LifeForm implements TimeObserver
 			}
 		} else
 		{
-			return weapon.fireWeapon(distance);
+			if (weapon.getRemainingAmmo() == 0 && distance <= 5)
+			{
+				return currentLifePoints == 0 ? 0 : attackStrength;
+			} else
+			{
+				return weapon.fireWeapon(distance);
+			}
 		}
 	}
 

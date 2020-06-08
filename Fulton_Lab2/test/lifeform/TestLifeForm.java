@@ -61,7 +61,7 @@ public class TestLifeForm
 		assertEquals(50, entity.attack(5));
 		pc.resetShotsFired();
 		pc.setRemainingAmmo(0);
-		assertEquals(0, entity.attack(5));
+		assertEquals(0, entity.attack(10));
 	}
 
 	@Test
@@ -76,7 +76,9 @@ public class TestLifeForm
 		assertEquals(50, entity.attack(5));
 		p.resetShotsFired();
 		p.setRemainingAmmo(0);
-		assertEquals(0, entity.attack(5));
+		assertEquals(0, entity.attack(10));
+		p.resetShotsFired();
+		assertEquals(2, entity.attack(5));
 	}
 
 	@Test
