@@ -33,6 +33,7 @@ public class TestAttachment
 		assertEquals(10, a.fireWeapon(10));
 		assertEquals(1, a.getShotsFired());
 		assertEquals(4, a.getRemainingAmmo());
+		assertEquals(1, a.getNumAttachments());
 	}
 
 }
@@ -48,8 +49,18 @@ class MockAttachment extends Attachment
 	@Override
 	public void updateTime(int time)
 	{
-		// TODO Auto-generated method stub
+	}
 
+	@Override
+	public int getNumAttachments() 
+	{
+		return myWeapon.getNumAttachments();
+	}
+
+	@Override
+	public void addAttachment() 
+	{
+		myWeapon.addAttachment();
 	}
 
 }

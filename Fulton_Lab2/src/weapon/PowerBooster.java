@@ -3,15 +3,13 @@ package weapon;
 /**
  * The scope increases the damage done to a target the further away it is
  * 
- * damage = base damage * (1 + (max range - distance) / max range)
- * 
- * @author Ethan Fulton
+ * damage = base damage * (1 + (distance) / max range)
  *
  */
-public class Scope extends Attachment
+public class PowerBooster extends Attachment
 {
 
-	public Scope(Weapon w)
+	public PowerBooster(Weapon w)
 	{
 		super(w);
 	}
@@ -31,9 +29,9 @@ public class Scope extends Attachment
 	@Override
 	public int fireWeapon(int distance)
 	{
-		return (int) (myWeapon.fireWeapon(distance) * (1 + (double) (getRange() - distance) / getRange()));
+		return (int) (myWeapon.fireWeapon(distance) * (1 + (double) (distance) / getRange()));
 	}
-
+	
 	@Override
 	public int getNumAttachments() 
 	{
@@ -45,5 +43,6 @@ public class Scope extends Attachment
 	{
 		myWeapon.addAttachment();
 	}
+	
 
 }

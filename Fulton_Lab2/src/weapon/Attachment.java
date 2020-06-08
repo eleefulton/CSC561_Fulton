@@ -14,14 +14,18 @@ public abstract class Attachment implements Weapon
 
 	public Attachment(Weapon w)
 	{
-		myWeapon = w;
+		if(w.getNumAttachments() < 2)
+		{
+			myWeapon = w;
+			myWeapon.addAttachment();
+		}
 	}
 
 	public Weapon getWeapon()
 	{
 		return myWeapon;
 	}
-
+ 
 	@Override
 	public int fireWeapon(int distance)
 	{

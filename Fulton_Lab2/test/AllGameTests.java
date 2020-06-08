@@ -12,8 +12,8 @@ import recovery.TestRecoveryLinear;
 import recovery.TestRecoveryNone;
 import weapon.TestAttachment;
 import weapon.TestGenericWeapon;
-import weapon.TestPistol;
-import weapon.TestScope;
+import weapon.TestPlasmaCannon;
+import weapon.TestStabilizer;
 
 /**
  * Runs all of the tests in this project
@@ -22,9 +22,20 @@ import weapon.TestScope;
 
 @RunWith(Suite.class)
 @Suite.SuiteClasses(
-{ TestCell.class, TestLifeForm.class, TestEnvironment.class, TestHuman.class, TestAlien.class, TestRecoveryNone.class,
-		TestRecoveryLinear.class, TestRecoveryFractional.class, TestSimpleTimer.class, TestGenericWeapon.class,
-		TestPistol.class, TestScope.class, TestAttachment.class })
+{ TestCell.class, 
+  TestLifeForm.class, 
+  TestEnvironment.class, 
+  TestHuman.class, 
+  TestAlien.class, 
+  TestRecoveryNone.class,
+  TestRecoveryLinear.class, 
+  TestRecoveryFractional.class, 
+  TestSimpleTimer.class,
+  TestAttachment.class,
+  TestGenericWeapon.class,
+  TestPlasmaCannon.class,
+  TestStabilizer.class
+  })
 public class AllGameTests
 {
 
