@@ -1,6 +1,7 @@
 package weapon;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 import org.junit.Test;
 
@@ -36,6 +37,16 @@ public class TestAttachment
 		assertEquals(1, a.getNumAttachments());
 	}
 
+	@Test
+	public void testNoMoreThanTwoAttachments()
+	{
+		Weapon w = new MockWeapon(10, 10, 1, 5);
+		Attachment a1 = new MockAttachment(w);
+		Attachment a2 = new MockAttachment(a1);
+		Attachment a3 = new MockAttachment(a2);
+		assertNull(a3.getWeapon());
+	}
+
 }
 
 class MockAttachment extends Attachment
@@ -52,13 +63,13 @@ class MockAttachment extends Attachment
 	}
 
 	@Override
-	public int getNumAttachments() 
+	public int getNumAttachments()
 	{
 		return myWeapon.getNumAttachments();
 	}
 
 	@Override
-	public void addAttachment() 
+	public void addAttachment()
 	{
 		myWeapon.addAttachment();
 	}

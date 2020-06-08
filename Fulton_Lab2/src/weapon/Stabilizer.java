@@ -38,7 +38,7 @@ public class Stabilizer extends Attachment
 		int damage = (int) ((double)this.myWeapon.fireWeapon(distance) * 1.25);
 		if (this.getRemainingAmmo() == 0)
 		{
-			this.Reload();
+			this.reload();
 		}
 		return damage;
 	}

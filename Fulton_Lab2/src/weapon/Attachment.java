@@ -33,9 +33,9 @@ public abstract class Attachment implements Weapon
 	}
 
 	@Override
-	public void Reload()
+	public void reload()
 	{
-		myWeapon.Reload();
+		myWeapon.reload();
 
 	}
 

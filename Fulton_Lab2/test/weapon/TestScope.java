@@ -1,6 +1,7 @@
 package weapon;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 import org.junit.Test;
 
@@ -64,6 +65,16 @@ public class TestScope
 		assertEquals(30, sc.fireWeapon(5));
 		sc.resetShotsFired();
 		assertEquals(27, sc.fireWeapon(5));
+	}
+
+	@Test
+	public void testMoreThanTwoAttachments()
+	{
+		Weapon w = new Pistol(10, 10, 1, 5);
+		PowerBooster pb = new PowerBooster(w);
+		Scope sc = new Scope(pb);
+		Scope sc2 = new Scope(sc);
+		assertNull(sc2.getWeapon());
 	}
 
 }

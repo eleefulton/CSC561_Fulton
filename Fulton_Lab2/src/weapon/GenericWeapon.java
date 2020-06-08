@@ -49,7 +49,7 @@ public abstract class GenericWeapon implements Weapon
 	}
 
 	@Override
-	public void Reload()
+	public void reload()
 	{
 		remainingAmmo = maxAmmo;
 

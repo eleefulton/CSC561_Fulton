@@ -21,7 +21,7 @@ public interface Weapon extends TimeObserver
 	/**
 	 * reset the amount of shots
 	 */
-	public void Reload();
+	public void reload();
 
 	/**
 	 * 

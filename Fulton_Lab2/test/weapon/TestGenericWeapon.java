@@ -32,10 +32,10 @@ public class TestGenericWeapon
 		MockWeapon w = new MockWeapon(10, 10, 1, 5);
 		assertEquals(10, w.fireWeapon(5));
 		assertEquals(4, w.getRemainingAmmo());
-		w.Reload();
+		w.reload();
 		assertEquals(5, w.getRemainingAmmo());
 		w.setRemainingAmmo(0);
-		w.Reload();
+		w.reload();
 		assertEquals(5, w.getRemainingAmmo());
 	}
 

@@ -56,7 +56,7 @@ public class TestLifeForm
 		PlasmaCannon pc = new PlasmaCannon(50, 20, 1, 4);
 		entity.pickWeapon(pc);
 		assertEquals(50, entity.attack(10));
-		pc.Reload();
+		pc.reload();
 		pc.resetShotsFired();
 		assertEquals(50, entity.attack(5));
 		pc.resetShotsFired();
@@ -71,7 +71,7 @@ public class TestLifeForm
 		Pistol p = new Pistol(50, 20, 1, 4);
 		entity.pickWeapon(p);
 		assertEquals(37, entity.attack(10));
-		p.Reload();
+		p.reload();
 		p.resetShotsFired();
 		assertEquals(50, entity.attack(5));
 		p.resetShotsFired();
@@ -88,6 +88,16 @@ public class TestLifeForm
 		assertEquals(0, entity.attack(6));
 	}
 
+	@Test
+	public void testLifeFormCanReload()
+	{
+		LifeForm entity = new MockLifeForm("Bob", 40, 2);
+		Pistol p = new Pistol(50, 20, 1, 4);
+		entity.pickWeapon(p);
+		p.setRemainingAmmo(0);
+		entity.reload();
+		assertEquals(4, p.getRemainingAmmo());
+	}
 	/*
 	 * Start Section for Observer Pattern Tests
 	 */

@@ -101,4 +101,12 @@ public abstract class LifeForm implements TimeObserver
 			this.weapon = null;
 
 	}
+
+	public void reload()
+	{
+		if (weapon != null)
+		{
+			weapon.reload();
+		}
+	}
 }
