@@ -14,7 +14,7 @@ public abstract class GenericWeapon implements Weapon
 	protected int rateOfFire;
 	private int maxAmmo;
 	protected int remainingAmmo;
-	protected int numAttachments;
+	private int numAttachments;
 	protected int shotsFired;
 
 	public GenericWeapon(int bd, int mr, int rof, int ma)
@@ -117,22 +117,15 @@ public abstract class GenericWeapon implements Weapon
 		shotsFired++;
 	}
 	
-	/**
-	 * @return returns the number of attachment that the Weapon holds.
-	 */
 	@Override
 	public int getNumAttachments()
 	{
 		return numAttachments;
 	}
-	
-	/**
-	 * @return returns the number of attachment that the Weapon holds.
-	 */
 	@Override
-	public void addAttachment()
+	public void addAttachment() 
 	{
-		numAttachments++;
+		if (numAttachments < 2)
+			numAttachments++;
 	}
-
 }
