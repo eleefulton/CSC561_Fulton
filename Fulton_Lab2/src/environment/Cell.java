@@ -1,6 +1,7 @@
 package environment;
 
 import lifeform.LifeForm;
+import weapon.Weapon;
 
 /* A Cell that can hold a LifeForm.
  *
@@ -9,7 +10,7 @@ public class Cell
 {
 
 	private LifeForm myLifeForm;
-
+	private Weapon[] weapons;
 	/**
 	 * @return the LifeForm in this Cell.
 	 */
@@ -41,5 +42,10 @@ public class Cell
 	{
 		myLifeForm = null;
 
+	}
+	
+	public Weapon[] getWeapons()
+	{
+		return weapons;
 	}
 }

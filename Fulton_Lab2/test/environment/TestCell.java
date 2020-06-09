@@ -17,6 +17,13 @@ import lifeform.MockLifeForm;
 public class TestCell
 {
 
+	@Test
+	public void testHold2Weapons()
+	{
+		Cell cell = new Cell();
+		assertEquals(2, cell.getWeapons().length);
+	}
+	
 	/**
 	 * begin tests for Strategy Pattern
 	 */
