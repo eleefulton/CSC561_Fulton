@@ -42,6 +42,25 @@ public class TestEnvironment
 		assertEquals(weap2, e.getWeapon2(0, 1));
 	}
 	
+	@Test
+	public void testRemoveWeapons()
+	{
+		Environment.clearBoard();
+		Environment.setupWorld(2,3);
+		Environment e = Environment.getWorld();
+		Weapon weap1 = new PlasmaCannon(20,10,1,4);
+		Weapon weap2 = new PlasmaCannon(25,10,1,4);
+		e.addWeapon1(weap1, 0, 1);
+		assertEquals(weap1, e.getWeapon1(0, 1));
+		e.addWeapon2(weap2, 0, 1);
+		assertEquals(weap2, e.getWeapon2(0, 1));
+		//Removing the weapons
+		e.removeWeapon1(0, 1);
+		assertNull(e.getWeapon1(0, 1));
+		e.removeWeapon2(0, 1);
+		assertNull(e.getWeapon2(0, 1));
+	}
+	
 	/*
 	 * Start Section for Decorator Pattern Tests
 	 */ 

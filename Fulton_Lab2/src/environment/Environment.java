@@ -182,4 +182,24 @@ public class Environment
 		return cells[row][col].getWeapon2();
 	}
 
+	/**
+	 * Removes the first weapon in the given cell.
+	 * @param row - the row of the cell.
+	 * @param col - the col of the cell
+	 */
+	public void removeWeapon1(int row, int col) 
+	{
+		cells[row][col].removeWeapon1();
+	}
+	
+	/**
+	 * Removes the second weapon in the given cell.
+	 * @param row - the row of the cell.
+	 * @param col - the column of the cell
+	 */
+	public void removeWeapon2(int row, int col) 
+	{
+		cells[row][col].removeWeapon2();
+	}
+
 }
