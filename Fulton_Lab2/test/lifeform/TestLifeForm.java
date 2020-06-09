@@ -16,6 +16,10 @@ import weapon.PlasmaCannon;
 public class TestLifeForm
 {
 
+	
+	/*
+	 * Start Section for Decorator Pattern Tests
+	 */ 
 	@Test
 	public void testLifeFormPickingAWeapon()
 	{

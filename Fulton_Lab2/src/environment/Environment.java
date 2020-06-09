@@ -12,11 +12,17 @@ public class Environment
 	private int rows;
 	private int cols;
 	private Cell[][] cells;
+	private static Environment theWorld; // the unique Environment instance.
 
-	public Environment(int r, int c)
+	/**
+	 * private class constructor.
+	 * @param width the width of the world
+	 * @param height the height of the world
+	 */
+	private Environment(int width, int height)
 	{
-		rows = r;
-		cols = c;
+		rows = width;
+		cols = height;
 		cells = new Cell[rows][cols];
 		for (int i = 0; i < rows; i++)
 		{
@@ -25,6 +31,31 @@ public class Environment
 				cells[i][j] = new Cell();
 			}
 		}
+	}
+	
+	/**
+	 * Sets up the world if one does not exist.
+	 * @param width the width of the world
+	 * @param height the height of the world
+	 */
+	public static void setupWorld(int width, int height) 
+	{
+		if (theWorld == null)
+		{
+			theWorld = new Environment(width, height);
+		}
+	}
+	
+	/**
+	 * @return return the unique instance of the class.
+	 */
+	public static Environment getWorld() 
+	{
+		/*if (theWorld == null)
+		{
+			theWorld = new Environment();
+		}*/
+		return theWorld;
 	}
 
 	/**
@@ -48,7 +79,7 @@ public class Environment
 	 */
 	public int getNumberOfCells()
 	{
-		return cells.length;
+		return rows * cols;
 	}
 
 	/**
@@ -97,6 +128,14 @@ public class Environment
 			return;
 		}
 		cells[r][c].removeLifeForm();
+	}
+	
+	/**
+	 * Resets the static instance.
+	 */
+	static void reset()
+	{
+		theWorld = null;
 	}
 
 }
