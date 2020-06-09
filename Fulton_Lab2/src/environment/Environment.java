@@ -1,5 +1,6 @@
 package environment;
 
+import exceptions.EnvironmentExistsException;
 import lifeform.LifeForm;
 
 /**
@@ -12,11 +13,13 @@ public class Environment
 	private int rows;
 	private int cols;
 	private Cell[][] cells;
+	private static Environment theWorld;
+	private static boolean created = false;
 
-	public Environment(int r, int c)
+	private Environment(int w, int h)
 	{
-		rows = r;
-		cols = c;
+		rows = h;
+		cols = w;
 		cells = new Cell[rows][cols];
 		for (int i = 0; i < rows; i++)
 		{
@@ -97,6 +100,29 @@ public class Environment
 			return;
 		}
 		cells[r][c].removeLifeForm();
+	}
+
+	public static void setupWorld(int w, int h) throws EnvironmentExistsException
+	{
+		if (created == true)
+		{
+			throw new EnvironmentExistsException();
+		} else
+		{
+			theWorld = new Environment(w, h);
+			created = true;
+		}
+	}
+
+	public static Environment getWorld()
+	{
+		return theWorld;
+	}
+
+	public static void resetEnvironment()
+	{
+		theWorld = null;
+		created = false;
 	}
 
 }
