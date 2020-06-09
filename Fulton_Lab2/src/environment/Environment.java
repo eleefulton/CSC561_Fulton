@@ -133,7 +133,7 @@ public class Environment
 	/**
 	 * Resets the static instance.
 	 */
-	static void reset()
+	static void clearBoard()
 	{
 		theWorld = null;
 	}

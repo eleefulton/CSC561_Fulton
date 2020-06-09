@@ -18,7 +18,7 @@ public class TestEnvironment
 	public void testInitializationSingleton()
 	{
 		//Environment e = new Environment(3, 3);
-		Environment.reset();
+		Environment.clearBoard();
 		Environment.setupWorld(3,3);
 		Environment e = Environment.getWorld();
 		assertEquals(3, e.getNumberOfRows());
@@ -41,7 +41,7 @@ public class TestEnvironment
 	@Test
 	public void testInitializationSingleCell()
 	{
-		Environment.reset();
+		Environment.clearBoard();
 		Environment.setupWorld(1,1);
 		Environment e = Environment.getWorld();
 		//e.setupWorld(1,1);
@@ -57,7 +57,7 @@ public class TestEnvironment
 	@Test
 	public void testAddLifeForm()
 	{
-		Environment.reset();
+		Environment.clearBoard();
 		//Environment e = new Environment(2, 3);
 		Environment.setupWorld(2,3);
 		Environment e = Environment.getWorld();
@@ -74,7 +74,7 @@ public class TestEnvironment
 	public void testAddLifeFormOffGrid()
 	{
 		//Environment e = new Environment(2, 3);
-		Environment.reset();
+		Environment.clearBoard();
 		Environment.setupWorld(2,3);
 		Environment e = Environment.getWorld();
 		LifeForm l = new MockLifeForm("L", 10);
@@ -91,7 +91,7 @@ public class TestEnvironment
 	public void testRemoveLifeForm()
 	{
 		//Environment e = new Environment(2, 3);
-		Environment.reset();
+		Environment.clearBoard();
 		Environment.setupWorld(2,3);
 		Environment e = Environment.getWorld();
 		LifeForm l = new MockLifeForm("L", 10);
