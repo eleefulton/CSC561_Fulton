@@ -1,6 +1,7 @@
 package environment;
 
 import lifeform.LifeForm;
+import weapon.Weapon;
 
 /**
  * Keeps track of a grid of cells and information about the number of cells per
@@ -131,11 +132,54 @@ public class Environment
 	}
 	
 	/**
-	 * Resets the static instance.
+	 * Clears the board with a clean slate.
+	 * This especially important for the JUnit testing prospective.
 	 */
 	static void clearBoard()
 	{
 		theWorld = null;
+	}
+
+	/**
+	 * Sets the first weapon in a given cell.
+	 * @param weap
+	 * @param row
+	 * @param col
+	 */
+	public void addWeapon1(Weapon weap, int row, int col) 
+	{
+		cells[row][col].addWeapon1(weap);
+	}
+
+	/**
+	 * @param row - The row of the cell
+	 * @param col - the column of the cell.
+	 * @return Returns the first weapon in the given cell.
+	 */
+	public Weapon getWeapon1(int row, int col) 
+	{
+		return cells[row][col].getWeapon1();
+	}
+
+	/**
+	 * Sets the second weapon in a given cell.
+	 * @param weap
+	 * @param row
+	 * @param col
+	 */
+	public void addWeapon2(Weapon weap, int row, int col) 
+	{
+		cells[row][col].addWeapon2(weap);
+	}
+
+	/**
+	 * @param row - The row of the cell
+	 * @param col - the column of the cell.
+	 * @return Returns the second weapon in the given cell.
+	 */
+	public Weapon getWeapon2(int row, int col) 
+	{
+		return cells[row][col].getWeapon2();
 	}
 
 }

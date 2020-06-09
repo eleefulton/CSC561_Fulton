@@ -7,6 +7,8 @@ import org.junit.Test;
 
 import lifeform.LifeForm;
 import lifeform.MockLifeForm;
+import weapon.PlasmaCannon;
+import weapon.Weapon;
 
 /**
  * Tests the functionality provided by the Environment class
@@ -17,7 +19,6 @@ public class TestEnvironment
 	@Test
 	public void testInitializationSingleton()
 	{
-		//Environment e = new Environment(3, 3);
 		Environment.clearBoard();
 		Environment.setupWorld(3,3);
 		Environment e = Environment.getWorld();
@@ -25,6 +26,20 @@ public class TestEnvironment
 		assertEquals(3, e.getNumberOfColumns());
 		assertEquals(9, e.getNumberOfCells());
 		assertNull(e.getLifeForm(0, 0));
+	}
+	
+	@Test
+	public void testAddWeapons()
+	{
+		Environment.clearBoard();
+		Environment.setupWorld(2,3);
+		Environment e = Environment.getWorld();
+		Weapon weap1 = new PlasmaCannon(20,10,1,4);
+		Weapon weap2 = new PlasmaCannon(25,10,1,4);
+		e.addWeapon1(weap1, 0, 1);
+		assertEquals(weap1, e.getWeapon1(0, 1));
+		e.addWeapon2(weap2, 0, 1);
+		assertEquals(weap2, e.getWeapon2(0, 1));
 	}
 	
 	/*
@@ -44,7 +59,6 @@ public class TestEnvironment
 		Environment.clearBoard();
 		Environment.setupWorld(1,1);
 		Environment e = Environment.getWorld();
-		//e.setupWorld(1,1);
 		assertEquals(1, e.getNumberOfRows());
 		assertEquals(1, e.getNumberOfColumns());
 		assertEquals(1, e.getNumberOfCells());
@@ -58,7 +72,6 @@ public class TestEnvironment
 	public void testAddLifeForm()
 	{
 		Environment.clearBoard();
-		//Environment e = new Environment(2, 3);
 		Environment.setupWorld(2,3);
 		Environment e = Environment.getWorld();
 		LifeForm l = new MockLifeForm("L", 10);
@@ -73,7 +86,6 @@ public class TestEnvironment
 	@Test
 	public void testAddLifeFormOffGrid()
 	{
-		//Environment e = new Environment(2, 3);
 		Environment.clearBoard();
 		Environment.setupWorld(2,3);
 		Environment e = Environment.getWorld();
@@ -90,7 +102,6 @@ public class TestEnvironment
 	@Test
 	public void testRemoveLifeForm()
 	{
-		//Environment e = new Environment(2, 3);
 		Environment.clearBoard();
 		Environment.setupWorld(2,3);
 		Environment e = Environment.getWorld();
