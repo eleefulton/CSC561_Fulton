@@ -2,6 +2,7 @@ package environment;
 
 import exceptions.EnvironmentExistsException;
 import lifeform.LifeForm;
+import weapon.Weapon;
 
 /**
  * Keeps track of a grid of cells and information about the number of cells per
@@ -102,6 +103,16 @@ public class Environment
 		cells[r][c].removeLifeForm();
 	}
 
+	/**
+	 * create the single instance of the Environment if this method hasn't already
+	 * been called
+	 * 
+	 * @param w
+	 *            the width of the environment
+	 * @param h
+	 *            the height of the environment
+	 * @throws EnvironmentExistsException
+	 */
 	public static void setupWorld(int w, int h) throws EnvironmentExistsException
 	{
 		if (created == true)
@@ -114,15 +125,98 @@ public class Environment
 		}
 	}
 
+	/**
+	 * 
+	 * @return Return the instance of the world
+	 */
 	public static Environment getWorld()
 	{
 		return theWorld;
 	}
 
+	/**
+	 * FOR TESTING PURPOSES ONLY: reset the single world instance
+	 */
 	public static void resetEnvironment()
 	{
 		theWorld = null;
 		created = false;
+	}
+
+	/**
+	 * add a weapon to the specified cell
+	 * 
+	 * @param w
+	 *            the weapon to add
+	 * @param r
+	 *            the row of the cell
+	 * @param c
+	 *            the column of the cell
+	 */
+	public Weapon addWeapon(Weapon w, int r, int c)
+	{
+		if (r >= 0 && c >= 0 && r < rows && c < cols && w.getInCell() == false)
+		{
+			cells[r][c].addWeapon(w);
+			return w;
+		} else
+		{
+			return null;
+		}
+	}
+
+	/**
+	 * get weaponOne from the specified cell
+	 * 
+	 * @param r
+	 *            the row of the cell
+	 * @param c
+	 *            the column of the cell
+	 * @return the weapon in slot one of the cell
+	 */
+	public Weapon getWeaponOne(int r, int c)
+	{
+		if (r >= 0 && c >= 0 && r < rows && c < cols)
+		{
+			return cells[r][c].getWeaponOne();
+		} else
+			return null;
+	}
+
+	/**
+	 * get weaponTwo from the specified cell
+	 * 
+	 * @param r
+	 *            the row of the cell
+	 * @param c
+	 *            the column of the cell
+	 * @return the weapon in slot one of the cell
+	 */
+	public Weapon getWeaponTwo(int r, int c)
+	{
+		if (r >= 0 && c >= 0 && r < rows && c < cols)
+		{
+			return cells[r][c].getWeaponTwo();
+		} else
+			return null;
+	}
+
+	/**
+	 * remove the specified weapon from the specified cell
+	 * 
+	 * @param w
+	 *            the weapon to remove
+	 * @param r
+	 *            the row of the cell
+	 * @param c
+	 *            the column of the cell
+	 */
+	public void removeWeapon(Weapon w, int r, int c)
+	{
+		if (r >= 0 && c >= 0 && r < rows && c < cols)
+		{
+			cells[r][c].removeWeapon(w);
+		}
 	}
 
 }

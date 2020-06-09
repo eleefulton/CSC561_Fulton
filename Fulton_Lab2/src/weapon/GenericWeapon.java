@@ -16,6 +16,7 @@ public abstract class GenericWeapon implements Weapon
 	protected int remainingAmmo;
 	private int numAttachments;
 	protected int shotsFired;
+	private boolean inCell;
 
 	public GenericWeapon(int bd, int mr, int rof, int ma)
 	{
@@ -26,6 +27,7 @@ public abstract class GenericWeapon implements Weapon
 		shotsFired = 0;
 		numAttachments = 0;
 		remainingAmmo = maxAmmo;
+		inCell = false;
 	}
 
 	/**
@@ -128,5 +130,23 @@ public abstract class GenericWeapon implements Weapon
 	{
 		if (numAttachments < 2)
 			numAttachments++;
+	}
+
+	@Override
+	public void removeFromCell()
+	{
+		inCell = false;
+	}
+
+	@Override
+	public void addToCell()
+	{
+		inCell = true;
+	}
+
+	@Override
+	public boolean getInCell()
+	{
+		return inCell;
 	}
 }

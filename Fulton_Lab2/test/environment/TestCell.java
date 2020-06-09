@@ -9,6 +9,10 @@ import org.junit.Test;
 
 import lifeform.LifeForm;
 import lifeform.MockLifeForm;
+import weapon.ChainGun;
+import weapon.Pistol;
+import weapon.PlasmaCannon;
+import weapon.Weapon;
 
 /**
  * The test cases for the Cell class
@@ -16,6 +20,32 @@ import lifeform.MockLifeForm;
  */
 public class TestCell
 {
+
+	/**
+	 * begin tests for Singleton Pattern
+	 */
+
+	@Test
+	public void testAddRemoveWeapons()
+	{
+		Cell cell = new Cell();
+		Weapon w1 = new Pistol(10, 10, 1, 5);
+		Weapon w2 = new ChainGun(10, 10, 1, 5);
+		Weapon w3 = new PlasmaCannon(10, 10, 1, 5);
+		cell.addWeapon(w1);
+		cell.addWeapon(w2);
+		assertEquals(w1, cell.getWeaponOne());
+		assertEquals(w2, cell.getWeaponTwo());
+		cell.removeWeapon(w1);
+		assertEquals(null, cell.getWeaponOne());
+		cell.addWeapon(w3);
+		assertEquals(w3, cell.getWeaponOne());
+		assertNull(cell.addWeapon(w1));
+		cell.removeWeapon(w2);
+		assertEquals(null, cell.getWeaponTwo());
+		cell.addWeapon(w1);
+		assertEquals(w1, cell.getWeaponTwo());
+	}
 
 	/**
 	 * begin tests for Strategy Pattern
@@ -29,6 +59,8 @@ public class TestCell
 	{
 		Cell cell = new Cell();
 		assertNull(cell.getLifeForm());
+		assertNull(cell.getWeaponOne());
+		assertNull(cell.getWeaponTwo());
 	}
 
 	/**

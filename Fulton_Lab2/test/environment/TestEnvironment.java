@@ -3,11 +3,16 @@ package environment;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import exceptions.EnvironmentExistsException;
 import lifeform.LifeForm;
 import lifeform.MockLifeForm;
+import weapon.Pistol;
+import weapon.PlasmaCannon;
+import weapon.Scope;
+import weapon.Weapon;
 
 /**
  * Tests the functionality provided by the Environment class
@@ -15,6 +20,11 @@ import lifeform.MockLifeForm;
  */
 public class TestEnvironment
 {
+	@Before
+	public void resetEnvironment()
+	{
+		Environment.resetEnvironment();
+	}
 
 	/**
 	 * begin tests for Singleton Pattern
@@ -24,7 +34,6 @@ public class TestEnvironment
 	@Test
 	public void testInitializeSingleton() throws EnvironmentExistsException
 	{
-		Environment.resetEnvironment();
 		Environment.setupWorld(1, 2);
 		Environment e = Environment.getWorld();
 		assertEquals(2, e.getNumberOfColumns());
@@ -36,7 +45,6 @@ public class TestEnvironment
 	@Test
 	public void testGetEnvironmentBeforeSetup()
 	{
-		Environment.resetEnvironment();
 		Environment e = Environment.getWorld();
 		assertNull(e.getWorld());
 	}
@@ -44,10 +52,51 @@ public class TestEnvironment
 	@Test(expected = EnvironmentExistsException.class)
 	public void testEnvironmentExistsBeforeSetup() throws EnvironmentExistsException
 	{
-		Environment.resetEnvironment();
 		Environment.setupWorld(1, 2);
 		Environment e = Environment.getWorld();
 		Environment.setupWorld(2, 3);
+	}
+
+	@Test
+	public void testAddRemoveWeaponToCell() throws EnvironmentExistsException
+	{
+		Environment.setupWorld(10, 10);
+		Environment e = Environment.getWorld();
+		Weapon w1 = new Pistol(10, 10, 1, 5);
+		e.addWeapon(w1, 5, 5);
+		assertEquals(w1, e.getWeaponOne(5, 5));
+		Weapon w2 = new PlasmaCannon(10, 10, 1, 5);
+		Scope s = new Scope(w2);
+		e.addWeapon(s, 5, 5);
+		assertEquals(s, e.getWeaponTwo(5, 5));
+		assertNull(e.addWeapon(s, 0, 0));
+		e.removeWeapon(w1, 5, 5);
+		assertNull(e.getWeaponOne(5, 5));
+		e.addWeapon(w1, 2, 0);
+		assertEquals(w1, e.getWeaponOne(2, 0));
+		e.removeWeapon(w1, 2, 0);
+		e.addWeapon(w1, 5, 5);
+		assertNull(e.addWeapon(w1, 0, 0));
+	}
+
+	@Test
+	public void testAddRemoveWeaponOutOfBounds() throws EnvironmentExistsException
+	{
+		Environment.setupWorld(10, 10);
+		Environment e = Environment.getWorld();
+		Weapon w1 = new Pistol(10, 10, 1, 5);
+		assertNull(e.addWeapon(w1, -1, 0));
+		assertNull(e.addWeapon(w1, 0, -1));
+		assertNull(e.addWeapon(w1, 10, 0));
+		assertNull(e.addWeapon(w1, 0, 10));
+		assertNull(e.getWeaponOne(-1, 0));
+		assertNull(e.getWeaponOne(0, -1));
+		assertNull(e.getWeaponTwo(-1, 0));
+		assertNull(e.getWeaponTwo(0, -1));
+		assertNull(e.getWeaponOne(10, 0));
+		assertNull(e.getWeaponOne(0, 10));
+		assertNull(e.getWeaponTwo(10, 0));
+		assertNull(e.getWeaponTwo(0, 10));
 	}
 
 	/**
@@ -62,7 +111,6 @@ public class TestEnvironment
 	@Test
 	public void testInitializationSingleCell() throws EnvironmentExistsException
 	{
-		Environment.resetEnvironment();
 		Environment.setupWorld(1, 1);
 		Environment e = Environment.getWorld();
 		assertEquals(1, e.getNumberOfRows());
@@ -79,7 +127,6 @@ public class TestEnvironment
 	@Test
 	public void testAddLifeForm() throws EnvironmentExistsException
 	{
-		Environment.resetEnvironment();
 		Environment.setupWorld(3, 2);
 		Environment e = Environment.getWorld();
 		LifeForm l = new MockLifeForm("L", 10);
@@ -96,7 +143,6 @@ public class TestEnvironment
 	@Test
 	public void testAddLifeFormOffGrid() throws EnvironmentExistsException
 	{
-		Environment.resetEnvironment();
 		Environment.setupWorld(3, 2);
 		Environment e = Environment.getWorld();
 		LifeForm l = new MockLifeForm("L", 10);
@@ -114,7 +160,6 @@ public class TestEnvironment
 	@Test
 	public void testRemoveLifeForm() throws EnvironmentExistsException
 	{
-		Environment.resetEnvironment();
 		Environment.setupWorld(3, 2);
 		Environment e = Environment.getWorld();
 		LifeForm l = new MockLifeForm("L", 10);

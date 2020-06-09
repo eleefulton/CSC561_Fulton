@@ -1,6 +1,7 @@
 package environment;
 
 import lifeform.LifeForm;
+import weapon.Weapon;
 
 /* A Cell that can hold a LifeForm.
  *
@@ -9,6 +10,8 @@ public class Cell
 {
 
 	private LifeForm myLifeForm;
+	private Weapon weaponOne;
+	private Weapon weaponTwo;
 
 	/**
 	 * @return the LifeForm in this Cell.
@@ -40,6 +43,48 @@ public class Cell
 	public void removeLifeForm()
 	{
 		myLifeForm = null;
+
+	}
+
+	public Weapon getWeaponOne()
+	{
+		return weaponOne;
+	}
+
+	public Weapon getWeaponTwo()
+	{
+		return weaponTwo;
+	}
+
+	public Weapon addWeapon(Weapon w)
+	{
+		if (weaponOne == null)
+		{
+			weaponOne = w;
+			w.addToCell();
+			return w;
+		} else if (weaponTwo == null)
+		{
+			weaponTwo = w;
+			w.addToCell();
+			return w;
+		} else
+		{
+			return null;
+		}
+	}
+
+	public void removeWeapon(Weapon w)
+	{
+		if (weaponOne == w)
+		{
+			w.removeFromCell();
+			weaponOne = null;
+		} else if (weaponTwo == w)
+		{
+			w.removeFromCell();
+			weaponTwo = null;
+		}
 
 	}
 }

@@ -14,7 +14,7 @@ public abstract class Attachment implements Weapon
 
 	public Attachment(Weapon w)
 	{
-		if(w.getNumAttachments() < 2)
+		if (w.getNumAttachments() < 2)
 		{
 			myWeapon = w;
 			myWeapon.addAttachment();
@@ -25,7 +25,7 @@ public abstract class Attachment implements Weapon
 	{
 		return myWeapon;
 	}
- 
+
 	@Override
 	public int fireWeapon(int distance)
 	{
@@ -93,6 +93,24 @@ public abstract class Attachment implements Weapon
 	public void updateShotsFired()
 	{
 		myWeapon.updateShotsFired();
+	}
+
+	@Override
+	public void addToCell()
+	{
+		myWeapon.addToCell();
+	}
+
+	@Override
+	public void removeFromCell()
+	{
+		myWeapon.removeFromCell();
+	}
+
+	@Override
+	public boolean getInCell()
+	{
+		return myWeapon.getInCell();
 	}
 
 }

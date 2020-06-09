@@ -73,13 +73,31 @@ public interface Weapon extends TimeObserver
 	 * increment shots fired
 	 */
 	public void updateShotsFired();
-	
+
 	/**
 	 * Get Number of attachments
 	 */
 	public int getNumAttachments();
+
 	/**
 	 * add new attachment
 	 */
 	public void addAttachment();
+
+	/**
+	 * mark weapon as in a cell
+	 */
+	public void addToCell();
+
+	/**
+	 * mark a weapon as not in a cell
+	 */
+	public void removeFromCell();
+
+	/**
+	 * return if a weapon is in a cell
+	 * 
+	 * @return
+	 */
+	public boolean getInCell();
 }
