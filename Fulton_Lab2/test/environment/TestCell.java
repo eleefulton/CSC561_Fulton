@@ -9,6 +9,7 @@ import org.junit.Test;
 
 import lifeform.LifeForm;
 import lifeform.MockLifeForm;
+import weapon.GenericWeapon;
 
 /**
  * The test cases for the Cell class
@@ -18,11 +19,28 @@ public class TestCell
 {
 
 	@Test
-	public void testHold2Weapons()
+	public void testAddTwoWeapons()
 	{
 		Cell cell = new Cell();
-		assertEquals(2, cell.getWeapons().length);
+		MockWeapon w = new MockWeapon(5,5,5,5);
+		MockWeapon w1 = new MockWeapon(5,5,5,5);
+		cell.addWeapon(w, w1);
+		assertEquals(w, cell.getWeapons()[0]);
+		assertEquals(w1, cell.getWeapons()[1]);
 	}
+	
+	@Test
+	public void testRemoveTwoWeapons()
+	{
+		Cell cell = new Cell();
+		MockWeapon w = new MockWeapon(5,5,5,5);
+		MockWeapon w1 = new MockWeapon(5,5,5,5);
+		cell.addWeapon(w, w1);
+		cell.removeWeapons();
+		assertNull(cell.getWeapons()[0]);
+		assertNull(cell.getWeapons()[1]);
+	}
+	
 	
 	/**
 	 * begin tests for Strategy Pattern
@@ -36,6 +54,8 @@ public class TestCell
 	{
 		Cell cell = new Cell();
 		assertNull(cell.getLifeForm());
+		assertNull(cell.getWeapons()[0]);
+		assertNull(cell.getWeapons()[1]);
 	}
 
 	/**
@@ -71,4 +91,14 @@ public class TestCell
 		cell.removeLifeForm();
 		assertNull(cell.getLifeForm());
 	}
+}
+
+class MockWeapon extends GenericWeapon
+{
+
+	public MockWeapon(int bd, int mr, int rof, int ma)
+	{
+		super(bd, mr, rof, ma);
+	}
+
 }

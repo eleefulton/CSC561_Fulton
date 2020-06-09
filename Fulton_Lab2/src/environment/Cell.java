@@ -10,7 +10,7 @@ public class Cell
 {
 
 	private LifeForm myLifeForm;
-	private Weapon[] weapons;
+	private Weapon[] weapons = new Weapon[2];
 	/**
 	 * @return the LifeForm in this Cell.
 	 */
@@ -47,5 +47,16 @@ public class Cell
 	public Weapon[] getWeapons()
 	{
 		return weapons;
+	}
+
+	public void addWeapon(Weapon w1, Weapon w2) 
+	{
+		weapons[0] = w1;
+		weapons[1] = w2;
+	}
+
+	public void removeWeapons() {
+		weapons[0] = null;
+		weapons[1] = null;
 	}
 }
