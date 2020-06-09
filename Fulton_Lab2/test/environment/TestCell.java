@@ -48,9 +48,11 @@ public class TestCell
 		assertTrue(success);
 		assertEquals(weap2, cell.getWeapon2());
 		
-		cell.removeWeapon1();
+		success = cell.removeWeapon1();
+		assertTrue(success);
 		assertNull(cell.getWeapon1());
-		cell.removeWeapon2();
+		success = cell.removeWeapon2();
+		assertTrue(success);
 		assertNull(cell.getWeapon2());
 	}
 	

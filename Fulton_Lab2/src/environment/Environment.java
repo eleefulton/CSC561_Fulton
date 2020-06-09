@@ -148,6 +148,10 @@ public class Environment
 	 */
 	public void addWeapon1(Weapon weap, int row, int col) 
 	{
+		if (row < 0 || col < 0 || row >= rows || col >= cols)
+		{
+			return;
+		}
 		cells[row][col].addWeapon1(weap);
 	}
 
@@ -158,6 +162,10 @@ public class Environment
 	 */
 	public Weapon getWeapon1(int row, int col) 
 	{
+		if (row < 0 || col < 0 || row >= rows || col >= cols)
+		{
+			return null;
+		}
 		return cells[row][col].getWeapon1();
 	}
 
@@ -169,6 +177,10 @@ public class Environment
 	 */
 	public void addWeapon2(Weapon weap, int row, int col) 
 	{
+		if (row < 0 || col < 0 || row >= rows || col >= cols)
+		{
+			return;
+		}
 		cells[row][col].addWeapon2(weap);
 	}
 
@@ -179,6 +191,10 @@ public class Environment
 	 */
 	public Weapon getWeapon2(int row, int col) 
 	{
+		if (row < 0 || col < 0 || row >= rows || col >= cols)
+		{
+			return null;
+		}
 		return cells[row][col].getWeapon2();
 	}
 
@@ -187,9 +203,13 @@ public class Environment
 	 * @param row - the row of the cell.
 	 * @param col - the col of the cell
 	 */
-	public void removeWeapon1(int row, int col) 
+	public boolean removeWeapon1(int row, int col) 
 	{
-		cells[row][col].removeWeapon1();
+		if (row < 0 || col < 0 || row >= rows || col >= cols)
+		{
+			return false;
+		}
+		return cells[row][col].removeWeapon1();
 	}
 	
 	/**
@@ -197,9 +217,13 @@ public class Environment
 	 * @param row - the row of the cell.
 	 * @param col - the column of the cell
 	 */
-	public void removeWeapon2(int row, int col) 
+	public boolean removeWeapon2(int row, int col) 
 	{
-		cells[row][col].removeWeapon2();
+		if (row < 0 || col < 0 || row >= rows || col >= cols)
+		{
+			return false;
+		}
+		return cells[row][col].removeWeapon2();
 	}
 
 }

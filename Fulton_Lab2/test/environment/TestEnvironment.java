@@ -1,6 +1,7 @@
 package environment;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 
 import org.junit.Test;
@@ -59,6 +60,53 @@ public class TestEnvironment
 		assertNull(e.getWeapon1(0, 1));
 		e.removeWeapon2(0, 1);
 		assertNull(e.getWeapon2(0, 1));
+	}
+	
+	@Test
+	public void testBorderCasesWeapons()
+	{
+		Environment.clearBoard();
+		Environment.setupWorld(2,2);
+		Environment e = Environment.getWorld();
+		Weapon weap1 = new PlasmaCannon(20,10,1,4);
+		//Negative ranges
+		e.addWeapon1(weap1, -1, 1);
+		assertNull(e.getWeapon1(-1, 1));
+		e.addWeapon1(weap1, 1, -1);
+		assertNull(e.getWeapon1(1, -1));
+		e.addWeapon1(weap1, -1, -1);
+		assertNull(e.getWeapon1(-1, -1));
+		
+		e.addWeapon2(weap1, -1, 1);
+		assertNull(e.getWeapon2(-1, 1));
+		e.addWeapon2(weap1, 1, -1);
+		assertNull(e.getWeapon2(1, -1));
+		e.addWeapon2(weap1, -1, -1);
+		assertNull(e.getWeapon2(-1, -1));
+		
+		//Ranges larger than the grid
+		e.addWeapon1(weap1, 2, 1);
+		assertNull(e.getWeapon1(2, 1));
+		e.addWeapon1(weap1, 1, 2);
+		assertNull(e.getWeapon1(1, 2));
+		e.addWeapon1(weap1, 2, 2);
+		assertNull(e.getWeapon1(2, 2));
+		
+		e.addWeapon2(weap1, 2, 1);
+		assertNull(e.getWeapon2(2, 1));
+		e.addWeapon2(weap1, 1, 2);
+		assertNull(e.getWeapon2(1, 2));
+		e.addWeapon2(weap1, 2, 2);
+		assertNull(e.getWeapon2(2, 2));
+		
+		//Remove
+		assertFalse(e.removeWeapon1(2, 1));
+		assertFalse(e.removeWeapon1(1, 2));
+		assertFalse(e.removeWeapon1(2, 2));
+		
+		assertFalse(e.removeWeapon2(2, 1));
+		assertFalse(e.removeWeapon2(1, 2));
+		assertFalse(e.removeWeapon2(2, 2));
 	}
 	
 	/*

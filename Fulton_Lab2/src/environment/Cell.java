@@ -97,18 +97,26 @@ public class Cell
 	/**
 	 * Remove the weapon in slot 1.
 	 */
-	public void removeWeapon1() 
+	public boolean removeWeapon1() 
 	{
 		if(getWeapon1() != null)
+		{
 			weapon1 = null;
+			return true;
+		}
+		return false;
 	}
 	
 	/**
 	 * Remove the weapon in slot 2.
 	 */
-	public void removeWeapon2() 
+	public boolean removeWeapon2() 
 	{
 		if(getWeapon2() != null)
+		{
 			weapon2 = null;
+			return true;
+		}
+		return false;
 	}
 }
