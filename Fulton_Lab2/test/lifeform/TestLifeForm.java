@@ -39,6 +39,10 @@ public class TestLifeForm
 		e.addLifeForm(l2, 0, 2);
 		assertEquals(0, l1.attack(e.getDistance(l1, l2)));
 	}
+	
+	/**
+	 * Begin Strategy Pattern Tests
+	 */
 	@Test
 	public void testLifeFormPickingAWeapon()
 	{

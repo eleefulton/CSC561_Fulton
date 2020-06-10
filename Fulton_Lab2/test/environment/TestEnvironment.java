@@ -45,6 +45,57 @@ public class TestEnvironment
 		Environment.createWorld(2,2);
 	}
 	
+	@Test
+	public void testAddWeapons()
+	{
+		Environment e = new Environment(2, 3);
+		MockWeapon w = new MockWeapon(5,5,5,5);
+		MockWeapon w1 = new MockWeapon(5,5,5,5);
+		e.addWeapon(w, 0, 1);
+		e.addWeapon(w1, 0, 1);
+		assertEquals(w, e.getWeapon(0, 1)[0]);
+		assertEquals(w1, e.getWeapon(0, 1)[1]);
+	}
+	
+	@Test
+	public void testRemoveWeapons()
+	{
+		Environment e = new Environment(2, 3);
+		MockWeapon w = new MockWeapon(5,5,5,5);
+		MockWeapon w1 = new MockWeapon(5,5,5,5);
+		e.addWeapon(w, 0, 1);
+		e.addWeapon(w1, 0, 1);
+		e.removeWeapon(w, 0, 1);
+		e.removeWeapon(w1, 0, 1);
+		assertNull(e.getWeapon(0, 1)[0]);
+		assertNull(e.getWeapon(0, 1)[1]);
+	}
+	
+	@Test(expected = EnvironmentException.class)
+	public void testDistanceBetweenLifeForms() throws EnvironmentException
+	{
+		Environment e = new Environment(5, 5);
+		LifeForm l1 = new MockLifeForm("L1", 10);
+		LifeForm l2 = new MockLifeForm("L2", 10);
+		e.addLifeForm(l1, 0, 0);
+		e.addLifeForm(l2, 0, 2);
+		assertEquals(10, e.getDistance(l1, l2));
+		e.removeLifeForm(0, 0);
+		e.removeLifeForm(0, 2);
+		
+		e.addLifeForm(l1, 0, 2);
+		e.addLifeForm(l2, 3, 2);
+		assertEquals(15, e.getDistance(l1, l2));
+		e.removeLifeForm(0, 2);
+		e.removeLifeForm(3, 2);
+		
+		e.addLifeForm(l1, 0, 0);
+		e.addLifeForm(l2, 3, 2);
+		assertEquals(18, e.getDistance(l1, l2));
+		e.removeLifeForm(3, 2);
+		
+		e.getDistance(l1, l2); //should throw exception
+	}
 	
 	/**
 	 * begin tests for Strategy Pattern
@@ -67,7 +118,7 @@ public class TestEnvironment
 	 * Tests adding a LifeForm to the Environment at the specified location
 	 */
 	@Test
-	public void testAddLifeFormAndWeapons()
+	public void testAddLifeForm()
 	{
 		Environment e = new Environment(2, 3);
 		LifeForm l = new MockLifeForm("L", 10);
@@ -104,7 +155,7 @@ public class TestEnvironment
 	 * Tests that a LifeForm can be removed from a specified location
 	 */
 	@Test
-	public void testRemoveLifeFormAndWeapons()
+	public void testRemoveLifeForm()
 	{
 		Environment e = new Environment(2, 3);
 		LifeForm l = new MockLifeForm("L", 10);
@@ -122,26 +173,5 @@ public class TestEnvironment
 		assertNull(e.getWeapon(0, 1)[1]);
 	}
 	
-	@Test
-	public void testDistanceBetweenLifeForms() throws EnvironmentException
-	{
-		Environment e = new Environment(5, 5);
-		LifeForm l1 = new MockLifeForm("L1", 10);
-		LifeForm l2 = new MockLifeForm("L2", 10);
-		e.addLifeForm(l1, 0, 0);
-		e.addLifeForm(l2, 0, 2);
-		assertEquals(10, e.getDistance(l1, l2));
-		e.removeLifeForm(0, 0);
-		e.removeLifeForm(0, 2);
-		
-		e.addLifeForm(l1, 0, 2);
-		e.addLifeForm(l2, 3, 2);
-		assertEquals(15, e.getDistance(l1, l2));
-		e.removeLifeForm(0, 2);
-		e.removeLifeForm(3, 2);
-		
-		e.addLifeForm(l1, 0, 0);
-		e.addLifeForm(l2, 3, 2);
-		assertEquals(18, e.getDistance(l1, l2));
-	}
+	
 }

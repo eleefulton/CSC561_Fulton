@@ -47,11 +47,21 @@ public class Cell
 
 	}
 	
+	/**
+	 * Returns the weapon array
+	 * @return weapons
+	 */
 	public Weapon[] getWeapons()
 	{
 		return weapons;
 	}
 
+	/**
+	 * Add a weapon to a cell. Each cell has an array of 2 weapons
+	 * If there is already a weapon, but the param into the second spot
+	 * If that spot is full also, the weapon is not added
+	 * @param w
+	 */
 	public void addWeapon(Weapon w) 
 	{
 		if (weapons[0] == null)
@@ -60,6 +70,10 @@ public class Cell
 			weapons[1] = w;
 	}
 
+	/**
+	 * Remove the weapon specified from the cell 
+	 * @param w
+	 */
 	public void removeWeapon(Weapon w) {
 		if(weapons[0] == w)
 			weapons[0] =null;

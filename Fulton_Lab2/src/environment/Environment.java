@@ -31,6 +31,14 @@ public class Environment
 		}
 	}
 	
+	/**
+	 * Create the world, checks that there is no existing world
+	 * If there is, it throws an exception
+	 * If not, create the world to the size specifications
+	 * @param r rows
+	 * @param c columns
+	 * @throws EnvironmentConstructorException
+	 */
 	public static void createWorld(int r, int c) throws EnvironmentConstructorException
 	{
 		if (world == null)
@@ -39,11 +47,20 @@ public class Environment
 			throw new EnvironmentConstructorException();
 	}
 	
+	/**
+	 * Reset the world variable
+	 * In case you want to destroy the existing and
+	 * make a new one
+	 */
 	public static void resetWorld() {
 		world = null;
 		
 	}
 	
+	/**
+	 * 
+	 * @return the current world
+	 */
 	public static Environment getWorld()
 	{
 		return world;
@@ -157,6 +174,13 @@ public class Environment
 		}
 	}
 
+	/**
+	 * Removes the weapon from the cell specified
+	 * @param w weapon to remove
+	 * @param r row location of cell
+	 * @param c column location of cell
+	 * @return true if removed, false if not
+	 */
 	public boolean removeWeapon(Weapon w, int r, int c) {
 		if (r >= 0 && c >= 0 && r < rows && c < cols )
 		{
@@ -176,6 +200,15 @@ public class Environment
 		
 	}
 
+	/**
+	 * Gets the location of l1 and l2, then finds the distance between the 
+	 * cells that the lifeforms are located in
+	 * throws an error if the lifeform is not in any cell inthe environment
+	 * @param l1 Lifeform 1
+	 * @param l2 Lifeform 2
+	 * @return distance between l1 and l2
+	 * @throws EnvironmentException
+	 */
 	public int getDistance(LifeForm l1, LifeForm l2) throws EnvironmentException
 	{
 		int [] location1 = this.getLifeFormLocation(l1);
@@ -190,6 +223,11 @@ public class Environment
 			throw new EnvironmentException();
 	}
 	
+	/**
+	 * Gets row, col location of the lifeform
+	 * @param l lifeform 
+	 * @return
+	 */
 	public int[] getLifeFormLocation(LifeForm l)
 	{
 		int [] loc = new int [2];

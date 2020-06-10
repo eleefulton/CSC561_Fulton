@@ -17,9 +17,16 @@ import weapon.GenericWeapon;
  */
 public class TestCell
 {
+	@Test
+	public void testCellWeaponInitialization()
+	{
+		Cell cell = new Cell();
+		assertNull(cell.getWeapons()[0]);
+		assertNull(cell.getWeapons()[1]);
+	}
 
 	@Test
-	public void testAddTwoWeapons()
+	public void testAddRemoveTwoWeapons()
 	{
 		Cell cell = new Cell();
 		MockWeapon w = new MockWeapon(5,5,5,5);
@@ -28,20 +35,24 @@ public class TestCell
 		cell.addWeapon(w1);
 		assertEquals(w, cell.getWeapons()[0]);
 		assertEquals(w1, cell.getWeapons()[1]);
-	}
-	
-	@Test
-	public void testRemoveTwoWeapons()
-	{
-		Cell cell = new Cell();
-		MockWeapon w = new MockWeapon(5,5,5,5);
-		MockWeapon w1 = new MockWeapon(5,5,5,5);
-		cell.addWeapon(w);
-		cell.addWeapon(w1);
 		cell.removeWeapon(w);
 		cell.removeWeapon(w1);
 		assertNull(cell.getWeapons()[0]);
 		assertNull(cell.getWeapons()[1]);
+	}
+	
+	@Test
+	public void testWeaponInExistingSpot()
+	{
+		Cell cell = new Cell();
+		MockWeapon w = new MockWeapon(5,5,5,5);
+		MockWeapon w1 = new MockWeapon(5,5,5,5);
+		MockWeapon w2 = new MockWeapon(5,5,5,5);
+		cell.addWeapon(w);
+		cell.addWeapon(w1);
+		cell.addWeapon(w2); //w2 should not be in the weapons
+		assertEquals(w, cell.getWeapons()[0]);
+		assertEquals(w1, cell.getWeapons()[1]);
 	}
 	
 	
@@ -57,8 +68,6 @@ public class TestCell
 	{
 		Cell cell = new Cell();
 		assertNull(cell.getLifeForm());
-		assertNull(cell.getWeapons()[0]);
-		assertNull(cell.getWeapons()[1]);
 	}
 
 	/**
