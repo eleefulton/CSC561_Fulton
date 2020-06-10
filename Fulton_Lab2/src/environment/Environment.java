@@ -1,5 +1,6 @@
 package environment;
 
+import exceptions.EnvironmentException;
 import exceptions.EnvironmentExistsException;
 import lifeform.LifeForm;
 import weapon.Weapon;
@@ -83,7 +84,10 @@ public class Environment
 		{
 			return;
 		}
-		cells[r][c].addLifeForm(l);
+		if (l.getInCell() == false)
+		{
+			cells[r][c].addLifeForm(l);
+		}
 	}
 
 	/**
@@ -216,6 +220,55 @@ public class Environment
 		if (r >= 0 && c >= 0 && r < rows && c < cols)
 		{
 			cells[r][c].removeWeapon(w);
+		}
+	}
+
+	/**
+	 * compute the distance between two LifeForms if they are on the board
+	 * 
+	 * @param a
+	 *            the first lifeform
+	 * @param b
+	 *            the second lifeform
+	 * @return distance from a to b
+	 * @throws EnvironmentException
+	 */
+	public int getDistance(LifeForm a, LifeForm b) throws EnvironmentException
+	{
+		int ar = -1;
+		int ac = -1;
+		int br = -1;
+		int bc = -1;
+		for (int i = 0; i < rows; i++)
+		{
+			for (int j = 0; j < cols; j++)
+			{
+				if (this.getLifeForm(i, j) == a)
+				{
+					ar = i;
+					ac = j;
+				} else if (this.getLifeForm(i, j) == b)
+				{
+					br = i;
+					bc = j;
+				}
+			}
+		}
+		if (ar == -1 || ac == -1 || br == -1 || bc == -1)
+		{
+			throw new EnvironmentException();
+		} else
+		{
+			if (ar == br)
+			{
+				return 5 * Math.abs(ac - bc);
+			} else if (ac == bc)
+			{
+				return 5 * Math.abs(ar - br);
+			} else
+			{
+				return (int) Math.sqrt((Math.pow(5 * Math.abs(ar - br), 2)) + Math.pow(5 * Math.abs(ac - bc), 2));
+			}
 		}
 	}
 

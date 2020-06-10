@@ -15,6 +15,7 @@ public abstract class LifeForm implements TimeObserver
 	protected int currentLifePoints;
 	protected int attackStrength;
 	protected Weapon weapon; // The weapon held by the lifeform
+	private boolean inCell;
 
 	/**
 	 * Create an instance
@@ -28,6 +29,7 @@ public abstract class LifeForm implements TimeObserver
 	{
 		myName = name;
 		currentLifePoints = points;
+		inCell = false;
 	}
 
 	/**
@@ -101,6 +103,9 @@ public abstract class LifeForm implements TimeObserver
 		return this.weapon;
 	}
 
+	/**
+	 * remove the weapon this lifeform is holding
+	 */
 	public void dropWeapon()
 	{
 		if (this.weapon != null)
@@ -108,11 +113,38 @@ public abstract class LifeForm implements TimeObserver
 
 	}
 
+	/**
+	 * reload the weapon this lifeform is holding
+	 */
 	public void reload()
 	{
 		if (weapon != null)
 		{
 			weapon.reload();
 		}
+	}
+
+	/**
+	 * @return if this lifeform is in a cell already
+	 */
+	public boolean getInCell()
+	{
+		return inCell;
+	}
+
+	/**
+	 * mark this lifeform as in a cell
+	 */
+	public void putInCell()
+	{
+		inCell = true;
+	}
+
+	/**
+	 * mark this lifeform as not in a cell
+	 */
+	public void removeFromCell()
+	{
+		inCell = false;
 	}
 }

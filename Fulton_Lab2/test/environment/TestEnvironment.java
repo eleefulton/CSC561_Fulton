@@ -6,7 +6,10 @@ import static org.junit.Assert.assertNull;
 import org.junit.Before;
 import org.junit.Test;
 
+import exceptions.EnvironmentException;
 import exceptions.EnvironmentExistsException;
+import lifeform.Alien;
+import lifeform.Human;
 import lifeform.LifeForm;
 import lifeform.MockLifeForm;
 import weapon.Pistol;
@@ -97,6 +100,47 @@ public class TestEnvironment
 		assertNull(e.getWeaponOne(0, 10));
 		assertNull(e.getWeaponTwo(10, 0));
 		assertNull(e.getWeaponTwo(0, 10));
+	}
+
+	@Test
+	public void testGetDistanceTwoLifeFormsOnBoard() throws EnvironmentExistsException, EnvironmentException
+	{
+		Environment.setupWorld(10, 10);
+		Environment e = Environment.getWorld();
+		LifeForm h = new Human("Bob", 40, 10);
+		LifeForm a = new Alien("Allie", 10);
+		e.addLifeForm(h, 0, 0);
+		e.addLifeForm(a, 0, 6);
+		assertEquals(30, e.getDistance(h, a));
+		e.removeLifeForm(0, 6);
+		e.addLifeForm(a, 2, 0);
+		assertEquals(10, e.getDistance(h, a));
+		e.removeLifeForm(2, 0);
+		e.addLifeForm(a, 3, 2);
+		assertEquals(18, e.getDistance(h, a));
+	}
+
+	@Test(expected = EnvironmentException.class)
+	public void testGetDistanceOneLifeFormOnBoard() throws EnvironmentExistsException, EnvironmentException
+	{
+		Environment.setupWorld(10, 10);
+		Environment e = Environment.getWorld();
+		LifeForm h = new Human("Bob", 40, 10);
+		LifeForm a = new Alien("Allie", 10);
+		e.addLifeForm(h, 0, 0);
+		e.getDistance(a, h);
+	}
+
+	@Test
+	public void testAddLifeFormToBoardWhenAlreadyThere() throws EnvironmentExistsException
+	{
+		Environment.setupWorld(10, 10);
+		Environment e = Environment.getWorld();
+		LifeForm h = new Human("Bob", 40, 10);
+		e.addLifeForm(h, 0, 0);
+		e.addLifeForm(h, 0, 1);
+		assertEquals(h, e.getLifeForm(0, 0));
+		assertNull(e.getLifeForm(0, 1));
 	}
 
 	/**

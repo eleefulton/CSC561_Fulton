@@ -32,6 +32,7 @@ public class Cell
 		if (myLifeForm == null)
 		{
 			myLifeForm = entity;
+			myLifeForm.putInCell();
 			return true;
 		} else
 			return false;
@@ -42,6 +43,7 @@ public class Cell
 	 */
 	public void removeLifeForm()
 	{
+		myLifeForm.removeFromCell();
 		myLifeForm = null;
 
 	}
