@@ -169,4 +169,5 @@ public abstract class LifeForm implements TimeObserver
 	{
 		this.isInTheWorld = val;
 	}
+	
 }

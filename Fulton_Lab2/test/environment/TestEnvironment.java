@@ -8,6 +8,7 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 import exceptions.EnvironmentException;
+import exceptions.ExistingWorldException;
 import lifeform.LifeForm;
 import lifeform.MockLifeForm;
 import weapon.PlasmaCannon;
@@ -20,7 +21,7 @@ import weapon.Weapon;
 public class TestEnvironment
 {
 	@Test
-	public void testInitializationSingleton()
+	public void testInitializationSingleton() throws ExistingWorldException
 	{
 		Environment.clearBoard();
 		Environment.setupWorld(3,3);
@@ -32,7 +33,7 @@ public class TestEnvironment
 	}
 	
 	@Test
-	public void testAddWeapons()
+	public void testAddWeapons() throws ExistingWorldException
 	{
 		Environment.clearBoard();
 		Environment.setupWorld(2,3);
@@ -46,7 +47,7 @@ public class TestEnvironment
 	}
 	
 	@Test
-	public void testRemoveWeapons()
+	public void testRemoveWeapons() throws ExistingWorldException
 	{
 		Environment.clearBoard();
 		Environment.setupWorld(2,3);
@@ -65,7 +66,7 @@ public class TestEnvironment
 	}
 	
 	@Test
-	public void testBorderCasesWeapons()
+	public void testBorderCasesWeapons() throws ExistingWorldException
 	{
 		Environment.clearBoard();
 		Environment.setupWorld(2,2);
@@ -112,7 +113,7 @@ public class TestEnvironment
 	}
 	
 	@Test
-	public void testLifeFormsRangeOnSameRow() throws EnvironmentException
+	public void testLifeFormsRangeOnSameRow() throws EnvironmentException, ExistingWorldException
 	{
 		Environment.clearBoard();
 		Environment.setupWorld(4,4);
@@ -127,7 +128,7 @@ public class TestEnvironment
 	}
 	
 	@Test
-	public void testLifeFormsRangeOnSameColumn() throws EnvironmentException
+	public void testLifeFormsRangeOnSameColumn() throws EnvironmentException, ExistingWorldException
 	{
 		Environment.clearBoard();
 		Environment.setupWorld(4,4);
@@ -142,7 +143,7 @@ public class TestEnvironment
 	}
 	
 	@Test
-	public void testLifeFormsRangeNotOnSameRowOrColumn() throws EnvironmentException
+	public void testLifeFormsRangeNotOnSameRowOrColumn() throws EnvironmentException, ExistingWorldException
 	{
 		Environment.clearBoard();
 		Environment.setupWorld(4,4);
@@ -157,7 +158,7 @@ public class TestEnvironment
 	}
 	
 	@Test(expected = EnvironmentException.class)
-	public void testLifeFormsRangeException() throws EnvironmentException
+	public void testLifeFormsRangeException() throws EnvironmentException, ExistingWorldException
 	{
 		Environment.clearBoard();
 		Environment.setupWorld(4,4);
@@ -167,7 +168,7 @@ public class TestEnvironment
 		LifeForm l3 = new MockLifeForm("L", 10);
 		e.addLifeForm(l3, 3, 2);
 		assertEquals(l3, e.getLifeForm(3, 2));
-		assertEquals(25, e.getDistance(l1,l3)); //will throw an exception here.
+		assertEquals(25, e.getDistance(l1,l3)); //will throw an except
 	}
 	
 	/*
@@ -180,9 +181,10 @@ public class TestEnvironment
 
 	/**
 	 * Tests a 1x1 environment can be created and populated with a single cell
+	 * @throws ExistingWorldException 
 	 */
 	@Test
-	public void testInitializationSingleCell()
+	public void testInitializationSingleCell() throws ExistingWorldException
 	{
 		Environment.clearBoard();
 		Environment.setupWorld(1,1);
@@ -195,9 +197,10 @@ public class TestEnvironment
 
 	/**
 	 * Tests adding a LifeForm to the Environment at the specified location
+	 * @throws ExistingWorldException 
 	 */
 	@Test
-	public void testAddLifeForm()
+	public void testAddLifeForm() throws ExistingWorldException
 	{
 		Environment.clearBoard();
 		Environment.setupWorld(2,3);
@@ -210,9 +213,10 @@ public class TestEnvironment
 	/**
 	 * Tests that a LifeForm cannot be added to a cell out of bounds of the
 	 * Environment
+	 * @throws ExistingWorldException 
 	 */
 	@Test
-	public void testAddLifeFormOffGrid()
+	public void testAddLifeFormOffGrid() throws ExistingWorldException
 	{
 		Environment.clearBoard();
 		Environment.setupWorld(2,3);
@@ -226,9 +230,10 @@ public class TestEnvironment
 
 	/**
 	 * Tests that a LifeForm can be removed from a specified location
+	 * @throws ExistingWorldException 
 	 */
 	@Test
-	public void testRemoveLifeForm()
+	public void testRemoveLifeForm() throws ExistingWorldException
 	{
 		Environment.clearBoard();
 		Environment.setupWorld(2,3);

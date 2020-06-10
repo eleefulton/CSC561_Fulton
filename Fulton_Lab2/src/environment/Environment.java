@@ -1,6 +1,7 @@
 package environment;
 
 import exceptions.EnvironmentException;
+import exceptions.ExistingWorldException;
 import lifeform.LifeForm;
 import weapon.Weapon;
 
@@ -40,12 +41,14 @@ public class Environment
 	 * @param width the width of the world
 	 * @param height the height of the world
 	 */
-	public static void setupWorld(int width, int height) 
+	public static void setupWorld(int width, int height) throws ExistingWorldException
 	{
 		if (theWorld == null)
 		{
 			theWorld = new Environment(width, height);
 		}
+		else
+			throw new ExistingWorldException();
 	}
 	
 	/**
@@ -53,10 +56,6 @@ public class Environment
 	 */
 	public static Environment getWorld() 
 	{
-		/*if (theWorld == null)
-		{
-			theWorld = new Environment();
-		}*/
 		return theWorld;
 	}
 
