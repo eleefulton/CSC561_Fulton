@@ -130,7 +130,8 @@ public class TestCell
 		Cell cell = new Cell();
 		cell.addLifeForm(bob);
 		assertEquals(bob, cell.getLifeForm());
-		cell.removeLifeForm();
+		boolean success = cell.removeLifeForm();
+		assertTrue(success);
 		assertNull(cell.getLifeForm());
 	}
 }

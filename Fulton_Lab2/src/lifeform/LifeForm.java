@@ -15,6 +15,9 @@ public abstract class LifeForm implements TimeObserver
 	protected int currentLifePoints;
 	protected int attackStrength;
 	protected Weapon weapon; // The weapon held by the lifeform
+	private int rowCell;      // The row of the Cell holding the LifeForm.
+	private int colCell;     //The col of the cell holding the lifeform
+	private boolean isInTheWorld;  //checks if the FifeForm is in the Environemnt
 
 	/**
 	 * Create an instance
@@ -28,6 +31,9 @@ public abstract class LifeForm implements TimeObserver
 	{
 		myName = name;
 		currentLifePoints = points;
+		rowCell = -1;
+		colCell = -1;
+		this.setInTheWorld(false);
 	}
 
 	/**
@@ -114,5 +120,53 @@ public abstract class LifeForm implements TimeObserver
 		{
 			weapon.reload();
 		}
+	}
+
+	/**
+	 * @return - returns the row of the Cell holding the Lifeform
+	 */
+	public int getRowCell() 
+	{
+		return rowCell;
+	}
+	
+	/**
+	 * @return - returns the row of the Cell holding the Lifeform.
+	 */
+	public int getColCell() 
+	{
+		return colCell;
+	}
+	
+	/**
+	 * @param rowCell the rowCell to set
+	 */
+	public void setRowCell(int row) 
+	{
+		this.rowCell = row;
+	}
+
+	/**
+	 * @param colCell the colCell to set
+	 */
+	public void setColCell(int col) 
+	{
+		this.colCell = col;
+	}
+	
+	/**
+	 * @return the isInTheWorld
+	 */
+	public boolean isInTheWorld() 
+	{
+		return isInTheWorld;
+	}
+
+	/**
+	 * @param isInTheWorld the isInTheWorld to set
+	 */
+	public void setInTheWorld(boolean val) 
+	{
+		this.isInTheWorld = val;
 	}
 }

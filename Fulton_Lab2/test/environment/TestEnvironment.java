@@ -3,9 +3,11 @@ package environment;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
+import exceptions.EnvironmentException;
 import lifeform.LifeForm;
 import lifeform.MockLifeForm;
 import weapon.PlasmaCannon;
@@ -109,6 +111,65 @@ public class TestEnvironment
 		assertFalse(e.removeWeapon2(2, 2));
 	}
 	
+	@Test
+	public void testLifeFormsRangeOnSameRow() throws EnvironmentException
+	{
+		Environment.clearBoard();
+		Environment.setupWorld(4,4);
+		Environment e = Environment.getWorld();
+		LifeForm l1 = new MockLifeForm("L", 10);
+		e.addLifeForm(l1, 0, 0);
+		assertEquals(l1, e.getLifeForm(0, 0));
+		LifeForm l2 = new MockLifeForm("L", 10);
+		e.addLifeForm(l2, 0, 2);
+		assertEquals(l2, e.getLifeForm(0, 2));
+		assertEquals(10, e.getDistance(l1,l2));
+	}
+	
+	@Test
+	public void testLifeFormsRangeOnSameColumn() throws EnvironmentException
+	{
+		Environment.clearBoard();
+		Environment.setupWorld(4,4);
+		Environment e = Environment.getWorld();
+		LifeForm l2 = new MockLifeForm("L", 10);
+		e.addLifeForm(l2, 0, 2);
+		assertEquals(l2, e.getLifeForm(0, 2));
+		LifeForm l3 = new MockLifeForm("L", 10);
+		e.addLifeForm(l3, 3, 2);
+		assertEquals(l3, e.getLifeForm(3, 2));
+		assertEquals(15, e.getDistance(l2,l3));
+	}
+	
+	@Test
+	public void testLifeFormsRangeNotOnSameRowOrColumn() throws EnvironmentException
+	{
+		Environment.clearBoard();
+		Environment.setupWorld(4,4);
+		Environment e = Environment.getWorld();
+		LifeForm l1 = new MockLifeForm("L", 10);
+		e.addLifeForm(l1, 0, 0);
+		assertEquals(l1, e.getLifeForm(0, 0));
+		LifeForm l3 = new MockLifeForm("L", 10);
+		e.addLifeForm(l3, 3, 2);
+		assertEquals(l3, e.getLifeForm(3, 2));
+		assertEquals(18, e.getDistance(l1,l3));
+	}
+	
+	@Test(expected = EnvironmentException.class)
+	public void testLifeFormsRangeException() throws EnvironmentException
+	{
+		Environment.clearBoard();
+		Environment.setupWorld(4,4);
+		Environment e = Environment.getWorld();
+		LifeForm l1 = new MockLifeForm("L", 10);
+	
+		LifeForm l3 = new MockLifeForm("L", 10);
+		e.addLifeForm(l3, 3, 2);
+		assertEquals(l3, e.getLifeForm(3, 2));
+		assertEquals(25, e.getDistance(l1,l3)); //will throw an exception here.
+	}
+	
 	/*
 	 * Start Section for Decorator Pattern Tests
 	 */ 
@@ -175,7 +236,8 @@ public class TestEnvironment
 		LifeForm l = new MockLifeForm("L", 10);
 		e.addLifeForm(l, 0, 1);
 		assertEquals(l, e.getLifeForm(0, 1));
-		e.removeLifeForm(0, 1);
+		boolean success = e.removeLifeForm(0, 1);
+		assertTrue(success);
 		assertNull(e.getLifeForm(0, 1));
 	}
 }

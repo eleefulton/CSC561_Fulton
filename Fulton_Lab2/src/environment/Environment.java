@@ -1,5 +1,6 @@
 package environment;
 
+import exceptions.EnvironmentException;
 import lifeform.LifeForm;
 import weapon.Weapon;
 
@@ -112,6 +113,8 @@ public class Environment
 			return;
 		}
 		cells[r][c].addLifeForm(l);
+		l.setRowCell(r); //set the row position of the lifeForm
+		l.setColCell(c); //set the row position of the lifeForm
 	}
 
 	/**
@@ -122,13 +125,13 @@ public class Environment
 	 * @param c
 	 *            The column index
 	 */
-	public void removeLifeForm(int r, int c)
+	public boolean removeLifeForm(int r, int c)
 	{
 		if (r < 0 || c < 0 || r >= rows || c >= cols)
 		{
-			return;
+			return false;
 		}
-		cells[r][c].removeLifeForm();
+		return cells[r][c].removeLifeForm();
 	}
 	
 	/**
@@ -224,6 +227,32 @@ public class Environment
 			return false;
 		}
 		return cells[row][col].removeWeapon2();
+	}
+
+	/**
+	 * @param life1
+	 * @param life2
+	 * @return - returns the distance between to LifeForms
+	 */
+	public int getDistance(LifeForm life1, LifeForm life2) throws EnvironmentException
+	{
+		if(!life1.isInTheWorld() || !life2.isInTheWorld()) 
+			throw new EnvironmentException();
+		if(life1.getRowCell() == life2.getRowCell())
+		{
+			return 5 * Math.abs(life1.getColCell() - life2.getColCell());
+		}
+		else if (life1.getColCell() == life2.getColCell())
+		{
+			return 5 * Math.abs(life1.getRowCell() - life2.getRowCell());
+		}
+		else
+		{
+			int x = life1.getColCell() - life2.getColCell();
+			int y = life1.getRowCell() - life2.getRowCell();
+			return (int) (5 * Math.sqrt((x * x + y * y)));
+		}
+
 	}
 
 }
