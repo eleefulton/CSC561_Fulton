@@ -5,6 +5,8 @@ import static org.junit.Assert.assertNull;
 
 import org.junit.Test;
 
+import environment.Environment;
+import exceptions.EnvironmentException;
 import gameplay.SimpleTimer;
 import weapon.Pistol;
 import weapon.PlasmaCannon;
@@ -15,7 +17,28 @@ import weapon.PlasmaCannon;
  */
 public class TestLifeForm
 {
-
+	@Test
+	public void testAttackWithRange() throws EnvironmentException
+	{
+		Environment e = new Environment(2, 3);
+		LifeForm l1 = new MockLifeForm("L1", 40, 2);
+		LifeForm l2 = new MockLifeForm("L2", 30, 2);
+		e.addLifeForm(l1, 0, 0);
+		e.addLifeForm(l2, 0, 1);
+		PlasmaCannon pc = new PlasmaCannon(50, 20, 1, 4);
+		l1.pickWeapon(pc);
+			
+		assertEquals(50, l1.attack(e.getDistance(l1, l2)));
+		pc.reload();
+		pc.resetShotsFired();
+		assertEquals(50, l1.attack(e.getDistance(l1, l2)));
+		
+		pc.resetShotsFired();
+		pc.setRemainingAmmo(0);
+		e.removeLifeForm(0, 1);
+		e.addLifeForm(l2, 0, 2);
+		assertEquals(0, l1.attack(e.getDistance(l1, l2)));
+	}
 	@Test
 	public void testLifeFormPickingAWeapon()
 	{
