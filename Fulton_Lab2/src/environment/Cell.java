@@ -1,5 +1,7 @@
 package environment;
 
+import java.util.ArrayList;
+
 import lifeform.LifeForm;
 import weapon.Weapon;
 
@@ -11,6 +13,7 @@ public class Cell
 
 	private LifeForm myLifeForm;
 	private Weapon[] weapons = new Weapon[2];
+
 	/**
 	 * @return the LifeForm in this Cell.
 	 */
@@ -49,14 +52,18 @@ public class Cell
 		return weapons;
 	}
 
-	public void addWeapon(Weapon w1, Weapon w2) 
+	public void addWeapon(Weapon w) 
 	{
-		weapons[0] = w1;
-		weapons[1] = w2;
+		if (weapons[0] == null)
+			weapons[0] = w;
+		else if (weapons[1] == null)
+			weapons[1] = w;
 	}
 
-	public void removeWeapons() {
-		weapons[0] = null;
-		weapons[1] = null;
+	public void removeWeapon(Weapon w) {
+		if(weapons[0] == w)
+			weapons[0] =null;
+		if(weapons[1] == w)
+			weapons[1] =null;
 	}
 }

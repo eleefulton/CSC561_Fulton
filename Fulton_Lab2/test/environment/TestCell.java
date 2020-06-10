@@ -24,7 +24,8 @@ public class TestCell
 		Cell cell = new Cell();
 		MockWeapon w = new MockWeapon(5,5,5,5);
 		MockWeapon w1 = new MockWeapon(5,5,5,5);
-		cell.addWeapon(w, w1);
+		cell.addWeapon(w);
+		cell.addWeapon(w1);
 		assertEquals(w, cell.getWeapons()[0]);
 		assertEquals(w1, cell.getWeapons()[1]);
 	}
@@ -35,8 +36,10 @@ public class TestCell
 		Cell cell = new Cell();
 		MockWeapon w = new MockWeapon(5,5,5,5);
 		MockWeapon w1 = new MockWeapon(5,5,5,5);
-		cell.addWeapon(w, w1);
-		cell.removeWeapons();
+		cell.addWeapon(w);
+		cell.addWeapon(w1);
+		cell.removeWeapon(w);
+		cell.removeWeapon(w1);
 		assertNull(cell.getWeapons()[0]);
 		assertNull(cell.getWeapons()[1]);
 	}
