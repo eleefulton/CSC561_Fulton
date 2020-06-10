@@ -16,6 +16,29 @@ import weapon.PlasmaCannon;
 public class TestLifeForm
 {
 
+	@Test
+	public void testLifeFormAttackWithRange()
+	{
+		LifeForm bob = new MockLifeForm("Bob", 40, 2);
+		bob.setRowCell(0);
+		bob.setColCell(0);
+		PlasmaCannon pc = new PlasmaCannon(50, 20, 1, 4);
+		bob.pickWeapon(pc);
+		
+		LifeForm fred = new MockLifeForm("Fred", 30, 2);
+		fred.setRowCell(0);
+		fred.setColCell(1); //5 feet away
+		
+		assertEquals(50, bob.attack(fred));
+		pc.reload();
+		pc.resetShotsFired();
+		assertEquals(50, bob.attack(fred));
+		pc.resetShotsFired();
+		pc.setRemainingAmmo(0);
+		
+		fred.setColCell(2); //10 feet away
+		assertEquals(0, bob.attack(fred));
+	}
 	
 	/*
 	 * Start Section for Decorator Pattern Tests

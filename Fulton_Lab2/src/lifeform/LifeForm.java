@@ -170,4 +170,56 @@ public abstract class LifeForm implements TimeObserver
 		this.isInTheWorld = val;
 	}
 	
+	/**
+	 * Simulate to LifeForms attacking each other
+	 * @param other
+	 * @return
+	 */
+	public int attack(LifeForm other)
+	{
+		int distance = getDistance(other);
+		if (weapon == null)
+		{
+			if (distance > 5)
+			{
+				return 0;
+			} else
+			{
+				return currentLifePoints == 0 ? 0 : attackStrength;
+			}
+		} else
+		{
+			if (weapon.getRemainingAmmo() == 0 && distance <= 5)
+			{
+				return currentLifePoints == 0 ? 0 : attackStrength;
+			} else
+			{
+				return weapon.fireWeapon(distance);
+			}
+		}
+	}
+	
+	/**
+	 * @param life
+	 * @return - returns the distance to another lifeForm.
+	 */
+	public int getDistance(LifeForm life)
+	{
+		if(life.getRowCell() == this.getRowCell())
+		{
+			return 5 * Math.abs(life.getColCell() - this.getColCell());
+		}
+		else if (life.getColCell() == this.getColCell())
+		{
+			return 5 * Math.abs(life.getRowCell() - this.getRowCell());
+		}
+		else
+		{
+			int x = life.getColCell() - this.getColCell();
+			int y = life.getRowCell() - this.getRowCell();
+			return (int) (5 * Math.sqrt((x * x + y * y)));
+		}
+
+	}
+	
 }
