@@ -3,6 +3,7 @@ package lifeform;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 
+import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -21,13 +22,18 @@ public class TestLifeForm
 {
 	private static Environment e;
 	
-	
 	@BeforeClass
     public static void setup() throws ExistingWorldException 
 	{
-        //LOG.info("startup");
+		Environment.clearBoard();
 		Environment.setupWorld(4,4);
         e = Environment.getWorld();
+    }
+	
+	@AfterClass
+    public static void CleanUp() 
+	{
+		Environment.clearBoard();
     }
 
 	@Test()

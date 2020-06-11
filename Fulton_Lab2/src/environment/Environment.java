@@ -137,7 +137,7 @@ public class Environment
 	 * Clears the board with a clean slate.
 	 * This especially important for the JUnit testing prospective.
 	 */
-	static void clearBoard()
+	public static void clearBoard()
 	{
 		theWorld = null;
 	}

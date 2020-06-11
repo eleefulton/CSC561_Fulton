@@ -65,28 +65,6 @@ public abstract class LifeForm implements TimeObserver
 		currentLifePoints = currentLifePoints - damage < 0 ? 0 : currentLifePoints - damage;
 	}
 
-	public int attack(int distance)
-	{
-		if (weapon == null)
-		{
-			if (distance > 5)
-			{
-				return 0;
-			} else
-			{
-				return currentLifePoints == 0 ? 0 : attackStrength;
-			}
-		} else
-		{
-			if (weapon.getRemainingAmmo() == 0 && distance <= 5)
-			{
-				return currentLifePoints == 0 ? 0 : attackStrength;
-			} else
-			{
-				return weapon.fireWeapon(distance);
-			}
-		}
-	}
 
 	/**
 	 * This allow a lifeform to pick a weapon that they can use to fight.
