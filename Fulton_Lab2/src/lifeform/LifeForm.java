@@ -1,5 +1,7 @@
 package lifeform;
 
+import environment.Environment;
+import exceptions.EnvironmentException;
 import gameplay.TimeObserver;
 import weapon.Weapon;
 
@@ -174,10 +176,14 @@ public abstract class LifeForm implements TimeObserver
 	 * Simulate to LifeForms attacking each other
 	 * @param other
 	 * @return
+	 * @throws EnvironmentException 
 	 */
-	public int attack(LifeForm other)
+	public int attack(LifeForm other) throws EnvironmentException
 	{
-		int distance = getDistance(other);
+		Environment e = Environment.getWorld();
+		int distance = -1;
+		if(e != null )
+			distance = e.getDistance(this, other);
 		if (weapon == null)
 		{
 			if (distance > 5)
@@ -197,29 +203,6 @@ public abstract class LifeForm implements TimeObserver
 				return weapon.fireWeapon(distance);
 			}
 		}
-	}
-	
-	/**
-	 * @param life
-	 * @return - returns the distance to another lifeForm.
-	 */
-	public int getDistance(LifeForm life)
-	{
-		if(life.getRowCell() == this.getRowCell())
-		{
-			return 5 * Math.abs(life.getColCell() - this.getColCell());
-		}
-		else if (life.getColCell() == this.getColCell())
-		{
-			return 5 * Math.abs(life.getRowCell() - this.getRowCell());
-		}
-		else
-		{
-			int x = life.getColCell() - this.getColCell();
-			int y = life.getRowCell() - this.getRowCell();
-			return (int) (5 * Math.sqrt((x * x + y * y)));
-		}
-
 	}
 	
 }

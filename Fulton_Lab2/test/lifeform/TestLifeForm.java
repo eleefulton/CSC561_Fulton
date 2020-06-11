@@ -5,6 +5,9 @@ import static org.junit.Assert.assertNull;
 
 import org.junit.Test;
 
+import environment.Environment;
+import exceptions.EnvironmentException;
+import exceptions.ExistingWorldException;
 import gameplay.SimpleTimer;
 import weapon.Pistol;
 import weapon.PlasmaCannon;
@@ -17,17 +20,17 @@ public class TestLifeForm
 {
 
 	@Test
-	public void testLifeFormAttackWithRange()
+	public void testLifeFormAttackWithRange() throws EnvironmentException, ExistingWorldException
 	{
+		Environment.setupWorld(4,4);
+		Environment e = Environment.getWorld();
 		LifeForm bob = new MockLifeForm("Bob", 40, 2);
-		bob.setRowCell(0);
-		bob.setColCell(0);
+		e.addLifeForm(bob, 0, 0);
 		PlasmaCannon pc = new PlasmaCannon(50, 20, 1, 4);
 		bob.pickWeapon(pc);
 		
 		LifeForm fred = new MockLifeForm("Fred", 30, 2);
-		fred.setRowCell(0);
-		fred.setColCell(1); //5 feet away
+		e.addLifeForm(fred, 0, 1);//5 feet away
 		
 		assertEquals(50, bob.attack(fred));
 		pc.reload();
