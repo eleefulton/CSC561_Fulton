@@ -9,26 +9,95 @@ import org.junit.Test;
 
 import lifeform.LifeForm;
 import lifeform.MockLifeForm;
+import weapon.PlasmaCannon;
+import weapon.Weapon;
 
 /**
- * The test cases for the Cell class
+ * The test cases for the Cell class.
  *
  */
 public class TestCell
 {
+	@Test
+	public void testAddWeapons()
+	{
+		Weapon weap1 = new PlasmaCannon(20,10,1,4);
+		Weapon weap2 = new PlasmaCannon(25,10,1,4);
+		Cell cell = new Cell();
+		// The cell is empty so this should work.
+		boolean success = cell.addWeapon1(weap1);
+		assertTrue(success);
+		assertEquals(weap1, cell.getWeapon1());
+		
+		success = cell.addWeapon2(weap2);
+		assertTrue(success);
+		assertEquals(weap2, cell.getWeapon2());
+	}
+	
+	@Test
+	public void testRemoveWeapons()
+	{
+		Weapon weap1 = new PlasmaCannon(20,10,1,4);
+		Weapon weap2 = new PlasmaCannon(25,10,1,4);
+		Cell cell = new Cell();
+		// The cell is empty so this should work.
+		boolean success = cell.addWeapon1(weap1);
+		assertTrue(success);
+		assertEquals(weap1, cell.getWeapon1());
+		success = cell.addWeapon2(weap2);
+		assertTrue(success);
+		assertEquals(weap2, cell.getWeapon2());
+		
+		success = cell.removeWeapon1();
+		assertTrue(success);
+		assertNull(cell.getWeapon1());
+		success = cell.removeWeapon2();
+		assertTrue(success);
+		assertNull(cell.getWeapon2());
+	}
+	
+	@Test
+	public void testCannotAddMoreThanOneWeaponPerSlot()
+	{
+		Weapon weap1 = new PlasmaCannon(20,10,1,4);
+		Weapon weap2 = new PlasmaCannon(25,10,1,4);
+		Weapon weap3 = new PlasmaCannon(10,5,1,4);
+		Cell cell = new Cell();
+		// The cell is empty so this should work.
+		boolean success = cell.addWeapon1(weap1);
+		assertTrue(success);
+		assertEquals(weap1, cell.getWeapon1());
+		success = cell.addWeapon2(weap2);
+		assertTrue(success);
+		assertEquals(weap2, cell.getWeapon2());
+		
+		success = cell.addWeapon1(weap3);
+		assertFalse(success);                  //There is already a weapon in the slot.
+		assertEquals(weap1, cell.getWeapon1());
+		success = cell.addWeapon2(weap3);
+		assertFalse(success);                   //There is already a weapon in the slot.
+		assertEquals(weap2, cell.getWeapon2());
+	}
+	
+	
+	/*
+	 * Start Section for Decorator Pattern Tests
+	 */ 
 
 	/**
 	 * begin tests for Strategy Pattern
 	 */
 
 	/**
-	 * At initialization, the Cell should be empty and not contain a LifeForm.
+	 * At initialization, the Cell should be empty and not contain a LifeForm or weapons.
 	 */
 	@Test
 	public void testInitialization()
 	{
 		Cell cell = new Cell();
 		assertNull(cell.getLifeForm());
+		assertNull(cell.getWeapon1());
+		assertNull(cell.getWeapon2());
 	}
 
 	/**
@@ -61,7 +130,8 @@ public class TestCell
 		Cell cell = new Cell();
 		cell.addLifeForm(bob);
 		assertEquals(bob, cell.getLifeForm());
-		cell.removeLifeForm();
+		boolean success = cell.removeLifeForm();
+		assertTrue(success);
 		assertNull(cell.getLifeForm());
 	}
 }

@@ -2,14 +2,34 @@ package lifeform;
 
 import static org.junit.Assert.assertEquals;
 
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
+import environment.Environment;
 import exceptions.AlienConstructorException;
+import exceptions.EnvironmentException;
+import exceptions.ExistingWorldException;
 import gameplay.SimpleTimer;
 import recovery.RecoveryLinear;
 
 public class TestAlien
 {
+   private static Environment e;
+	
+	@BeforeClass
+    public static void setup() throws ExistingWorldException 
+	{
+		Environment.clearBoard();
+		Environment.setupWorld(4,4);
+        e = Environment.getWorld();
+    }
+	
+	@AfterClass
+    public static void CleanUp() 
+	{
+		Environment.clearBoard();
+    }
 
 	@Test
 	public void testRecoverOverTime() throws AlienConstructorException
@@ -69,19 +89,32 @@ public class TestAlien
 	}
 
 	@Test
-	public void testInitializeWithDefaultAttack()
+	public void testInitializeWithDefaultAttack() throws EnvironmentException
 	{
-		Alien alien = new Alien("alie", 40);
-		assertEquals(10, alien.attack(5));
+		Alien alien = new Alien("alien", 40);
+		e.addLifeForm(alien, 0, 0);
+		LifeForm fred = new MockLifeForm("Fred", 30, 2);
+		e.addLifeForm(fred, 0, 1);//5 feet away
+		assertEquals(10, alien.attack(fred));
+		
+		//Clears the slots since the environment is unique.
+		e.removeLifeForm(0, 0);
+		e.removeLifeForm(0, 1);
 	}
 
 	@Test
-	public void testTakeDamageFromAttack()
+	public void testTakeDamageFromAttack() throws EnvironmentException
 	{
 		Alien alien = new Alien("Alie", 40);
 		LifeForm entity = new MockLifeForm("Bob", 40, 10);
-		alien.takeHit(entity.attack(5));
+		e.addLifeForm(alien, 0, 0);
+		e.addLifeForm(entity, 0, 1);//5 feet away
+		alien.takeHit(entity.attack(alien));
 		assertEquals(30, alien.getCurrentLifePoints());
+		
+		//Clears the slots since the environment is unique.
+		e.removeLifeForm(0, 0);
+		e.removeLifeForm(0, 1);
 	}
 
 	@Test

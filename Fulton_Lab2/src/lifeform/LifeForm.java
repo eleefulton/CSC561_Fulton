@@ -1,5 +1,7 @@
 package lifeform;
 
+import environment.Environment;
+import exceptions.EnvironmentException;
 import gameplay.TimeObserver;
 import weapon.Weapon;
 
@@ -15,6 +17,9 @@ public abstract class LifeForm implements TimeObserver
 	protected int currentLifePoints;
 	protected int attackStrength;
 	protected Weapon weapon; // The weapon held by the lifeform
+	private int rowCell;      // The row of the Cell holding the LifeForm.
+	private int colCell;     //The col of the cell holding the lifeform
+	private boolean isInTheWorld;  //checks if the FifeForm is in the Environemnt
 
 	/**
 	 * Create an instance
@@ -28,6 +33,9 @@ public abstract class LifeForm implements TimeObserver
 	{
 		myName = name;
 		currentLifePoints = points;
+		rowCell = -1;
+		colCell = -1;
+		this.setInTheWorld(false);
 	}
 
 	/**
@@ -57,28 +65,6 @@ public abstract class LifeForm implements TimeObserver
 		currentLifePoints = currentLifePoints - damage < 0 ? 0 : currentLifePoints - damage;
 	}
 
-	public int attack(int distance)
-	{
-		if (weapon == null)
-		{
-			if (distance > 5)
-			{
-				return 0;
-			} else
-			{
-				return currentLifePoints == 0 ? 0 : attackStrength;
-			}
-		} else
-		{
-			if (weapon.getRemainingAmmo() == 0 && distance <= 5)
-			{
-				return currentLifePoints == 0 ? 0 : attackStrength;
-			} else
-			{
-				return weapon.fireWeapon(distance);
-			}
-		}
-	}
 
 	/**
 	 * This allow a lifeform to pick a weapon that they can use to fight.
@@ -115,4 +101,86 @@ public abstract class LifeForm implements TimeObserver
 			weapon.reload();
 		}
 	}
+
+	/**
+	 * @return - returns the row of the Cell holding the Lifeform
+	 */
+	public int getRowCell() 
+	{
+		return rowCell;
+	}
+	
+	/**
+	 * @return - returns the row of the Cell holding the Lifeform.
+	 */
+	public int getColCell() 
+	{
+		return colCell;
+	}
+	
+	/**
+	 * @param rowCell the rowCell to set
+	 */
+	public void setRowCell(int row) 
+	{
+		this.rowCell = row;
+	}
+
+	/**
+	 * @param colCell the colCell to set
+	 */
+	public void setColCell(int col) 
+	{
+		this.colCell = col;
+	}
+	
+	/**
+	 * @return the isInTheWorld
+	 */
+	public boolean isInTheWorld() 
+	{
+		return isInTheWorld;
+	}
+
+	/**
+	 * @param isInTheWorld the isInTheWorld to set
+	 */
+	public void setInTheWorld(boolean val) 
+	{
+		this.isInTheWorld = val;
+	}
+	
+	/**
+	 * Simulate to LifeForms attacking each other
+	 * @param other
+	 * @return
+	 * @throws EnvironmentException 
+	 */
+	public int attack(LifeForm other) throws EnvironmentException
+	{
+		Environment e = Environment.getWorld();
+		int distance = -1;
+		if(e != null )
+			distance = e.getDistance(this, other);
+		if (weapon == null)
+		{
+			if (distance > 5)
+			{
+				return 0;
+			} else
+			{
+				return currentLifePoints == 0 ? 0 : attackStrength;
+			}
+		} else
+		{
+			if (weapon.getRemainingAmmo() == 0 && distance <= 5)
+			{
+				return currentLifePoints == 0 ? 0 : attackStrength;
+			} else
+			{
+				return weapon.fireWeapon(distance);
+			}
+		}
+	}
+	
 }
