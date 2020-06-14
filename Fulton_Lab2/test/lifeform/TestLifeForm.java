@@ -76,21 +76,24 @@ public class TestLifeForm
 
 		LifeForm bob = new MockLifeForm("Bob", 40, 2);
 		e.addLifeForm(bob, 0, 0);
-		PlasmaCannon pc = new PlasmaCannon(50, 20, 1, 4);
+		PlasmaCannon pc = new PlasmaCannon(25, 20, 1, 4);
 		bob.pickWeapon(pc);
 
-		LifeForm fred = new MockLifeForm("Fred", 30, 2);
+		LifeForm fred = new MockLifeForm("Fred", 100, 2);
 		e.addLifeForm(fred, 0, 1);// 5 feet away
 
-		assertEquals(50, bob.attack(fred));
+		bob.attack(fred);
+		assertEquals(75, fred.getCurrentLifePoints());
 		pc.reload();
 		pc.resetShotsFired();
-		assertEquals(50, bob.attack(fred));
+		bob.attack(fred);
+		assertEquals(50, fred.getCurrentLifePoints());
 		pc.resetShotsFired();
 		pc.setRemainingAmmo(0);
 
 		fred.setColCell(2); // 10 feet away
-		assertEquals(0, bob.attack(fred));
+		bob.attack(fred);
+		assertEquals(50, fred.getCurrentLifePoints());
 
 		// Clears the slots since the environment is unique.
 		e.removeLifeForm(0, 0);
@@ -138,20 +141,23 @@ public class TestLifeForm
 	public void testLifeFormAttackWithPlasmaCannon() throws EnvironmentException
 	{
 		LifeForm entity = new MockLifeForm("Bob", 40, 2);
-		PlasmaCannon pc = new PlasmaCannon(50, 20, 1, 4);
+		PlasmaCannon pc = new PlasmaCannon(25, 20, 1, 4);
 		entity.pickWeapon(pc);
 		e.addLifeForm(entity, 0, 0);
-		LifeForm fred = new MockLifeForm("Fred", 30, 2);
+		LifeForm fred = new MockLifeForm("Fred", 100, 2);
 		e.addLifeForm(fred, 0, 2);// 10 feet away
-		LifeForm joe = new MockLifeForm("Joe", 30, 2);
+		LifeForm joe = new MockLifeForm("Joe", 75, 2);
 		e.addLifeForm(joe, 0, 1);// 5 feet away
-		assertEquals(50, entity.attack(fred));
+		entity.attack(fred);
+		assertEquals(75, fred.getCurrentLifePoints());
 		pc.reload();
 		pc.resetShotsFired();
-		assertEquals(50, entity.attack(joe));
+		entity.attack(joe);
+		assertEquals(50, joe.getCurrentLifePoints());
 		pc.resetShotsFired();
 		pc.setRemainingAmmo(0);
-		assertEquals(0, entity.attack(fred));
+		entity.attack(fred);
+		assertEquals(75, fred.getCurrentLifePoints());
 
 		// Clears the slots since the environment is unique.
 		e.removeLifeForm(0, 0);
@@ -166,20 +172,24 @@ public class TestLifeForm
 		Pistol p = new Pistol(50, 20, 1, 4);
 		entity.pickWeapon(p);
 		e.addLifeForm(entity, 0, 0);
-		LifeForm fred = new MockLifeForm("Fred", 30, 2);
+		LifeForm fred = new MockLifeForm("Fred", 40, 2);
 		e.addLifeForm(fred, 0, 2);// 10 feet away
-		LifeForm joe = new MockLifeForm("Joe", 30, 2);
+		LifeForm joe = new MockLifeForm("Joe", 70, 2);
 		e.addLifeForm(joe, 0, 1);// 5 feet away
-		assertEquals(37, entity.attack(fred));
+		entity.attack(fred);
+		assertEquals(3, fred.getCurrentLifePoints());
 		p.reload();
 		p.resetShotsFired();
 
-		assertEquals(50, entity.attack(joe));
+		entity.attack(joe);
+		assertEquals(20, joe.getCurrentLifePoints());
 		p.resetShotsFired();
 		p.setRemainingAmmo(0);
-		assertEquals(0, entity.attack(fred));
+		entity.attack(fred);
+		assertEquals(3, fred.getCurrentLifePoints());
 		p.resetShotsFired();
-		assertEquals(2, entity.attack(joe));
+		entity.attack(joe);
+		assertEquals(18, joe.getCurrentLifePoints());
 
 		// Clears the slots since the environment is unique.
 		e.removeLifeForm(0, 0);
@@ -195,10 +205,12 @@ public class TestLifeForm
 		LifeForm fred = new MockLifeForm("Fred", 30, 2);
 		e.addLifeForm(fred, 0, 1);// 5 feet away
 		assertNull(entity.getWeapon());
-		assertEquals(2, entity.attack(fred));
+		entity.attack(fred);
+		assertEquals(28, fred.getCurrentLifePoints());
 
-		fred.setRowCell(1); // 7 feet away
-		assertEquals(0, entity.attack(fred));
+		fred.setRowCell(1); // 10 feet away
+		entity.attack(fred);
+		assertEquals(28, fred.getCurrentLifePoints());
 
 		// Clears the slots since the environment is unique.
 		e.removeLifeForm(0, 0);
@@ -227,8 +239,8 @@ public class TestLifeForm
 		e.addLifeForm(entity, 0, 0);
 		LifeForm fred = new MockLifeForm("Fred", 30, 2);
 		e.addLifeForm(fred, 0, 1);// 5 feet away
-		assertEquals(2, entity.attack(fred));
-
+		entity.attack(fred);
+		assertEquals(28, fred.getCurrentLifePoints());
 		// Clears the slots since the environment is unique.
 		e.removeLifeForm(0, 0);
 		e.removeLifeForm(0, 1);
@@ -241,7 +253,7 @@ public class TestLifeForm
 		LifeForm entity2 = new MockLifeForm("Dave", 40, 2);
 		e.addLifeForm(entity, 0, 0);
 		e.addLifeForm(entity2, 0, 1);// 5 feet away
-		entity.takeHit(entity2.attack(entity));
+		entity2.attack(entity);
 		assertEquals(38, entity.getCurrentLifePoints());
 
 		// Clears the slots since the environment is unique.
@@ -256,7 +268,8 @@ public class TestLifeForm
 		LifeForm entity2 = new MockLifeForm("Dave", 40, 2);
 		e.addLifeForm(entity, 0, 0);
 		e.addLifeForm(entity2, 0, 1);// 5 feet away
-		assertEquals(0, entity.attack(entity2));
+		entity.attack(entity2);
+		assertEquals(40, entity2.getCurrentLifePoints());
 
 		// Clears the slots since the environment is unique.
 		e.removeLifeForm(0, 0);

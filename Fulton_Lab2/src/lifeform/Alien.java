@@ -29,6 +29,7 @@ public class Alien extends LifeForm
 		maxLifePoints = points;
 		myRecoveryBehavior = rb;
 		attackStrength = 10;
+		maxSpeed = 2;
 	}
 
 	public Alien(String name, int points, RecoveryBehavior rb, int rr) throws AlienConstructorException

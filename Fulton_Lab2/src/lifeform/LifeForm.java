@@ -24,7 +24,7 @@ public abstract class LifeForm implements TimeObserver
 	private int rowCell; // The row of the Cell holding the LifeForm.
 	private int colCell; // The col of the cell holding the lifeform
 	private boolean isInTheWorld; // checks if the FifeForm is in the Environemnt
-	private int maxSpeed;
+	protected int maxSpeed;
 	private int currentDirection;
 
 	/**
@@ -164,10 +164,10 @@ public abstract class LifeForm implements TimeObserver
 	 * Simulate to LifeForms attacking each other
 	 * 
 	 * @param other
-	 * @return
+	 *            the lifeform to attack
 	 * @throws EnvironmentException
 	 */
-	public int attack(LifeForm other) throws EnvironmentException
+	public void attack(LifeForm other) throws EnvironmentException
 	{
 		Environment e = Environment.getWorld();
 		int distance = -1;
@@ -175,21 +175,18 @@ public abstract class LifeForm implements TimeObserver
 			distance = e.getDistance(this, other);
 		if (weapon == null)
 		{
-			if (distance > 5)
+			if (distance <= 5)
 			{
-				return 0;
-			} else
-			{
-				return currentLifePoints == 0 ? 0 : attackStrength;
+				other.takeHit(currentLifePoints == 0 ? 0 : attackStrength);
 			}
 		} else
 		{
 			if (weapon.getRemainingAmmo() == 0 && distance <= 5)
 			{
-				return currentLifePoints == 0 ? 0 : attackStrength;
+				other.takeHit(currentLifePoints == 0 ? 0 : attackStrength);
 			} else
 			{
-				return weapon.fireWeapon(distance);
+				other.takeHit(weapon.fireWeapon(distance));
 			}
 		}
 	}

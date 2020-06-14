@@ -13,20 +13,31 @@ import exceptions.ExistingWorldException;
 public class TestHuman
 {
 	private static Environment e;
-	
+
 	@BeforeClass
-    public static void setup() throws ExistingWorldException 
+	public static void setup() throws ExistingWorldException
 	{
 		Environment.clearBoard();
-		Environment.setupWorld(4,4);
-        e = Environment.getWorld();
-    }
-	
+		Environment.setupWorld(4, 4);
+		e = Environment.getWorld();
+	}
+
 	@AfterClass
-    public static void CleanUp() 
+	public static void CleanUp()
 	{
 		Environment.clearBoard();
-    }
+	}
+
+	@Test
+	public void testMaxSpeed()
+	{
+		Human h1 = new Human("Bob", 40, 10);
+		assertEquals(3, h1.getMaxSpeed());
+	}
+
+	/**
+	 * start lab 5 tests
+	 */
 
 	@Test
 	public void testDefaultAttack() throws EnvironmentException
@@ -34,10 +45,11 @@ public class TestHuman
 		Human h1 = new Human("Bob", 40, 10);
 		e.addLifeForm(h1, 0, 0);
 		LifeForm fred = new MockLifeForm("Fred", 30, 2);
-		e.addLifeForm(fred, 0, 1);//5 feet away
-		assertEquals(5, h1.attack(fred));
-		
-		//Clears the slots since the environment is unique.
+		e.addLifeForm(fred, 0, 1);// 5 feet away
+		h1.attack(fred);
+		assertEquals(25, fred.getCurrentLifePoints());
+
+		// Clears the slots since the environment is unique.
 		e.removeLifeForm(0, 0);
 		e.removeLifeForm(0, 1);
 	}
@@ -48,11 +60,11 @@ public class TestHuman
 		Human h1 = new Human("Bob", 40, 0);
 		LifeForm entity = new MockLifeForm("Fred", 40, 10);
 		e.addLifeForm(h1, 0, 0);
-		e.addLifeForm(entity, 0, 1);//5 feet away
-		h1.takeHit(entity.attack(h1));
+		e.addLifeForm(entity, 0, 1);// 5 feet away
+		entity.attack(h1);
 		assertEquals(30, h1.getCurrentLifePoints());
-		
-		//Clears the slots since the environment is unique.
+
+		// Clears the slots since the environment is unique.
 		e.removeLifeForm(0, 0);
 		e.removeLifeForm(0, 1);
 	}

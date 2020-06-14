@@ -16,6 +16,7 @@ public class Human extends LifeForm
 		super(name, lifepoints);
 		this.setArmorPoints(armor);
 		attackStrength = 5;
+		maxSpeed = 3;
 	}
 
 	/**
