@@ -269,6 +269,15 @@ public class Environment
 
 	}
 
+	/**
+	 * move a lifeform if there is one in the given cell based on it's speed and
+	 * current direction
+	 * 
+	 * @param r
+	 *            the row the lifeform should be in
+	 * @param c
+	 *            the column the lifeform should be in
+	 */
 	public void moveLifeForm(int r, int c)
 	{
 		LifeForm l = getLifeForm(r, c);
