@@ -19,14 +19,21 @@ import environment.Environment;
 import lifeform.Alien;
 import lifeform.Human;
 import lifeform.LifeForm;
+import weapon.Attachment;
 import weapon.ChainGun;
 import weapon.Pistol;
 import weapon.PlasmaCannon;
 import weapon.Weapon;
 
+/**
+ * UI class, creates board and pieces
+ * @author CASquires
+ *
+ */
 public class UI extends JFrame{
 
 	private Environment theWorld;
+	
 	public UI()
 	{
 		theWorld = Environment.getWorld();
@@ -37,6 +44,11 @@ public class UI extends JFrame{
 		theWorld = e;
 		createGrid();
 	}
+	
+	/**
+	 * CreateGrid, uses the environment to create the board
+	 * Adds lifeforms and weapons as it creates the board
+	 */
 	public void createGrid()
 	{
 		setLayout(new BorderLayout());
@@ -58,7 +70,6 @@ public class UI extends JFrame{
 
 		 JPanel centerPanel = new JPanel(new GridLayout(theWorld.getNumberOfRows(),theWorld.getNumberOfColumns()));
 		 centerPanel.setBackground(new Color(255,255,255));
-		 //centerPanel.setBorder(BorderFactory.createEmptyBorder(2,2,2,2));
 		 JLabel[][] labelArray = new JLabel[theWorld.getNumberOfRows()][theWorld.getNumberOfColumns()];
 		 
 		 for (int r=0;r< theWorld.getNumberOfRows(); r++)
@@ -67,14 +78,15 @@ public class UI extends JFrame{
 			 {
 				 labelArray[r][c] = new JLabel();
 				 labelArray[r][c].setBorder(BorderFactory.createLineBorder(Color.black));
-				// labelArray[r][c].setBorder(new Color(0,0,0));
-				  
-				 BufferedImage img = createSpace(r,c);
+				 
+				 BufferedImage img = createSpace();
 				 if (theWorld.getLifeForm(r, c) != null)
 					 createLifeForm(img,theWorld.getLifeForm(r, c), "north");
-				 if (theWorld.getWeapon1(r, c) != null ) //dont forget weapon2
-					 createWeapon(img,theWorld.getWeapon1(r, c));
-
+				 if (theWorld.getWeapon1(r, c) != null )
+					 createWeapon(img,theWorld.getWeapon1(r, c), 1);
+				 if(theWorld.getWeapon2(r, c) != null )
+					 createWeapon(img,theWorld.getWeapon2(r, c), 2);
+				 
 			     labelArray[r][c].setIcon(new ImageIcon(img));
 				 centerPanel.add(labelArray[r][c]);
 			 }
@@ -86,6 +98,12 @@ public class UI extends JFrame{
 
 	}
 	
+	/**
+	 * Create the life form piece, takes in the buffered image and the lifeform and direction
+	 * @param lifeform 
+	 * @param l human or alien
+	 * @param dir direction the lifeform is facing
+	 */
 	public void createLifeForm(BufferedImage lifeform, LifeForm l, String dir)
 	{
 		int x = 5;
@@ -112,12 +130,40 @@ public class UI extends JFrame{
 			drawer.fillArc(x, y, width, height, -180, 180);
 		//Facing South
 		else if (dir == "south")
-			drawer.fillArc(x, y, width, height, 180, -180);		
+			drawer.fillArc(x, y, width, height, 180, -180);
+		//if the lifeform has a weapon, go ahead and add that icon
+		if(l.getWeapon() != null)
+			createWeapon(lifeform, (Weapon)l.getWeapon(), 0);
 	}
 	
-	public void createWeapon(BufferedImage weaponIcon, Weapon w)
+	/**
+	 * Updates the bufferedimage to add the weapon icon, can be done by adding onto 
+	 * existing icon (for lifeform) or not (for placing in cell)
+	 * @param weaponIcon
+	 * @param w weapon 
+	 * @param loc Indicates if the weapon is being held (0) weapon1 (1) or weapon2 (2)
+	 */
+	public void createWeapon(BufferedImage weaponIcon, Weapon w, int loc)
 	{
 		Graphics drawer = weaponIcon.getGraphics();
+		int x =0; 
+		int y =0 ;
+		int width = 15;
+		int height = 15;
+		
+		
+		if (loc ==0 )
+		{
+			x = 5;
+			y = 15;
+		}
+		else if (loc == 2)
+		{
+			x = 35;
+			y = 35;
+		}
+		
+		
 		//This isn't good for attachments.. 
 		if (w instanceof PlasmaCannon)
 			drawer.setColor(Color.green);
@@ -125,11 +171,34 @@ public class UI extends JFrame{
 			drawer.setColor(Color.orange);
 		else if (w instanceof Pistol)
 			drawer.setColor(Color.yellow);
-		drawer.fillOval(0, 0, 15, 15);
+		else if ( w instanceof Attachment) 
+		{		
+			drawer.setColor(Color.gray);
+			width = 5;
+			height = 5;
+			
+			if (w.toString().contains("Stabilizer"))
+			{
+				x = x + width;
+				//y = y + height;
+			} else if (w.toString().contains("Scope"))
+			{
+				x = x + width* 2;
+				//y = y + height * 2;
+			}
+			createWeapon(weaponIcon, ((Attachment) w).getWeapon(), loc);
+		}
+			
+		drawer.fillOval(x, y, width, height);
 		
 	}
 	
-	public BufferedImage createSpace(int x, int y)
+	/**
+	 * This just creates the blank space that is used
+	 * as the building block for images
+	 * @return
+	 */
+	public BufferedImage createSpace()
 	{
 		BufferedImage space = new
 		BufferedImage(50,50,BufferedImage.TYPE_3BYTE_BGR);
@@ -140,4 +209,3 @@ public class UI extends JFrame{
 		return space;		
 	}
 }
-
