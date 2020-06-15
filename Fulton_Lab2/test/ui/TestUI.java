@@ -11,6 +11,9 @@ import environment.Environment;
 import exceptions.ExistingWorldException;
 import lifeform.Alien;
 import lifeform.Human;
+import weapon.ChainGun;
+import weapon.Pistol;
+import weapon.PlasmaCannon;
 
 
 public class TestUI {
@@ -48,4 +51,25 @@ public class TestUI {
 				"Create Cell Image Icon Correct For\nAlien(4,3) facing North\nDoes it look right?"));
 	}
 
+	@Test
+	public void testWorldWeaponLocations() throws ExistingWorldException {
+		Environment.clearBoard();
+		Environment.setupWorld(10,10);
+		Environment e = Environment.getWorld();
+		Human bob = new Human("Bob", 10, 10);
+		e.addLifeForm(bob, 0, 0);
+		
+		PlasmaCannon pc = new PlasmaCannon(10,10,10,10);
+		e.addWeapon1(pc, 0, 0);
+		ChainGun cg = new ChainGun(10,10,10,10);
+		e.addWeapon1(cg, 1, 1);
+		Pistol p = new Pistol(10,10,10,10);
+		e.addWeapon1(p, 2, 2);
+		UI ui = new UI(e);
+		
+		assertEquals(JOptionPane.YES_OPTION, JOptionPane.showConfirmDialog(null, "Create Weapon For\n Weapon(0,0) \n Does it look green?"));
+		assertEquals(JOptionPane.YES_OPTION, JOptionPane.showConfirmDialog(null, "Create Weapon For\n Weapon(1,1) \n Does it look Orange?"));
+		assertEquals(JOptionPane.YES_OPTION, JOptionPane.showConfirmDialog(null, "Create Weapon For\n Weapon(2,2) \n Does it look yellow?"));
+		
+	}
 }
