@@ -27,7 +27,7 @@ import weapon.Weapon;
 
 /**
  * UI class, creates board and pieces
- * @author CASquires
+ * @author Caitlin Squires
  *
  */
 public class UI extends JFrame{
@@ -81,7 +81,7 @@ public class UI extends JFrame{
 				 
 				 BufferedImage img = createSpace();
 				 if (theWorld.getLifeForm(r, c) != null)
-					 createLifeForm(img,theWorld.getLifeForm(r, c), "north");
+					 createLifeForm(img,theWorld.getLifeForm(r, c));
 				 if (theWorld.getWeapon1(r, c) != null )
 					 createWeapon(img,theWorld.getWeapon1(r, c), 1);
 				 if(theWorld.getWeapon2(r, c) != null )
@@ -104,7 +104,7 @@ public class UI extends JFrame{
 	 * @param l human or alien
 	 * @param dir direction the lifeform is facing
 	 */
-	public void createLifeForm(BufferedImage lifeform, LifeForm l, String dir)
+	public void createLifeForm(BufferedImage lifeform, LifeForm l)
 	{
 		int x = 5;
 		int y = 5;
@@ -120,16 +120,16 @@ public class UI extends JFrame{
 		drawer.setColor(new Color(200,200,200));
 		//Color is direction they're facing
 		//Facing West
-		if (dir == "west")
+		if (l.getCurrentDirection() == l.WEST)
 			drawer.fillArc(x, y, width, height, 90, -180);
 		//Facing East
-		else if (dir == "east")
+		else if (l.getCurrentDirection() == l.EAST)
 			drawer.fillArc(x, y, width, height, 90, 180);
 		//Facing North
-		else if (dir == "north")
+		else if (l.getCurrentDirection() == l.NORTH)
 			drawer.fillArc(x, y, width, height, -180, 180);
 		//Facing South
-		else if (dir == "south")
+		else if (l.getCurrentDirection() == l.SOUTH)
 			drawer.fillArc(x, y, width, height, 180, -180);
 		//if the lifeform has a weapon, go ahead and add that icon
 		if(l.getWeapon() != null)
@@ -163,8 +163,6 @@ public class UI extends JFrame{
 			y = 35;
 		}
 		
-		
-		//This isn't good for attachments.. 
 		if (w instanceof PlasmaCannon)
 			drawer.setColor(Color.green);
 		else if (w instanceof ChainGun)
@@ -178,14 +176,9 @@ public class UI extends JFrame{
 			height = 5;
 			
 			if (w.toString().contains("Stabilizer"))
-			{
 				x = x + width;
-				//y = y + height;
-			} else if (w.toString().contains("Scope"))
-			{
+			else if (w.toString().contains("Scope"))
 				x = x + width* 2;
-				//y = y + height * 2;
-			}
 			createWeapon(weaponIcon, ((Attachment) w).getWeapon(), loc);
 		}
 			
@@ -196,7 +189,7 @@ public class UI extends JFrame{
 	/**
 	 * This just creates the blank space that is used
 	 * as the building block for images
-	 * @return
+	 * @return the BufferedImage
 	 */
 	public BufferedImage createSpace()
 	{

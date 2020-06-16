@@ -18,8 +18,8 @@ import weapon.Scope;
 import weapon.Stabilizer;
 
 /**
- * Test UI class
- * @author CASquires
+ * Test UI class, lifeforms, weapons, and attachments
+ * @author Caitlin Squires
  *
  */
 
@@ -120,4 +120,27 @@ public class TestUI {
 		
 	}
 	
+	@Test
+	public void testWorldLifeFormWithWeaponCellTwoWeapon() throws ExistingWorldException {
+		Environment.clearBoard();
+		Environment.setupWorld(10,10);
+		Environment e = Environment.getWorld();
+		
+		ChainGun cg = new ChainGun(10,10,10,10);
+		e.addWeapon1(cg, 0, 0);
+		Pistol p = new Pistol(10,10,10,10);
+		e.addWeapon2(p, 0, 0);
+		
+		PlasmaCannon pc = new PlasmaCannon(10,10,10,10);	
+		Human bob = new Human("Bob", 10, 10);
+		bob.pickWeapon(pc);
+		e.addLifeForm(bob, 0, 0);
+		
+		UI ui = new UI(e);
+		
+		assertEquals(JOptionPane.YES_OPTION, JOptionPane.showConfirmDialog(null, "Weapon1 at (0,0)? \n Is it Orange?"));	
+		assertEquals(JOptionPane.YES_OPTION, JOptionPane.showConfirmDialog(null, "Weapon2 at (0,0)? \n Is it Yellow?"));	
+		assertEquals(JOptionPane.YES_OPTION, JOptionPane.showConfirmDialog(null, "Human at (0,0)? \n Does it have a green weapon?"));		
+		
+	}
 }
