@@ -22,6 +22,55 @@ import weapon.Weapon;
  */
 public class TestEnvironment
 {
+
+	@Test
+	public void testGetTarget() throws ExistingWorldException
+	{
+		Environment.clearBoard();
+		Environment.setupWorld(4, 3);
+		Environment e = Environment.getWorld();
+		LifeForm l1 = new Human("l1", 10, 10);
+		LifeForm l2 = new Human("l2", 10, 10);
+		LifeForm l3 = new Human("l3", 10, 10);
+		// test north
+		e.addLifeForm(l1, 3, 0);
+		e.addLifeForm(l2, 0, 0);
+		assertEquals(l2, e.getTarget(3, 0));
+		e.addLifeForm(l3, 1, 0);
+		assertEquals(l3, e.getTarget(3, 0));
+
+		// test east
+		e.removeLifeForm(1, 0);
+		e.removeLifeForm(0, 0);
+		e.addLifeForm(l2, 3, 2);
+		l1.changeDirection(LifeForm.EAST);
+		assertEquals(l2, e.getTarget(3, 0));
+		e.addLifeForm(l3, 3, 1);
+		assertEquals(l3, e.getTarget(3, 0));
+
+		// test west
+		l1.changeDirection(LifeForm.WEST);
+		e.removeLifeForm(3, 1);
+		e.removeLifeForm(3, 2);
+		e.removeLifeForm(3, 0);
+		e.addLifeForm(l1, 0, 2);
+		e.addLifeForm(l2, 0, 0);
+		assertEquals(l2, e.getTarget(0, 2));
+		e.addLifeForm(l3, 0, 1);
+		assertEquals(l3, e.getTarget(0, 2));
+
+		// test south
+		l1.changeDirection(LifeForm.SOUTH);
+		e.removeLifeForm(0, 0);
+		e.removeLifeForm(0, 1);
+		e.removeLifeForm(0, 2);
+		e.addLifeForm(l1, 0, 0);
+		e.addLifeForm(l2, 3, 0);
+		assertEquals(l2, e.getTarget(0, 0));
+		e.addLifeForm(l3, 1, 0);
+		assertEquals(l3, e.getTarget(0, 0));
+	}
+
 	@Test
 	public void testMoveHumanNorth() throws ExistingWorldException
 	{
