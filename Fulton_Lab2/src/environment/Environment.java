@@ -343,38 +343,47 @@ public class Environment
 			}
 		}
 	}
-	
+
+	/**
+	 * return the first lifeform in the attackers line of sight
+	 * 
+	 * @param r
+	 *            the row the attacker is in
+	 * @param c
+	 *            the column the attacker is in
+	 * @return the target lifeform
+	 */
 	public LifeForm getTarget(int r, int c)
 	{
 		// East by Default
 		int rUpdate = 0;
 		int cUpdate = 1;
-		LifeForm attacker = getLifeForm(r,c);
+		LifeForm attacker = getLifeForm(r, c);
 		LifeForm target = null;
 		// TODO Make into case/switch.
 		if (attacker.getCurrentDirection() == LifeForm.NORTH)
 		{
-		    rUpdate = -1;
-		    cUpdate = 0;
+			rUpdate = -1;
+			cUpdate = 0;
 		}
 		if (attacker.getCurrentDirection() == LifeForm.SOUTH)
 		{
-		    rUpdate = 1;
-		    cUpdate = 0;
+			rUpdate = 1;
+			cUpdate = 0;
 		}
 		if (attacker.getCurrentDirection() == LifeForm.WEST)
 		{
-		    rUpdate = 0;
-		    cUpdate = -1;
+			rUpdate = 0;
+			cUpdate = -1;
 		}
-		while(target == null && (r < rows  && r >=0) && (c < cols && c >=0))
+		while (target == null && (r < rows && r >= 0) && (c < cols && c >= 0))
 		{
-			target = getLifeForm(r+rUpdate, c+cUpdate);
+			target = getLifeForm(r + rUpdate, c + cUpdate);
 			r += rUpdate;
 			c += cUpdate;
 		}
 		return target;
-		
+
 	}
 
 }

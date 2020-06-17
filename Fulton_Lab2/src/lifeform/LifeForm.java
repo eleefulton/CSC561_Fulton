@@ -89,7 +89,7 @@ public abstract class LifeForm implements TimeObserver
 	/**
 	 * @return returns the weapon held by the Lifeform.
 	 */
-	public Object getWeapon()
+	public Weapon getWeapon()
 	{
 		return this.weapon;
 	}

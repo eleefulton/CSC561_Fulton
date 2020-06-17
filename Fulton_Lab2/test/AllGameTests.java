@@ -4,6 +4,7 @@ import org.junit.runners.Suite;
 import environment.TestCell;
 import environment.TestEnvironment;
 import gameplay.TestAttackCommand;
+import gameplay.TestDropCommand;
 import gameplay.TestMoveCommand;
 import gameplay.TestReloadCommand;
 import gameplay.TestSimpleTimer;
@@ -32,8 +33,8 @@ import weapon.TestStabilizer;
 { TestCell.class, TestLifeForm.class, TestEnvironment.class, TestHuman.class, TestAlien.class, TestRecoveryNone.class,
 		TestRecoveryLinear.class, TestRecoveryFractional.class, TestSimpleTimer.class, TestAttachment.class,
 		TestGenericWeapon.class, TestPlasmaCannon.class, TestStabilizer.class, TestPistol.class, TestScope.class,
-		TestChainGun.class, TestBooster.class, TestMoveCommand.class, TestReloadCommand.class,
-		TestAttackCommand.class })
+		TestChainGun.class, TestBooster.class, TestMoveCommand.class, TestReloadCommand.class, TestAttackCommand.class,
+		TestDropCommand.class })
 public class AllGameTests
 {
 
