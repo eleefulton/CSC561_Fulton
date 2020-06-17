@@ -33,6 +33,9 @@ public class TestInvoker
 	{
 		Invoker remote = new Invoker();
 		//remote.setBounds(200, 200, 400, 400);
+		Command cmd = new MoveCommand();
+		remote.setCommand(cmd);
+		assertEquals(cmd, remote.getCommand());
 		assertEquals(JOptionPane.YES_OPTION,JOptionPane.showConfirmDialog(null, 
 				"Does the Remote Control look right?"));
 		
@@ -48,7 +51,7 @@ public class TestInvoker
 		// we won't have to type on the keyboard to get our test to run.
 		 System.setIn(testInput);
 		// Run the method and see if it worked correctly as expected.
-		 String output = remote.inputMethod();
+		 String output = remote.inputMethod(remote.getCommand());
 		 //assertEquals("w",testInput);
 		 assertEquals("worked",output); 
 	}

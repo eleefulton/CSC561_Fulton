@@ -32,6 +32,10 @@ public class Invoker extends JFrame implements ActionListener
     private Command acquireCommand;
 	private Command dropCommand;
 	private Command moveCommand;
+	
+	private Environment e = Environment.getWorld(); //Set the world to play in
+	private int row;
+	private int col;
 
 	/**
 	 * Class constructor, it creates and instance of the Invoker
@@ -52,7 +56,8 @@ public class Invoker extends JFrame implements ActionListener
 		jbtAcquire.addActionListener(this);
 		jbtDrop = new JButton("Drop");
 		jbtDrop.addActionListener(this);
-		JButton jbtMovePlayer = new JButton("Move Player");
+		jbtMovePlayer = new JButton("Move Player");
+		jbtMovePlayer.addActionListener(this);
 
 				
 		// Create a panel to hold the buttons
@@ -103,16 +108,40 @@ public class Invoker extends JFrame implements ActionListener
 	{
 		if (event.getSource() == jbtReload)
 		{
-			jbtReload.setBackground(Color.RED);
+			reloadCommand.execute(row, col);
+		}
+		else if(event.getSource() == jbtMovePlayer)
+		{
+			//moveCommand.execute(row, col);
 		}
 	}
 
 	/**
 	 * @return - returns the name of the command pressed.
 	 */
-	public String inputMethod() 
+	public String inputMethod(Command cmd) 
 	{
-		jbtReload.doClick(5000);
+		if(cmd instanceof ReloadCommand)
+		{
+			jbtReload.doClick(2000);
+		}
+		else if(cmd instanceof MoveCommand)
+		{
+			jbtMovePlayer.doClick(2000);;
+		}
+		else if(cmd instanceof AcquireCommand)
+		{
+			jbtAcquire.doClick(2000);;
+		}
+		else if(cmd instanceof DropCommand)
+		{
+			jbtDrop.doClick(2000);;
+		}
+		else
+		{
+			jbtAttack.doClick(2000);;
+		}
+		
 		return "worked";
 	}
 
@@ -128,7 +157,7 @@ public class Invoker extends JFrame implements ActionListener
 		{
 			this.reloadCommand = cmd;
 		}
-		else if(cmd instanceof MoveCommand)
+		else if(cmd instanceof AttackCommand)
 		{
 			this.attackCommand = cmd;
 		}
@@ -170,7 +199,7 @@ public class Invoker extends JFrame implements ActionListener
 	/**
 	 * @return - Returns the Commands.
 	 */
-	public Object getCommand() 
+	public Command getCommand() 
 	{
 		return moveCommand;
 	}
