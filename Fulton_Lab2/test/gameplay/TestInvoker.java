@@ -20,12 +20,26 @@ public class TestInvoker
 	public void testInitialization() 
 	{
 		Invoker remote = new Invoker();
-		//remote.setBounds(200, 200, 400, 400);
-		Command cmd = new MoveCommand();
-		remote.setCommand(cmd);
-		assertEquals(cmd, remote.getCommand());
 		assertEquals(JOptionPane.YES_OPTION,JOptionPane.showConfirmDialog(null, 
 				"Does the Remote Control look right?"));
+	}
+	
+	@Test
+	public void testSetCommand()
+	{
+		Invoker remote = new Invoker();
+		//remote.setBounds(200, 200, 400, 400);
+		Command cmd = new MoveCommand();
+		remote.setCommand(cmd, 2);
+		assertEquals(cmd, remote.getCommand(1));
+		String name = "Test";
+		MockCommand cmd2 = new MockCommand(name);
+		remote.setCommand(cmd2, 1);
+		assertEquals(name, cmd2.getName());
+		
+		remote.jbtAttack.doClick();
+		assertEquals(name,cmd2.getClickName());
+		
 	}
 	
 	@Test
@@ -34,8 +48,8 @@ public class TestInvoker
 		Invoker remote = new Invoker();
 		//remote.setBounds(200, 200, 400, 400);
 		Command cmd = new MoveCommand();
-		remote.setCommand(cmd);
-		assertEquals(cmd, remote.getCommand());
+		remote.setCommand(cmd,1);
+		assertEquals(cmd, remote.getCommand(1));
 		assertEquals(JOptionPane.YES_OPTION,JOptionPane.showConfirmDialog(null, 
 				"Does the Remote Control look right?"));
 		
@@ -51,7 +65,7 @@ public class TestInvoker
 		// we won't have to type on the keyboard to get our test to run.
 		 System.setIn(testInput);
 		// Run the method and see if it worked correctly as expected.
-		 String output = remote.inputMethod(remote.getCommand());
+		 String output = remote.inputMethod(remote.getCommand(1));
 		 //assertEquals("w",testInput);
 		 assertEquals("worked",output); 
 	}

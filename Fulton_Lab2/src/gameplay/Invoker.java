@@ -32,6 +32,10 @@ public class Invoker extends JFrame implements ActionListener
     private Command acquireCommand;
 	private Command dropCommand;
 	private Command moveCommand;
+	private Command turnNorthCommand;
+    private Command turnSouthCommand;
+	private Command turnWestCommand;
+	private Command turnEastCommand;
 	
 	private Environment e = Environment.getWorld(); //Set the world to play in
 	private int row;
@@ -149,49 +153,55 @@ public class Invoker extends JFrame implements ActionListener
 	/**
 	 * This sets the command to be executed.
 	 * The command type is checked before setting the correct instance.
+	 * Tests to make sure command attaches to right slot
 	 * @param cmd - The command to be set.
 	 */
-	public void setCommand(Command cmd) 
+	public void setCommand(Command cmd, int slot) 
 	{
-		if(cmd instanceof ReloadCommand)
-		{
-			this.reloadCommand = cmd;
-		}
-		else if(cmd instanceof AttackCommand)
-		{
-			this.attackCommand = cmd;
-		}
-		else if(cmd instanceof AcquireCommand)
-		{
-			this.acquireCommand = cmd;
-		}
-		else if(cmd instanceof DropCommand)
-		{
-			this.dropCommand = cmd;
-		}
-		else
-		{
-			this.moveCommand = cmd;
-		}
+//		if (slot == 1)
+//		{
+//			this.reloadCommand = cmd;
+//		}
+//		if(cmd instanceof ReloadCommand)
+//		{
+//			this.reloadCommand = cmd;
+//		}
+//		else if(cmd instanceof AttackCommand)
+//		{
+//			this.attackCommand = cmd;
+//		}
+//		else if(cmd instanceof AcquireCommand)
+//		{
+//			this.acquireCommand = cmd;
+//		}
+//		else if(cmd instanceof DropCommand)
+//		{
+//			this.dropCommand = cmd;
+//		}
+//		else
+//		{
+//			this.moveCommand = cmd;
+//		}
 		
-		/*switch(name)
+		switch(slot)
 		{
-		case "reload":
-			this.moveCommand = cmd;
+		case 1:
+			this.reloadCommand = cmd;
 			break;
-		case "attack":
+		case 2:
 			this.attackCommand = cmd;
 			break;
-		case "acquire":
+		case 3:
 			this.acquireCommand = cmd;
 			break;
-		case "drop":
+		case 4:
 			this.dropCommand = cmd;
 			break;
-		case "move":
-			this.dropCommand = cmd;
+		case 5:
+			this.moveCommand = cmd;
 		default:
-		}*/			
+			this.turnNorthCommand = cmd;
+		}			
 		
 	}
 
@@ -199,9 +209,23 @@ public class Invoker extends JFrame implements ActionListener
 	/**
 	 * @return - Returns the Commands.
 	 */
-	public Command getCommand() 
+	public Command getCommand(int slot) 
 	{
-		return moveCommand;
+		switch(slot)
+		{
+		case 1:
+			return reloadCommand;
+		case 2:
+			return attackCommand;
+		case 3:
+			return acquireCommand;
+		case 4:
+			return dropCommand;
+		case 5:
+			return moveCommand;
+		default:
+			return turnNorthCommand;
+		}			
 	}
 
 }
