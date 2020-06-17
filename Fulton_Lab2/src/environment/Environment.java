@@ -386,4 +386,49 @@ public class Environment
 
 	}
 
+	/**
+	 * get the first available weapon in the cell and give it to the lifeform. If
+	 * another weapon is in the cell, shift it to slot 1. Drop the lifeforms weapon
+	 * in the first available slot.
+	 * 
+	 * @param lifeFormWeapon
+	 * @return
+	 */
+
+	// 1. set lifeform's weapon to the side
+	// 2. pickup weapon in s1 if available
+	// 2.b. if s1 weapon isn't available pickup weapon in s2
+	// 2.c. if no weapons, keep current weapon
+	// 3. if there is a weapon is s2, move it to s1
+	// 4. if s1 is empty, put lifeforms weapon in s1
+	// 4.b if s1 is full, put lifeforms weapon in s2
+	public Weapon swapWeapon(Weapon w, int r, int c)
+	{
+		Weapon returnWeapon = getWeapon1(r, c);
+		removeWeapon1(r, c);
+		if (returnWeapon == null)
+		{
+			returnWeapon = getWeapon2(r, c);
+			removeWeapon2(r, c);
+			if (returnWeapon == null)
+			{
+				return w;
+			}
+		}
+		if (getWeapon2(r, c) != null)
+		{
+			Weapon w2 = getWeapon2(r, c);
+			removeWeapon2(r, c);
+			addWeapon1(w2, r, c);
+		}
+		if (getWeapon1(r, c) == null)
+		{
+			addWeapon1(w, r, c);
+		} else
+		{
+			addWeapon2(w, r, c);
+		}
+		return returnWeapon;
+
+	}
 }
