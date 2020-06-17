@@ -13,6 +13,12 @@ import weapon.ChainGun;
 import weapon.Pistol;
 import weapon.PlasmaCannon;
 
+/**
+ * tests for picking up / swapping a weapon
+ * 
+ * @author Ethan Fulton
+ *
+ */
 public class TestAcquireCommand
 {
 	@Test
@@ -82,6 +88,24 @@ public class TestAcquireCommand
 		assertEquals(cg, l1.getWeapon());
 		assertEquals(p, e.getWeapon1(0, 0));
 		assertEquals(pc, e.getWeapon2(0, 0));
+	}
+
+	@Test
+	public void testAcquireWeaponWhenNoneInCell() throws ExistingWorldException
+	{
+
+		Environment.clearBoard();
+		Environment.setupWorld(4, 3);
+		Environment e = Environment.getWorld();
+		LifeForm l1 = new Human("Bob", 10, 0);
+		Pistol p = new Pistol(10, 10, 10, 10);
+		e.addLifeForm(l1, 0, 0);
+		AcquireCommand ac = new AcquireCommand();
+		ac.execute(0, 0);
+		assertNull(l1.getWeapon());
+		l1.pickWeapon(p);
+		ac.execute(0, 0);
+		assertEquals(p, l1.getWeapon());
 	}
 
 }

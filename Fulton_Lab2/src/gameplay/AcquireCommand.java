@@ -14,6 +14,10 @@ public class AcquireCommand implements Command
 
 	Environment e = Environment.getWorld();
 
+	/**
+	 * drop weapon currently holding in cell and swap for first available in cell
+	 * (if no weapons in cell it will pick back up it's weapon)
+	 */
 	@Override
 	public void execute(int r, int c)
 	{
