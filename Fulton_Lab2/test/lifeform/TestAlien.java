@@ -15,21 +15,32 @@ import recovery.RecoveryLinear;
 
 public class TestAlien
 {
-   private static Environment e;
-	
+	private static Environment e;
+
 	@BeforeClass
-    public static void setup() throws ExistingWorldException 
+	public static void setup() throws ExistingWorldException
 	{
 		Environment.clearBoard();
-		Environment.setupWorld(4,4);
-        e = Environment.getWorld();
-    }
-	
+		Environment.setupWorld(4, 4);
+		e = Environment.getWorld();
+	}
+
 	@AfterClass
-    public static void CleanUp() 
+	public static void CleanUp()
 	{
 		Environment.clearBoard();
-    }
+	}
+
+	@Test
+	public void testMaxSpeed()
+	{
+		Alien alien1 = new Alien("alie", 40);
+		assertEquals(2, alien1.getMaxSpeed());
+	}
+
+	/**
+	 * start lab 5 tests
+	 */
 
 	@Test
 	public void testRecoverOverTime() throws AlienConstructorException
@@ -94,10 +105,11 @@ public class TestAlien
 		Alien alien = new Alien("alien", 40);
 		e.addLifeForm(alien, 0, 0);
 		LifeForm fred = new MockLifeForm("Fred", 30, 2);
-		e.addLifeForm(fred, 0, 1);//5 feet away
-		assertEquals(10, alien.attack(fred));
-		
-		//Clears the slots since the environment is unique.
+		e.addLifeForm(fred, 0, 1);// 5 feet away
+		alien.attack(fred);
+		assertEquals(20, fred.getCurrentLifePoints());
+
+		// Clears the slots since the environment is unique.
 		e.removeLifeForm(0, 0);
 		e.removeLifeForm(0, 1);
 	}
@@ -108,11 +120,11 @@ public class TestAlien
 		Alien alien = new Alien("Alie", 40);
 		LifeForm entity = new MockLifeForm("Bob", 40, 10);
 		e.addLifeForm(alien, 0, 0);
-		e.addLifeForm(entity, 0, 1);//5 feet away
-		alien.takeHit(entity.attack(alien));
+		e.addLifeForm(entity, 0, 1);// 5 feet away
+		entity.attack(alien);
 		assertEquals(30, alien.getCurrentLifePoints());
-		
-		//Clears the slots since the environment is unique.
+
+		// Clears the slots since the environment is unique.
 		e.removeLifeForm(0, 0);
 		e.removeLifeForm(0, 1);
 	}
