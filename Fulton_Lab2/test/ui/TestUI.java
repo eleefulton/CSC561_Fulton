@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 
 import javax.swing.JOptionPane;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import environment.Cell;
@@ -25,47 +26,65 @@ import weapon.Stabilizer;
 
 public class TestUI {
 
-	
-	@Test
-	public void testWorldGridInitialization() throws ExistingWorldException 
+	@Before
+	public void clearEnvironment() throws ExistingWorldException
 	{
 		Environment.clearBoard();
 		Environment.setupWorld(10,10);
-		Environment e = Environment.getWorld();
-		UI ui = new UI(e);
-		//UI ui = new UI();
-		
-		assertEquals(JOptionPane.YES_OPTION,JOptionPane.showConfirmDialog(null, 
-				"Does the grid look right?"));
-	
 	}
 	
 	@Test
-	public void testWorldGridHumanAlienLocations() throws ExistingWorldException {
-		Environment.clearBoard();
-		Environment.setupWorld(10,10);
+	public void testWorldGridInitialization()
+	{
+		Environment e = Environment.getWorld();
+		UI ui = new UI(e);
+		
+		assertEquals(JOptionPane.YES_OPTION,JOptionPane.showConfirmDialog(null, 
+				"Does the grid look right?"));
+	}
+	
+	@Test
+	public void testWorldGridHumanAlienDirections()
+	{
 		Environment e = Environment.getWorld();
 		Human bob = new Human("Bob", 10, 10);
 		Alien aBob = new Alien("AlienBob", 10);
+		aBob.changeDirection(aBob.SOUTH);
 		e.addLifeForm(bob, 0, 0);
 		e.addLifeForm(aBob, 4, 3);
 		UI ui = new UI(e);
 		
 		assertEquals(JOptionPane.YES_OPTION,JOptionPane.showConfirmDialog(null, 
 				"Create Cell Image Icon Correct For\nHuman(0,0) facing North\nDoes it look right?"));
-	
 		assertEquals(JOptionPane.YES_OPTION,JOptionPane.showConfirmDialog(null, 
-				"Create Cell Image Icon Correct For\nAlien(4,3) facing North\nDoes it look right?"));
+				"Create Cell Image Icon Correct For\nAlien(4,3) facing South\nDoes it look right?"));
 	}
 
 	@Test
-	public void testWorldWeaponLocations() throws ExistingWorldException {
-		Environment.clearBoard();
-		Environment.setupWorld(10,10);
+	public void testWorldWeaponLifeFormHoldingWeapon()
+	{
 		Environment e = Environment.getWorld();
 		Human bob = new Human("Bob", 10, 10);
+		PlasmaCannon pc = new PlasmaCannon(10,10,10,10);
+		bob.pickWeapon(pc);
 		e.addLifeForm(bob, 0, 0);
 		
+		Alien aBob = new Alien("AlienBob", 10);
+		PlasmaCannon pc1 = new PlasmaCannon(10,10,10,10);
+		aBob.pickWeapon(pc1);
+		e.addLifeForm(aBob, 1, 1);
+		
+		UI ui = new UI(e);
+		
+		assertEquals(JOptionPane.YES_OPTION, JOptionPane.showConfirmDialog(null, "Human at (0,0)? \n Does it the weapon have one green weapon?"));	
+		assertEquals(JOptionPane.YES_OPTION, JOptionPane.showConfirmDialog(null, "Alien at (1,1)? \n Does it the weapon have one green weapon?"));	
+	}
+	
+	@Test
+	public void testWorldWeaponIcons() 
+	{
+		Environment e = Environment.getWorld();
+	
 		PlasmaCannon pc = new PlasmaCannon(10,10,10,10);
 		e.addWeapon1(pc, 0, 0);
 		ChainGun cg = new ChainGun(10,10,10,10);
@@ -73,35 +92,52 @@ public class TestUI {
 		Pistol p = new Pistol(10,10,10,10);
 		e.addWeapon1(p, 2, 2);
 		
-		e.addWeapon2(p, 0, 0);
 		UI ui = new UI(e);
 		
-		//assertEquals(JOptionPane.YES_OPTION, JOptionPane.showConfirmDialog(null, "Create Weapon For\n Weapon(0,0) \n Does it look green?"));
-		assertEquals(JOptionPane.YES_OPTION, JOptionPane.showConfirmDialog(null, "Are there two wepaons at(0,0)? \n Does it look green and yellow?"));
-		assertEquals(JOptionPane.YES_OPTION, JOptionPane.showConfirmDialog(null, "Create Weapon For\n Weapon(1,1) \n Does it look Orange?"));
-		assertEquals(JOptionPane.YES_OPTION, JOptionPane.showConfirmDialog(null, "Create Weapon For\n Weapon(2,2) \n Does it look yellow?"));
+		assertEquals(JOptionPane.YES_OPTION, JOptionPane.showConfirmDialog(null, "Create Weapon For\n PlasmaCannon(0,0)? \n Does it look Green?"));
+		assertEquals(JOptionPane.YES_OPTION, JOptionPane.showConfirmDialog(null, "Create Weapon For\n ChainGun(1,1) \n Does it look Orange?"));
+		assertEquals(JOptionPane.YES_OPTION, JOptionPane.showConfirmDialog(null, "Create Weapon For\n Pistol(2,2) \n Does it look yellow?"));
+	}
+	
+	@Test
+	public void testWorldTwoWeaponsInOneCell() 
+	{
+		Environment e = Environment.getWorld();
+	
+		PlasmaCannon pc = new PlasmaCannon(10,10,10,10);
+		e.addWeapon1(pc, 0, 0);
+		ChainGun cg = new ChainGun(10,10,10,10);
+		e.addWeapon2(cg, 0, 0);
+		
+		UI ui = new UI(e);
+		
+		assertEquals(JOptionPane.YES_OPTION, JOptionPane.showConfirmDialog(null, "Create Weapon For\n PlasmaCannon(0,0)? \n Does it look Green (top left of cell)?"));
+		assertEquals(JOptionPane.YES_OPTION, JOptionPane.showConfirmDialog(null, "Create Weapon For\n ChainGun(0,0) \n Does it look Orange (bottom right of cell)?"));
 		
 	}
 	
 	@Test
-	public void testWorldWeaponLifeFormHoldingWeapon() throws ExistingWorldException {
-		Environment.clearBoard();
-		Environment.setupWorld(10,10);
+	public void testWorldUpdates()
+	{
 		Environment e = Environment.getWorld();
 		Human bob = new Human("Bob", 10, 10);
-		PlasmaCannon pc = new PlasmaCannon(10,10,10,10);
-		bob.pickWeapon(pc);
+		Alien aBob = new Alien("AlienBob", 10);
 		e.addLifeForm(bob, 0, 0);
-				
+		e.addLifeForm(aBob, 4, 3);
 		UI ui = new UI(e);
 		
-		assertEquals(JOptionPane.YES_OPTION, JOptionPane.showConfirmDialog(null, "Human at (0,0)? \n Does it the weapon have one green weapon?"));	
+		bob.changeDirection(bob.WEST);
+		aBob.changeDirection(aBob.EAST);
+		ui.updateGrid();
+		assertEquals(JOptionPane.YES_OPTION,JOptionPane.showConfirmDialog(null, 
+				"Create Cell Image Icon Correct For\nHuman(0,0) facing west\nDoes it look right?"));
+		assertEquals(JOptionPane.YES_OPTION,JOptionPane.showConfirmDialog(null, 
+				"Create Cell Image Icon Correct For\nAlien(4,3) facing East\nDoes it look right?"));
 	}
 	
 	@Test
-	public void testWorldWeaponWithAttachment() throws ExistingWorldException {
-		Environment.clearBoard();
-		Environment.setupWorld(10,10);
+	public void testWorldWeaponWithAttachment()
+	{
 		Environment e = Environment.getWorld();
 				
 		PlasmaCannon pc = new PlasmaCannon(10,10,10,10);
@@ -121,9 +157,8 @@ public class TestUI {
 	}
 	
 	@Test
-	public void testWorldLifeFormWithWeaponCellTwoWeapon() throws ExistingWorldException {
-		Environment.clearBoard();
-		Environment.setupWorld(10,10);
+	public void testWorldLifeFormWithWeaponCellTwoWeapon()
+	{
 		Environment e = Environment.getWorld();
 		
 		ChainGun cg = new ChainGun(10,10,10,10);

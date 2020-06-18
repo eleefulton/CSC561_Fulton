@@ -58,17 +58,44 @@ public class UI extends JFrame{
 		 
 		 textLabel = new JLabel("North");
 		 add("North",textLabel);
-
-//		 imageButton = new JButton(createImage());
-//		 add("West",imageButton);
-//
-//		 imageLabel = new JLabel(createImage());
-//		 add("South",imageLabel);
 	 
 		 textButton = new JButton("A Button");
 		 add("East",textButton);
 
-		 JPanel centerPanel = new JPanel(new GridLayout(theWorld.getNumberOfRows(),theWorld.getNumberOfColumns()));
+//		 JPanel centerPanel = new JPanel(new GridLayout(theWorld.getNumberOfRows(),theWorld.getNumberOfColumns()));
+//		 centerPanel.setBackground(new Color(255,255,255));
+//		 JLabel[][] labelArray = new JLabel[theWorld.getNumberOfRows()][theWorld.getNumberOfColumns()];
+//		 
+//		 for (int r=0;r< theWorld.getNumberOfRows(); r++)
+//		 {
+//			 for (int c=0;c<theWorld.getNumberOfColumns();c++)
+//			 {
+//				 labelArray[r][c] = new JLabel();
+//				 labelArray[r][c].setBorder(BorderFactory.createLineBorder(Color.black));
+//				 
+//				 BufferedImage img = createSpace();
+//				 if (theWorld.getLifeForm(r, c) != null)
+//					 createLifeForm(img,theWorld.getLifeForm(r, c));
+//				 if (theWorld.getWeapon1(r, c) != null )
+//					 createWeapon(img,theWorld.getWeapon1(r, c), 1);
+//				 if(theWorld.getWeapon2(r, c) != null )
+//					 createWeapon(img,theWorld.getWeapon2(r, c), 2);
+//				 
+//			     labelArray[r][c].setIcon(new ImageIcon(img));
+//				 centerPanel.add(labelArray[r][c]);
+//			 }
+//		 }
+//		 
+//		 add("Center",centerPanel);
+//		 pack();
+//		 setVisible(true);
+		 updateGrid();
+
+	}
+	
+	public void updateGrid()
+	{
+		JPanel centerPanel = new JPanel(new GridLayout(theWorld.getNumberOfRows(),theWorld.getNumberOfColumns()));
 		 centerPanel.setBackground(new Color(255,255,255));
 		 JLabel[][] labelArray = new JLabel[theWorld.getNumberOfRows()][theWorld.getNumberOfColumns()];
 		 
@@ -95,7 +122,6 @@ public class UI extends JFrame{
 		 add("Center",centerPanel);
 		 pack();
 		 setVisible(true);
-
 	}
 	
 	/**
