@@ -6,6 +6,8 @@ import static org.junit.Assert.assertEquals;
 
 import javax.swing.JOptionPane;
 
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 
 import environment.Environment;
@@ -20,6 +22,23 @@ import weapon.PlasmaCannon;
  */
 public class TestInvoker 
 {
+	private Environment e;
+	private Invoker remote;
+
+	@Before
+	public void setup() throws ExistingWorldException
+	{
+		Environment.clearBoard();
+		Environment.setupWorld(4, 3);
+		e = Environment.getWorld();
+		remote = new Invoker();
+	}
+
+	@After
+	public void CleanUp()
+	{
+		Environment.clearBoard();
+	}
 	/* Commands slots
 	 * 1 - Reload
 	 * 2 - Attack
@@ -32,12 +51,8 @@ public class TestInvoker
 	 * 9 - West
 	*/
 	@Test
-	public void testTurnNorthCommand() throws ExistingWorldException 
+	public void testTurnNorthCommand()
 	{
-		Invoker remote = new Invoker();
-		Environment.clearBoard();
-		Environment.setupWorld(4, 3);
-		Environment e = Environment.getWorld();
 		Human entity = new Human("Bob", 10, 10);
 		e.addLifeForm(entity, 0, 0);
 		assertEquals(LifeForm.NORTH, entity.getCurrentDirection());
@@ -56,12 +71,8 @@ public class TestInvoker
 	}
 	
 	@Test
-	public void testTurnEastCommand() throws ExistingWorldException 
+	public void testTurnEastCommand()
 	{
-		Invoker remote = new Invoker();
-		Environment.clearBoard();
-		Environment.setupWorld(4, 3);
-		Environment e = Environment.getWorld();
 		Human entity = new Human("Bob", 10, 10);
 		e.addLifeForm(entity, 0, 0);
 		assertEquals(LifeForm.NORTH, entity.getCurrentDirection());
@@ -77,12 +88,8 @@ public class TestInvoker
 	}
 	
 	@Test
-	public void testTurnSouthCommand() throws ExistingWorldException 
+	public void testTurnSouthCommand()
 	{
-		Invoker remote = new Invoker();
-		Environment.clearBoard();
-		Environment.setupWorld(4, 3);
-		Environment e = Environment.getWorld();
 		Human entity = new Human("Bob", 10, 10);
 		e.addLifeForm(entity, 0, 0);
 		assertEquals(LifeForm.NORTH, entity.getCurrentDirection());
@@ -98,12 +105,8 @@ public class TestInvoker
 	}
 	
 	@Test
-	public void testTurnWestCommand() throws ExistingWorldException 
+	public void testTurnWestCommand()
 	{
-		Invoker remote = new Invoker();
-		Environment.clearBoard();
-		Environment.setupWorld(4, 3);
-		Environment e = Environment.getWorld();
 		Human entity = new Human("Bob", 10, 10);
 		e.addLifeForm(entity, 0, 0);
 		assertEquals(LifeForm.NORTH, entity.getCurrentDirection());
@@ -119,12 +122,8 @@ public class TestInvoker
 	}
 	
 	@Test
-	public void testAcquireCommand() throws ExistingWorldException 
+	public void testAcquireCommand()
 	{
-		Invoker remote = new Invoker();
-		Environment.clearBoard();
-		Environment.setupWorld(4, 3);
-		Environment e = Environment.getWorld();
 		Human entity = new Human("Bob", 10, 10);
 		e.addLifeForm(entity, 0, 0);
 		remote.setLifeForm(entity);
@@ -140,11 +139,38 @@ public class TestInvoker
 		assertEquals("Acquire",remote.getClickName());
 		assertEquals(pc, remote.getLifeForm().getWeapon());	
 	}
+	
+	@Test
+	public void testDropCommand() 
+	{
+		Human entity = new Human("Bob", 10, 10);
+		e.addLifeForm(entity, 0, 0);
+		remote.setLifeForm(entity);
+		assertEquals(entity, remote.getLifeForm());
+		
+		PlasmaCannon pc = new PlasmaCannon(10, 10, 10, 10);
+		e.addWeapon1(pc, 0, 0);
+		
+		Command cmd = new AcquireCommand();
+		remote.setCommand(cmd, 3);
+		assertEquals(cmd, remote.getCommand(3));
+		remote.jbtAcquire.doClick();
+		assertEquals("Acquire",remote.getClickName());
+		assertEquals(pc, remote.getLifeForm().getWeapon());	
+		
+		//testing dropping the weapon
+		cmd = new DropCommand();
+		remote.setCommand(cmd, 4);
+		assertEquals(cmd, remote.getCommand(4));
+		remote.jbtDrop.doClick();
+		assertEquals("Drop",remote.getClickName());
+		assertEquals(pc, remote.getLifeForm().getWeapon());	
+	}
 
 	@Test
 	public void testInitialization() 
 	{
-		Invoker remote = new Invoker();
+		remote.doLayout(); // This is just to remove the warning for unused component remote
 		assertEquals(JOptionPane.YES_OPTION,JOptionPane.showConfirmDialog(null, 
 				"Does the Remote Control look right?"));
 	}
@@ -152,8 +178,6 @@ public class TestInvoker
 	@Test
 	public void testSetCommand()
 	{
-		Invoker remote = new Invoker();
-		//remote.setBounds(200, 200, 400, 400);
 		Command cmd = new MoveCommand();
 		remote.setCommand(cmd, 2);
 		assertEquals(cmd, remote.getCommand(2));
@@ -166,10 +190,6 @@ public class TestInvoker
 	@Test
 	public void testSetLifeForm() throws ExistingWorldException
 	{
-		Invoker remote = new Invoker();
-		Environment.clearBoard();
-		Environment.setupWorld(4, 3);
-		Environment e = Environment.getWorld();
 		Human entity = new Human("Bob", 10, 10);
 		e.addLifeForm(entity, 0, 0);
 		remote.setLifeForm(entity);
