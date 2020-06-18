@@ -1,4 +1,3 @@
-  
 package lifeform;
 
 import environment.Environment;

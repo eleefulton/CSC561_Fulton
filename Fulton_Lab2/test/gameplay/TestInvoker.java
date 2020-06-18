@@ -11,7 +11,9 @@ import org.junit.Before;
 import org.junit.Test;
 
 import environment.Environment;
+import exceptions.EnvironmentException;
 import exceptions.ExistingWorldException;
+import lifeform.Alien;
 import lifeform.Human;
 import lifeform.LifeForm;
 import weapon.PlasmaCannon;
@@ -22,7 +24,7 @@ import weapon.PlasmaCannon;
  */
 public class TestInvoker 
 {
-	private Environment e;
+	Environment e;
 	private Invoker remote;
 
 	@Before
@@ -61,7 +63,7 @@ public class TestInvoker
 		remote.setLifeForm(entity);
 		assertEquals(entity, remote.getLifeForm());
 		
-		Command cmd = new TurnCommand(1);
+		Command cmd = new TurnCommand(LifeForm.NORTH);
 		remote.setCommand(cmd,6);
 		assertEquals(cmd, remote.getCommand(6));
 		remote.jbtNorth.doClick();
@@ -79,7 +81,7 @@ public class TestInvoker
 		remote.setLifeForm(entity);
 		assertEquals(entity, remote.getLifeForm());
 		
-		Command cmd = new TurnCommand(1);
+		Command cmd = new TurnCommand(LifeForm.EAST);
 		remote.setCommand(cmd,8);
 		assertEquals(cmd, remote.getCommand(8));
 		remote.jbtEast.doClick();
@@ -96,7 +98,7 @@ public class TestInvoker
 		remote.setLifeForm(entity);
 		assertEquals(entity, remote.getLifeForm());
 		
-		Command cmd = new TurnCommand(1);
+		Command cmd = new TurnCommand(LifeForm.SOUTH);
 		remote.setCommand(cmd,7);
 		assertEquals(cmd, remote.getCommand(7));
 		remote.jbtSouth.doClick();
@@ -113,7 +115,7 @@ public class TestInvoker
 		remote.setLifeForm(entity);
 		assertEquals(entity, remote.getLifeForm());
 		
-		Command cmd = new TurnCommand(1);
+		Command cmd = new TurnCommand(LifeForm.WEST);
 		remote.setCommand(cmd,9);
 		assertEquals(cmd, remote.getCommand(9));
 		remote.jbtWest.doClick();
@@ -186,11 +188,37 @@ public class TestInvoker
 		assertEquals(entity, e.getLifeForm(3, 0));
 		
 	}
+	
+	@Test
+	public void testAttackCommand() throws EnvironmentException
+	{
+		LifeForm target = new Human("Bob", 10, 10);
+		e.addLifeForm(target, 0, 0);
+		
+		LifeForm attacker = new Alien("Jim", 10);
+		attacker.changeDirection(LifeForm.NORTH);
+		e.addLifeForm(attacker, 1, 0);
+		remote.setLifeForm(attacker);
+		assertEquals(attacker, remote.getLifeForm());
+		
+		//ac.execute(1,0);
+		//assertEquals(0, entity.getCurrentLifePoints());
+		Command cmd = new AttackCommand();
+		remote.setCommand(cmd, 2);
+		assertEquals(cmd, remote.getCommand(2));
+		remote.jbtAttack.doClick();
+		assertEquals("Attack",remote.getClickName());
+		assertEquals(target, e.getTarget(1, 0));	
+		//attacker.attack(target);
+		cmd.execute(1, 0);
+		assertEquals(0, target.getCurrentLifePoints());
+		assertEquals(0, e.getLifeForm(0, 0).getCurrentLifePoints());	
+	}
 
 	@Test
 	public void testInitialization() 
 	{
-		remote.doLayout(); // This is just to remove the warning for unused component remote
+		//assertEquals(e, remote.theWorld);
 		assertEquals(JOptionPane.YES_OPTION,JOptionPane.showConfirmDialog(null, 
 				"Does the Remote Control look right?"));
 	}

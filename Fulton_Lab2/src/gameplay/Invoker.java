@@ -27,7 +27,7 @@ public class Invoker extends JFrame implements ActionListener
 	protected JButton jbtWest;
 	JLabel textLabel, imageLabel; 
 	
-	//private Environment theWorld;
+	//protected Environment theWorld;
 	private Command reloadCommand;
 	private Command attackCommand;
     private Command acquireCommand;
@@ -39,8 +39,6 @@ public class Invoker extends JFrame implements ActionListener
 	private Command turnEastCommand;
 	
 	private LifeForm entity;
-	//private int row;
-	//private int col;
 	private String clickedButton;
 	
 
@@ -141,7 +139,7 @@ public class Invoker extends JFrame implements ActionListener
 			clickedButton = "Reload";
 			reloadCommand.execute(entity.getRowCell(), entity.getColCell());
 		}
-		else if(event.getSource() == jbtAttack && attackCommand != null)
+		else if(event.getSource() == jbtAttack)
 		{
 			clickedButton = "Attack";
 			attackCommand.execute(entity.getRowCell(), entity.getColCell());
@@ -151,12 +149,12 @@ public class Invoker extends JFrame implements ActionListener
 			clickedButton = "Acquire";
 			acquireCommand.execute(entity.getRowCell(), entity.getColCell());
 		}
-		else if(event.getSource() == jbtDrop && dropCommand != null)
+		else if(event.getSource() == jbtDrop)
 		{
 			clickedButton = "Drop";
 			dropCommand.execute(entity.getRowCell(), entity.getColCell());
 		}
-		else if(event.getSource() == jbtMovePlayer && moveCommand != null)
+		else if(event.getSource() == jbtMovePlayer)
 		{
 			clickedButton = "Move";
 			moveCommand.execute(entity.getRowCell(), entity.getColCell());
