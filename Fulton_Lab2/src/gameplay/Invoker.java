@@ -1,14 +1,11 @@
 package gameplay;
 
 import java.awt.*;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-//import java.awt.image.BufferedImage;
-
 import javax.swing.*;
 
-import environment.Environment;
+import lifeform.LifeForm;
 
 /**
  * The Invoker acts as our remote control.
@@ -24,9 +21,13 @@ public class Invoker extends JFrame implements ActionListener
 	protected JButton jbtAcquire;
 	protected JButton jbtDrop;
 	protected JButton jbtMovePlayer;
+	protected JButton jbtNorth;
+	protected JButton jbtSouth;
+	protected JButton jbtEast;
+	protected JButton jbtWest;
 	JLabel textLabel, imageLabel; 
 	
-	private Environment theWorld;
+	//private Environment theWorld;
 	private Command reloadCommand;
 	private Command attackCommand;
     private Command acquireCommand;
@@ -37,17 +38,20 @@ public class Invoker extends JFrame implements ActionListener
 	private Command turnWestCommand;
 	private Command turnEastCommand;
 	
-	private Environment e = Environment.getWorld(); //Set the world to play in
-	private int row;
-	private int col;
+	private LifeForm entity;
+	private String clickedButton;
+	
 
+	
 	/**
 	 * Class constructor, it creates and instance of the Invoker
 	 * that we can use.
+	 * It sets up the InvokerUI that will be used as a remote
+	 * control to invoke the command buttons.
 	 */
-	
 	public Invoker()
 	{
+		 //theWorld  = Environment.getWorld(); //Set the world to play in
 		//setLayout(new BorderLayout());
 		setLayout(new GridLayout(1,2)); //two panels are side-by-side.
 		
@@ -64,7 +68,7 @@ public class Invoker extends JFrame implements ActionListener
 		jbtMovePlayer.addActionListener(this);
 
 				
-		// Create a panel to hold the buttons
+		// Create a panel to hold the Command buttons
 		JPanel commandPanel = new JPanel();
 		commandPanel.setLayout(new BoxLayout(commandPanel, BoxLayout.Y_AXIS));
 		commandPanel.add(jbtReload);
@@ -79,17 +83,21 @@ public class Invoker extends JFrame implements ActionListener
 		setVisible(true);
 		
 		// Create the control buttons
-		JButton jbtNorth = new JButton("N");
+		jbtNorth = new JButton("N");
+		jbtNorth.addActionListener(this);
 		//jbtNorth.setIcon(new ImageIcon(Invoker.class.getResource("/image/north.png")));
-		JButton jbtWest = new JButton("W");
+		jbtWest = new JButton("W");
+		jbtWest.addActionListener(this);
 		//jbtWest.setIcon(new ImageIcon(Invoker.class.getResource("/image/west.png")));
-		JButton jbtEast= new JButton("E");
+		jbtEast= new JButton("E");
+		jbtEast.addActionListener(this);
 		//jbtEast.setIcon(new ImageIcon(Invoker.class.getResource("/image/east.png")));
-		JButton jbtSouth = new JButton("S");
+		jbtSouth = new JButton("S");
+		jbtSouth.addActionListener(this);
 		//jbtSouth.setIcon(new ImageIcon(Invoker.class.getResource("/image/south.png")));
 		JLabel centerControl = new JLabel("<html>Turn<br />Player</html>");
 
-		// Create a panel to hold the buttons
+		// Create a panel to hold the turn buttons
 		JPanel controlPanel = new JPanel(new BorderLayout());
 		controlPanel.add("North", jbtNorth);
 		controlPanel.add("South", jbtSouth);
@@ -99,90 +107,90 @@ public class Invoker extends JFrame implements ActionListener
 		
 		add("East", controlPanel);  // Add panel to the frame
 		pack();
-		setVisible(true);
-		
+		setVisible(true);		
 	}
 	
+	/**
+	 * Set the LifeForm to be acted upon by our command controls.
+	 * @param lf - The LifeForm acted upon.
+	 */
+	public void setLifeForm(LifeForm lf) 
+	{
+		this.entity = lf;
+	}
+	
+	/**
+	 * @return - Return the LifeForm instance being acted on.
+	 */
+	public Object getLifeForm() 
+	{
+		return entity;
+	}
 	
 	/**
 	 * Performs the action initiated by the user.
+	 * Also sets the name of the button clicked.
 	 */
 	@Override
 	public void actionPerformed(ActionEvent event) 
 	{
 		if (event.getSource() == jbtReload)
 		{
-			reloadCommand.execute(row, col);
+			clickedButton = "Reload";
+			//reloadCommand.execute(row, col);
+		}
+		else if(event.getSource() == jbtAttack)
+		{
+			clickedButton = "Attack";
+			//attackCommand.execute(row, col);
+		}
+		else if(event.getSource() == jbtAcquire)
+		{
+			clickedButton = "Acquire";
+			//acquireCommand.execute(row, col);
+		}
+		else if(event.getSource() == jbtDrop)
+		{
+			clickedButton = "Drop";
+			//dropCommand.execute(row, col);
 		}
 		else if(event.getSource() == jbtMovePlayer)
 		{
+			clickedButton = "Move";
+			//moveCommand.execute(row, col);
+		}
+		else if(event.getSource() == jbtNorth)
+		{
+			clickedButton = "North";
+			//moveCommand.execute(row, col);
+		}
+		else if(event.getSource() == jbtSouth)
+		{
+			clickedButton = "South";
+			//moveCommand.execute(row, col);
+		}
+		else if(event.getSource() == jbtEast)
+		{
+			clickedButton = "East";
+			//moveCommand.execute(row, col);
+		}
+		else if(event.getSource() == jbtWest)
+		{
+			clickedButton = "West";
 			//moveCommand.execute(row, col);
 		}
 	}
-
-	/**
-	 * @return - returns the name of the command pressed.
-	 */
-	public String inputMethod(Command cmd) 
-	{
-		if(cmd instanceof ReloadCommand)
-		{
-			jbtReload.doClick(2000);
-		}
-		else if(cmd instanceof MoveCommand)
-		{
-			jbtMovePlayer.doClick(2000);;
-		}
-		else if(cmd instanceof AcquireCommand)
-		{
-			jbtAcquire.doClick(2000);;
-		}
-		else if(cmd instanceof DropCommand)
-		{
-			jbtDrop.doClick(2000);;
-		}
-		else
-		{
-			jbtAttack.doClick(2000);;
-		}
-		
-		return "worked";
-	}
-
-
+	
 	/**
 	 * This sets the command to be executed.
 	 * The command type is checked before setting the correct instance.
-	 * Tests to make sure command attaches to right slot
+	 * Tests to make sure command attaches to right slot.
+	 * Each command is assign to a specific slot.
 	 * @param cmd - The command to be set.
+	 * @param slot - the slot where to set  the command.
 	 */
 	public void setCommand(Command cmd, int slot) 
-	{
-//		if (slot == 1)
-//		{
-//			this.reloadCommand = cmd;
-//		}
-//		if(cmd instanceof ReloadCommand)
-//		{
-//			this.reloadCommand = cmd;
-//		}
-//		else if(cmd instanceof AttackCommand)
-//		{
-//			this.attackCommand = cmd;
-//		}
-//		else if(cmd instanceof AcquireCommand)
-//		{
-//			this.acquireCommand = cmd;
-//		}
-//		else if(cmd instanceof DropCommand)
-//		{
-//			this.dropCommand = cmd;
-//		}
-//		else
-//		{
-//			this.moveCommand = cmd;
-//		}
-		
+	{	
 		switch(slot)
 		{
 		case 1:
@@ -199,15 +207,23 @@ public class Invoker extends JFrame implements ActionListener
 			break;
 		case 5:
 			this.moveCommand = cmd;
+		case 6:
+			this.turnNorthCommand = cmd;
+		case 7:
+			this.turnSouthCommand = cmd;
+		case 8:
+			this.turnEastCommand = cmd;
+		case 9:
+			this.turnWestCommand = cmd;
 		default:
 			this.turnNorthCommand = cmd;
 		}			
-		
 	}
 
 
 	/**
-	 * @return - Returns the Commands.
+	 * @param slot - the slot of the command to return.
+	 * @return - returns the Command at the slot provided.
 	 */
 	public Command getCommand(int slot) 
 	{
@@ -223,9 +239,25 @@ public class Invoker extends JFrame implements ActionListener
 			return dropCommand;
 		case 5:
 			return moveCommand;
+		case 6:
+			return turnNorthCommand;
+		case 7:
+			return turnSouthCommand;
+		case 8:
+			return turnEastCommand;
+		case 9:
+			return turnWestCommand;
 		default:
 			return turnNorthCommand;
 		}			
 	}
 
+	/**
+	 * @return Returns the name of the button that was clicked.
+	 */
+	public String getClickName() 
+	{
+		return clickedButton;
+	}
+	
 }
