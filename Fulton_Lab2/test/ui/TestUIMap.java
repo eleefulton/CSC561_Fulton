@@ -19,12 +19,12 @@ import weapon.Scope;
 import weapon.Stabilizer;
 
 /**
- * Test UI class, lifeforms, weapons, and attachments
+ * Test UI Map, lifeforms, weapons, and attachments
  * @author Caitlin Squires
  *
  */
 
-public class TestUI {
+public class TestUIMap {
 
 	@Before
 	public void clearEnvironment() throws ExistingWorldException

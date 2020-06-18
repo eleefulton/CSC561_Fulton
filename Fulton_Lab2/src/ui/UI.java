@@ -20,9 +20,12 @@ import lifeform.Alien;
 import lifeform.Human;
 import lifeform.LifeForm;
 import weapon.Attachment;
+import weapon.Booster;
 import weapon.ChainGun;
 import weapon.Pistol;
 import weapon.PlasmaCannon;
+import weapon.Scope;
+import weapon.Stabilizer;
 import weapon.Weapon;
 
 /**
@@ -47,52 +50,70 @@ public class UI extends JFrame{
 	
 	/**
 	 * CreateGrid, uses the environment to create the board
-	 * Adds lifeforms and weapons as it creates the board
+	 * Creates the legend on the board
 	 */
 	public void createGrid()
 	{
-		setLayout(new BorderLayout());
- 
-		 JButton textButton, imageButton;
-		 JLabel textLabel, imageLabel; 
+		 setLayout(new BorderLayout());
 		 
-		 textLabel = new JLabel("North");
-		 add("North",textLabel);
-	 
-		 textButton = new JButton("A Button");
-		 add("East",textButton);
-
-//		 JPanel centerPanel = new JPanel(new GridLayout(theWorld.getNumberOfRows(),theWorld.getNumberOfColumns()));
-//		 centerPanel.setBackground(new Color(255,255,255));
-//		 JLabel[][] labelArray = new JLabel[theWorld.getNumberOfRows()][theWorld.getNumberOfColumns()];
-//		 
-//		 for (int r=0;r< theWorld.getNumberOfRows(); r++)
-//		 {
-//			 for (int c=0;c<theWorld.getNumberOfColumns();c++)
-//			 {
-//				 labelArray[r][c] = new JLabel();
-//				 labelArray[r][c].setBorder(BorderFactory.createLineBorder(Color.black));
-//				 
-//				 BufferedImage img = createSpace();
-//				 if (theWorld.getLifeForm(r, c) != null)
-//					 createLifeForm(img,theWorld.getLifeForm(r, c));
-//				 if (theWorld.getWeapon1(r, c) != null )
-//					 createWeapon(img,theWorld.getWeapon1(r, c), 1);
-//				 if(theWorld.getWeapon2(r, c) != null )
-//					 createWeapon(img,theWorld.getWeapon2(r, c), 2);
-//				 
-//			     labelArray[r][c].setIcon(new ImageIcon(img));
-//				 centerPanel.add(labelArray[r][c]);
-//			 }
-//		 }
-//		 
-//		 add("Center",centerPanel);
-//		 pack();
-//		 setVisible(true);
+		 JPanel legend = new JPanel(new GridLayout(9, 2));
+		 legend.setBackground(new Color(255,255,255));
+		 JLabel[] labelArray = new JLabel[9];
+		 for(int r=0; r < 9; r++)
+		 {
+				 labelArray[r] = new JLabel();
+				 labelArray[r].setBorder(BorderFactory.createLineBorder(Color.black));
+				 
+				 BufferedImage img = createSpace();
+				 switch (r)
+				 {
+				 case 1:
+					 createLifeForm(img, new Human("",0,0));
+					 labelArray[r].setText("Human");
+					 break;
+				 case 2: 
+					 createLifeForm(img, new Alien("", 0));
+					 labelArray[r].setText("Alien");
+					 break;
+				 case 3:
+					 createWeapon(img,new Pistol(0,0,0,0), 1);
+					 labelArray[r].setText("Pistol");
+					 break;
+				 case 4:
+					 createWeapon(img,new PlasmaCannon(0,0,0,0), 1);
+					 labelArray[r].setText("Plasma Cannon");
+					 break;
+				 case 5:
+					 createWeapon(img,new ChainGun(0,0,0,0), 1);
+					 labelArray[r].setText("ChainGun");
+					 break;
+				 case 6:
+					 Pistol  p = new Pistol(0,0,0,0);
+					 Scope s = new Scope(p);
+					 createWeapon(img, s, 0);
+					 labelArray[r].setText("Weapon w/ Attachment");
+					 break;
+				 case 7:
+					 ChainGun  cg = new ChainGun(0,0,0,0);
+					 Booster b = new Booster(cg);
+					 Stabilizer s2 = new Stabilizer(b);
+					 labelArray[r].setText("Weapon w/ 2 Attachment");
+					 createWeapon(img, s2,0);
+					 break;
+				default:
+					break;
+				 }
+			     labelArray[r].setIcon(new ImageIcon(img));
+				 legend.add("East",labelArray[r]);
+			 }
+		 add("East",legend);
 		 updateGrid();
 
 	}
-	
+	/**
+	 * Adds lifeforms and weapons to the board, 
+	 * used to create or update the entire board
+	 */
 	public void updateGrid()
 	{
 		JPanel centerPanel = new JPanel(new GridLayout(theWorld.getNumberOfRows(),theWorld.getNumberOfColumns()));
