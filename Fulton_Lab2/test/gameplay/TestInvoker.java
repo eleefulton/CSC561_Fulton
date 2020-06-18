@@ -166,6 +166,26 @@ public class TestInvoker
 		assertEquals("Drop",remote.getClickName());
 		assertEquals(pc, remote.getLifeForm().getWeapon());	
 	}
+	
+	@Test
+	public void testMoveCommand() 
+	{
+		Human entity = new Human("Bob", 10, 10);
+		e.addLifeForm(entity, 0, 0);
+		remote.setLifeForm(entity);
+		assertEquals(entity, remote.getLifeForm());
+		entity.changeDirection(LifeForm.SOUTH);
+		
+		Command cmd = new MoveCommand();
+		remote.setCommand(cmd, 5);
+		assertEquals(cmd, remote.getCommand(5));
+		remote.jbtMovePlayer.doClick();
+		assertEquals("Move",remote.getClickName());
+		assertEquals(3, remote.getLifeForm().getRowCell());
+		assertEquals(0, remote.getLifeForm().getColCell());
+		assertEquals(entity, e.getLifeForm(3, 0));
+		
+	}
 
 	@Test
 	public void testInitialization() 

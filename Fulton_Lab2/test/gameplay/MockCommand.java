@@ -1,7 +1,7 @@
 package gameplay;
 /**
  * 
- * @author cdgira
+ * @author Moumouni Noma
  *
  */
 
@@ -29,10 +29,5 @@ public class MockCommand implements Command
 		return name;
 	}
 
-	public String getClickName() 
-	{
-
-		return null;
-	}
 
 }
