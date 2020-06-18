@@ -15,6 +15,8 @@ import lifeform.TestLifeForm;
 import recovery.TestRecoveryFractional;
 import recovery.TestRecoveryLinear;
 import recovery.TestRecoveryNone;
+import ui.TestUILegend;
+import ui.TestUIMap;
 import weapon.TestAttachment;
 import weapon.TestBooster;
 import weapon.TestChainGun;
