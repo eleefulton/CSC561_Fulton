@@ -8,8 +8,10 @@ import javax.swing.JOptionPane;
 
 import org.junit.Test;
 
+import environment.Environment;
+import exceptions.ExistingWorldException;
+import lifeform.Human;
 import lifeform.LifeForm;
-import lifeform.MockLifeForm;
 
 /**
  * This will test the functionalities of the Invoker class.
@@ -17,6 +19,103 @@ import lifeform.MockLifeForm;
  */
 public class TestInvoker 
 {
+	/* Commands slots
+	 * 1 - Reload
+	 * 2 - Attack
+	 * 3 - Acquire
+	 * 4 - Drop
+	 * 5 - Move
+	 * 6 - North
+	 * 7 - South
+	 * 8 - East
+	 * 9 - West
+	*/
+	@Test
+	public void testTurnNorthCommand() throws ExistingWorldException 
+	{
+		Invoker remote = new Invoker();
+		Environment.clearBoard();
+		Environment.setupWorld(4, 3);
+		Environment e = Environment.getWorld();
+		Human entity = new Human("Bob", 10, 10);
+		e.addLifeForm(entity, 0, 0);
+		assertEquals(LifeForm.NORTH, entity.getCurrentDirection());
+		entity.changeDirection(LifeForm.SOUTH);
+		assertEquals(LifeForm.SOUTH, entity.getCurrentDirection());
+		remote.setLifeForm(entity);
+		assertEquals(entity, remote.getLifeForm());
+		
+		Command cmd = new TurnCommand(1);
+		remote.setCommand(cmd,6);
+		assertEquals(cmd, remote.getCommand(6));
+		remote.jbtNorth.doClick();
+		assertEquals("North",remote.getClickName());
+		assertEquals(LifeForm.NORTH, remote.getLifeForm().getCurrentDirection());
+		
+	}
+	
+	@Test
+	public void testTurnEastCommand() throws ExistingWorldException 
+	{
+		Invoker remote = new Invoker();
+		Environment.clearBoard();
+		Environment.setupWorld(4, 3);
+		Environment e = Environment.getWorld();
+		Human entity = new Human("Bob", 10, 10);
+		e.addLifeForm(entity, 0, 0);
+		assertEquals(LifeForm.NORTH, entity.getCurrentDirection());
+		remote.setLifeForm(entity);
+		assertEquals(entity, remote.getLifeForm());
+		
+		Command cmd = new TurnCommand(1);
+		remote.setCommand(cmd,8);
+		assertEquals(cmd, remote.getCommand(8));
+		remote.jbtEast.doClick();
+		assertEquals("East",remote.getClickName());
+		assertEquals(LifeForm.EAST, remote.getLifeForm().getCurrentDirection());	
+	}
+	
+	@Test
+	public void testTurnSouthCommand() throws ExistingWorldException 
+	{
+		Invoker remote = new Invoker();
+		Environment.clearBoard();
+		Environment.setupWorld(4, 3);
+		Environment e = Environment.getWorld();
+		Human entity = new Human("Bob", 10, 10);
+		e.addLifeForm(entity, 0, 0);
+		assertEquals(LifeForm.NORTH, entity.getCurrentDirection());
+		remote.setLifeForm(entity);
+		assertEquals(entity, remote.getLifeForm());
+		
+		Command cmd = new TurnCommand(1);
+		remote.setCommand(cmd,7);
+		assertEquals(cmd, remote.getCommand(7));
+		remote.jbtSouth.doClick();
+		assertEquals("South",remote.getClickName());
+		assertEquals(LifeForm.SOUTH, remote.getLifeForm().getCurrentDirection());	
+	}
+	
+	@Test
+	public void testTurnWestCommand() throws ExistingWorldException 
+	{
+		Invoker remote = new Invoker();
+		Environment.clearBoard();
+		Environment.setupWorld(4, 3);
+		Environment e = Environment.getWorld();
+		Human entity = new Human("Bob", 10, 10);
+		e.addLifeForm(entity, 0, 0);
+		assertEquals(LifeForm.NORTH, entity.getCurrentDirection());
+		remote.setLifeForm(entity);
+		assertEquals(entity, remote.getLifeForm());
+		
+		Command cmd = new TurnCommand(1);
+		remote.setCommand(cmd,9);
+		assertEquals(cmd, remote.getCommand(9));
+		remote.jbtWest.doClick();
+		assertEquals("West",remote.getClickName());
+		assertEquals(LifeForm.WEST, remote.getLifeForm().getCurrentDirection());	
+	}
 
 	@Test
 	public void testInitialization() 
@@ -41,18 +140,29 @@ public class TestInvoker
 	}
 	
 	@Test
-	public void testSetLifeForm()
+	public void testSetLifeForm() throws ExistingWorldException
 	{
 		Invoker remote = new Invoker();
-		LifeForm entity = new MockLifeForm("Fred",10);
+		Environment.clearBoard();
+		Environment.setupWorld(4, 3);
+		Environment e = Environment.getWorld();
+		Human entity = new Human("Bob", 10, 10);
+		e.addLifeForm(entity, 0, 0);
 		remote.setLifeForm(entity);
 		assertEquals(entity, remote.getLifeForm());
+		assertEquals(0, remote.getRow());
+		assertEquals(0, remote.getCol());
 	}
 	
 	@Test
-	public void testButtonClick()
+	public void testButtonClick() throws ExistingWorldException
 	{
 		Invoker remote = new Invoker();
+		Environment.clearBoard();
+		Environment.setupWorld(4, 3);
+		Environment e = Environment.getWorld();
+		Human entity = new Human("Bob", 10, 10);
+		e.addLifeForm(entity, 0, 0);
 		//test that the button click works
 		remote.jbtReload.doClick();
 		assertEquals("Reload",remote.getClickName());
@@ -72,18 +182,6 @@ public class TestInvoker
 		assertEquals("East",remote.getClickName());
 		remote.jbtWest.doClick();
 		assertEquals("West",remote.getClickName());
-	}
-	
-	@Test
-	public void testTurnNorthCommand() 
-	{
-		Invoker remote = new Invoker();
-		//remote.setBounds(200, 200, 400, 400);
-		Command cmd = new MoveCommand();
-		remote.setCommand(cmd,1);
-		assertEquals(cmd, remote.getCommand(1));
-		assertEquals(JOptionPane.YES_OPTION,JOptionPane.showConfirmDialog(null, 
-				"Does the Remote Control look right?"));
 	}
 
 }
