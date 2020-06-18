@@ -1,3 +1,4 @@
+  
 package lifeform;
 
 import environment.Environment;
@@ -89,7 +90,7 @@ public abstract class LifeForm implements TimeObserver
 	/**
 	 * @return returns the weapon held by the Lifeform.
 	 */
-	public Object getWeapon()
+	public Weapon getWeapon()
 	{
 		return this.weapon;
 	}
@@ -101,6 +102,9 @@ public abstract class LifeForm implements TimeObserver
 
 	}
 
+	/**
+	 * reload the weapon held by this lifeform
+	 */
 	public void reload()
 	{
 		if (weapon != null)
@@ -223,3 +227,4 @@ public abstract class LifeForm implements TimeObserver
 		}
 	}
 }
+

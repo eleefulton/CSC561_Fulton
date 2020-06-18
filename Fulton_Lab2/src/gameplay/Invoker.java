@@ -119,8 +119,6 @@ public class Invoker extends JFrame implements ActionListener
 	public void setLifeForm(LifeForm lf) 
 	{
 		this.entity = lf;
-		//this.row = lf.getRowCell();
-		//this.col = lf.getColCell();
 	}
 	
 	/**
@@ -141,51 +139,51 @@ public class Invoker extends JFrame implements ActionListener
 		if (event.getSource() == jbtReload && reloadCommand != null)
 		{
 			clickedButton = "Reload";
-			reloadCommand.execute(getRow(), getCol());
+			reloadCommand.execute(entity.getRowCell(), entity.getColCell());
 		}
 		else if(event.getSource() == jbtAttack && attackCommand != null)
 		{
 			clickedButton = "Attack";
-			attackCommand.execute(getRow(), getCol());
+			attackCommand.execute(entity.getRowCell(), entity.getColCell());
 		}
-		else if(event.getSource() == jbtAcquire && acquireCommand != null)
+		else if(event.getSource() == jbtAcquire)
 		{
 			clickedButton = "Acquire";
-			acquireCommand.execute(getRow(), getCol());
+			acquireCommand.execute(entity.getRowCell(), entity.getColCell());
 		}
 		else if(event.getSource() == jbtDrop && dropCommand != null)
 		{
 			clickedButton = "Drop";
-			dropCommand.execute(getRow(), getCol());
+			dropCommand.execute(entity.getRowCell(), entity.getColCell());
 		}
 		else if(event.getSource() == jbtMovePlayer && moveCommand != null)
 		{
 			clickedButton = "Move";
-			moveCommand.execute(getRow(), getCol());
+			moveCommand.execute(entity.getRowCell(), entity.getColCell());
 		}
 		else if(event.getSource() == jbtNorth)
 		{
 			clickedButton = "North";
 			turnNorthCommand = new TurnCommand(LifeForm.NORTH);
-			turnNorthCommand.execute(getRow(), getCol());
+			turnNorthCommand.execute(entity.getRowCell(), entity.getColCell());
 		}
 		else if(event.getSource() == jbtSouth)
 		{
 			clickedButton = "South";
 			turnSouthCommand = new TurnCommand(LifeForm.SOUTH);
-			turnSouthCommand.execute(getRow(), getCol());
+			turnSouthCommand.execute(entity.getRowCell(), entity.getColCell());
 		}
 		else if(event.getSource() == jbtEast)
 		{
 			clickedButton = "East";
 			turnEastCommand = new TurnCommand(LifeForm.EAST);
-			turnEastCommand.execute(getRow(), getCol());
+			turnEastCommand.execute(entity.getRowCell(), entity.getColCell());
 		}
 		else if(event.getSource() == jbtWest)
 		{
 			clickedButton = "West";
 			turnWestCommand = new TurnCommand(LifeForm.WEST);
-			turnWestCommand.execute(getRow(), getCol());
+			turnWestCommand.execute(entity.getRowCell(), entity.getColCell());
 		}
 	}
 	
@@ -266,22 +264,6 @@ public class Invoker extends JFrame implements ActionListener
 	public String getClickName() 
 	{
 		return clickedButton;
-	}
-
-	/**
-	 * @return - Returns the row of the of the LifeForm
-	 */
-	public int getRow() 
-	{
-		return entity.getRowCell();
-	}
-	
-	/**
-	 * @return - Returns the column of the of the LifeForm
-	 */
-	public int getCol() 
-	{
-		return entity.getColCell();
 	}
 	
 }

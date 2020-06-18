@@ -12,6 +12,7 @@ import environment.Environment;
 import exceptions.ExistingWorldException;
 import lifeform.Human;
 import lifeform.LifeForm;
+import weapon.PlasmaCannon;
 
 /**
  * This will test the functionalities of the Invoker class.
@@ -116,6 +117,29 @@ public class TestInvoker
 		assertEquals("West",remote.getClickName());
 		assertEquals(LifeForm.WEST, remote.getLifeForm().getCurrentDirection());	
 	}
+	
+	@Test
+	public void testAcquireCommand() throws ExistingWorldException 
+	{
+		Invoker remote = new Invoker();
+		Environment.clearBoard();
+		Environment.setupWorld(4, 3);
+		Environment e = Environment.getWorld();
+		Human entity = new Human("Bob", 10, 10);
+		e.addLifeForm(entity, 0, 0);
+		remote.setLifeForm(entity);
+		assertEquals(entity, remote.getLifeForm());
+		
+		PlasmaCannon pc = new PlasmaCannon(10, 10, 10, 10);
+		e.addWeapon1(pc, 0, 0);
+		
+		Command cmd = new AcquireCommand();
+		remote.setCommand(cmd, 3);
+		assertEquals(cmd, remote.getCommand(3));
+		remote.jbtAcquire.doClick();
+		assertEquals("Acquire",remote.getClickName());
+		assertEquals(pc, remote.getLifeForm().getWeapon());	
+	}
 
 	@Test
 	public void testInitialization() 
@@ -150,11 +174,11 @@ public class TestInvoker
 		e.addLifeForm(entity, 0, 0);
 		remote.setLifeForm(entity);
 		assertEquals(entity, remote.getLifeForm());
-		assertEquals(0, remote.getRow());
-		assertEquals(0, remote.getCol());
+		assertEquals(0, remote.getLifeForm().getRowCell());
+		assertEquals(0, remote.getLifeForm().getRowCell());
 	}
 	
-	@Test
+	/*@Test
 	public void testButtonClick() throws ExistingWorldException
 	{
 		Invoker remote = new Invoker();
@@ -182,6 +206,6 @@ public class TestInvoker
 		assertEquals("East",remote.getClickName());
 		remote.jbtWest.doClick();
 		assertEquals("West",remote.getClickName());
-	}
+	}*/
 
 }
