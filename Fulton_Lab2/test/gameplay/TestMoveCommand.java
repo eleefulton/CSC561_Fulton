@@ -9,6 +9,12 @@ import exceptions.ExistingWorldException;
 import lifeform.Human;
 import lifeform.LifeForm;
 
+/**
+ * tests for move command
+ * 
+ * @author Ethan Fulton
+ *
+ */
 public class TestMoveCommand
 {
 

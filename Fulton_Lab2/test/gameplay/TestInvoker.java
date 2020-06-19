@@ -2,7 +2,7 @@ package gameplay;
 
 
 import static org.junit.Assert.assertEquals;
-
+import static org.junit.Assert.assertNull;
 
 import javax.swing.JOptionPane;
 
@@ -16,6 +16,7 @@ import exceptions.ExistingWorldException;
 import lifeform.Alien;
 import lifeform.Human;
 import lifeform.LifeForm;
+import weapon.Pistol;
 import weapon.PlasmaCannon;
 
 /**
@@ -166,7 +167,7 @@ public class TestInvoker
 		assertEquals(cmd, remote.getCommand(4));
 		remote.jbtDrop.doClick();
 		assertEquals("Drop",remote.getClickName());
-		assertEquals(pc, remote.getLifeForm().getWeapon());	
+		assertNull(remote.getLifeForm().getWeapon());	
 	}
 	
 	@Test
@@ -192,33 +193,54 @@ public class TestInvoker
 	@Test
 	public void testAttackCommand() throws EnvironmentException
 	{
-		LifeForm target = new Human("Bob", 10, 10);
-		e.addLifeForm(target, 0, 0);
-		
+		LifeForm target = new Human("Bob", 10, 0);
 		LifeForm attacker = new Alien("Jim", 10);
 		attacker.changeDirection(LifeForm.NORTH);
+		e.addLifeForm(target, 0, 0);
 		e.addLifeForm(attacker, 1, 0);
 		remote.setLifeForm(attacker);
 		assertEquals(attacker, remote.getLifeForm());
 		
-		//ac.execute(1,0);
-		//assertEquals(0, entity.getCurrentLifePoints());
 		Command cmd = new AttackCommand();
 		remote.setCommand(cmd, 2);
 		assertEquals(cmd, remote.getCommand(2));
 		remote.jbtAttack.doClick();
 		assertEquals("Attack",remote.getClickName());
 		assertEquals(target, e.getTarget(1, 0));	
-		//attacker.attack(target);
-		cmd.execute(1, 0);
-		assertEquals(0, target.getCurrentLifePoints());
 		assertEquals(0, e.getLifeForm(0, 0).getCurrentLifePoints());	
+	}
+	
+	@Test
+	public void testReloadCommand() throws EnvironmentException
+	{
+		Human entity = new Human("Bob", 10, 10);
+		e.addLifeForm(entity, 3, 0);
+		remote.setLifeForm(entity);
+		assertEquals(entity, remote.getLifeForm());
+		
+		Pistol p = new Pistol(10, 10, 10, 10);
+		p.setRemainingAmmo(0);
+		e.addWeapon1(p, 3, 0);
+		
+		Command cmd = new AcquireCommand();
+		remote.setCommand(cmd, 3);
+		assertEquals(cmd, remote.getCommand(3));
+		remote.jbtAcquire.doClick();
+		assertEquals("Acquire",remote.getClickName());
+		assertEquals(p, remote.getLifeForm().getWeapon());	
+		
+		cmd = new ReloadCommand();
+		remote.setCommand(cmd, 1);
+		assertEquals(cmd, remote.getCommand(1));
+		remote.jbtReload.doClick();
+		assertEquals("Reload",remote.getClickName());
+		assertEquals(remote.getLifeForm().getWeapon().getMaxAmmo(), remote.getLifeForm().getWeapon().getRemainingAmmo());
+		
 	}
 
 	@Test
 	public void testInitialization() 
 	{
-		//assertEquals(e, remote.theWorld);
 		assertEquals(JOptionPane.YES_OPTION,JOptionPane.showConfirmDialog(null, 
 				"Does the Remote Control look right?"));
 	}
@@ -246,34 +268,4 @@ public class TestInvoker
 		assertEquals(0, remote.getLifeForm().getRowCell());
 	}
 	
-	/*@Test
-	public void testButtonClick() throws ExistingWorldException
-	{
-		Invoker remote = new Invoker();
-		Environment.clearBoard();
-		Environment.setupWorld(4, 3);
-		Environment e = Environment.getWorld();
-		Human entity = new Human("Bob", 10, 10);
-		e.addLifeForm(entity, 0, 0);
-		//test that the button click works
-		remote.jbtReload.doClick();
-		assertEquals("Reload",remote.getClickName());
-		remote.jbtAttack.doClick();
-		assertEquals("Attack",remote.getClickName());
-		remote.jbtAcquire.doClick();
-		assertEquals("Acquire",remote.getClickName());
-		remote.jbtDrop.doClick();
-		assertEquals("Drop",remote.getClickName());
-		remote.jbtMovePlayer.doClick();
-		assertEquals("Move",remote.getClickName());
-		remote.jbtNorth.doClick();
-		assertEquals("North",remote.getClickName());
-		remote.jbtSouth.doClick();
-		assertEquals("South",remote.getClickName());
-		remote.jbtEast.doClick();
-		assertEquals("East",remote.getClickName());
-		remote.jbtWest.doClick();
-		assertEquals("West",remote.getClickName());
-	}*/
-
 }

@@ -1,6 +1,6 @@
 package gameplay;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
@@ -10,7 +10,13 @@ import lifeform.Human;
 import lifeform.LifeForm;
 import weapon.Pistol;
 
-public class TestReloadCommand 
+/**
+ * tests for reload command
+ * 
+ * @author Ethan Fulton
+ *
+ */
+public class TestReloadCommand
 {
 	@Test
 	public void testReloadWeapon() throws ExistingWorldException
@@ -20,12 +26,11 @@ public class TestReloadCommand
 		Environment e = Environment.getWorld();
 		LifeForm l1 = new Human("Bob", 10, 10);
 		e.addLifeForm(l1, 3, 0);
-		Pistol p = new Pistol(10,10,10,10);
+		Pistol p = new Pistol(10, 10, 10, 10);
 		p.setRemainingAmmo(0);
 		l1.pickWeapon(p);
 		ReloadCommand rc = new ReloadCommand();
-		rc.execute(3,0);
+		rc.execute(3, 0);
 		assertEquals(p.getMaxAmmo(), p.getRemainingAmmo());
 	}
 }
-
