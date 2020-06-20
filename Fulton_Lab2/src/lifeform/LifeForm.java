@@ -226,3 +226,4 @@ public abstract class LifeForm implements TimeObserver
 		}
 	}
 }
+

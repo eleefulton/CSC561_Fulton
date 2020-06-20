@@ -33,6 +33,7 @@ public class DropCommand implements Command
 		{
 			l.pickWeapon(w);
 		}
+		e.updateUI();
 	}
 
 }

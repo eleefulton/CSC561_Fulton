@@ -20,6 +20,7 @@ public class MoveCommand implements Command
 	public void execute(int r, int c)
 	{
 		e.moveLifeForm(r, c);
+		e.updateUI();
 	}
 
 }

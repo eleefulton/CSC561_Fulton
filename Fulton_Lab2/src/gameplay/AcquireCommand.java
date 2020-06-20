@@ -24,6 +24,7 @@ public class AcquireCommand implements Command
 		Weapon w = e.getLifeForm(r, c).getWeapon();
 		e.getLifeForm(r, c).dropWeapon();
 		e.getLifeForm(r, c).pickWeapon(e.swapWeapon(w, r, c));
+		e.updateUI();
 	}
 
 }

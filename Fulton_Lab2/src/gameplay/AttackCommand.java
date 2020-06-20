@@ -8,7 +8,7 @@ import lifeform.LifeForm;
  * basic command for handling attack of lifeform in specified cell
  * 
  * @author Ethan Fulton
- *
+ * @author Moumounni Noma
  */
 public class AttackCommand implements Command
 {
@@ -23,13 +23,18 @@ public class AttackCommand implements Command
 	{
 		LifeForm target = e.getTarget(r, c);
 		LifeForm attacker = e.getLifeForm(r, c);
-		try
+		if(target != null)
 		{
-			attacker.attack(target);
-		} catch (EnvironmentException e1)
-		{
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
+			try
+			{
+				attacker.attack(target);
+				e.updateUI();
+			} catch (EnvironmentException e1)
+			{
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			
 		}
 
 	}

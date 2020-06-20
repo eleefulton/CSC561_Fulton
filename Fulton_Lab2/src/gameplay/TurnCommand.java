@@ -31,6 +31,7 @@ public class TurnCommand implements Command
 	public void execute(int r, int c)
 	{
 		e.getLifeForm(r, c).changeDirection(turnDir);
+		e.updateUI();
 	}
 
 }
