@@ -11,8 +11,10 @@ import weapon.PlasmaCannon;
 
 /**
  * This acts as our remote control and the Client.
+ * This is used to the different commands(buttons) on
+ * our remote control.
+ * Please run as a java application to test.
  * @author Moumouni Noma
- *
  */
 public class InvokerBuilder 
 {
