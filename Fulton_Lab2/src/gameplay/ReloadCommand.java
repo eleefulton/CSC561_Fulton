@@ -20,6 +20,7 @@ public class ReloadCommand implements Command
 	public void execute(int r, int c)
 	{
 		e.getLifeForm(r, c).reload();
+		e.updateUI();
 	}
 
 }

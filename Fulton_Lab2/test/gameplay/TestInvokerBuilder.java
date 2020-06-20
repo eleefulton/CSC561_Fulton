@@ -15,8 +15,7 @@ public class TestInvokerBuilder
 	@Test
 	public void testInitialization() 
 	{
-		//InvokerBuilder ui = new InvokerBulder();
-		
+		//InvokerBuilder ui = new InvokerBuilder();
 		
 	}
 

@@ -65,8 +65,8 @@ public class TestInvoker
 		assertEquals(entity, remote.getLifeForm());
 		
 		Command cmd = new TurnCommand(LifeForm.NORTH);
-		remote.setCommand(cmd,6);
-		assertEquals(cmd, remote.getCommand(6));
+		remote.setCommand(cmd, Command.NORTH);
+		assertEquals(cmd, remote.getCommand(Command.NORTH));
 		remote.jbtNorth.doClick();
 		assertEquals("North",remote.getClickName());
 		assertEquals(LifeForm.NORTH, remote.getLifeForm().getCurrentDirection());
@@ -83,8 +83,8 @@ public class TestInvoker
 		assertEquals(entity, remote.getLifeForm());
 		
 		Command cmd = new TurnCommand(LifeForm.EAST);
-		remote.setCommand(cmd,8);
-		assertEquals(cmd, remote.getCommand(8));
+		remote.setCommand(cmd, Command.EAST);
+		assertEquals(cmd, remote.getCommand(Command.EAST));
 		remote.jbtEast.doClick();
 		assertEquals("East",remote.getClickName());
 		assertEquals(LifeForm.EAST, remote.getLifeForm().getCurrentDirection());	
@@ -100,8 +100,8 @@ public class TestInvoker
 		assertEquals(entity, remote.getLifeForm());
 		
 		Command cmd = new TurnCommand(LifeForm.SOUTH);
-		remote.setCommand(cmd,7);
-		assertEquals(cmd, remote.getCommand(7));
+		remote.setCommand(cmd, Command.SOUTH);
+		assertEquals(cmd, remote.getCommand(Command.SOUTH));
 		remote.jbtSouth.doClick();
 		assertEquals("South",remote.getClickName());
 		assertEquals(LifeForm.SOUTH, remote.getLifeForm().getCurrentDirection());	
@@ -117,8 +117,8 @@ public class TestInvoker
 		assertEquals(entity, remote.getLifeForm());
 		
 		Command cmd = new TurnCommand(LifeForm.WEST);
-		remote.setCommand(cmd,9);
-		assertEquals(cmd, remote.getCommand(9));
+		remote.setCommand(cmd, Command.WEST);
+		assertEquals(cmd, remote.getCommand(Command.WEST));
 		remote.jbtWest.doClick();
 		assertEquals("West",remote.getClickName());
 		assertEquals(LifeForm.WEST, remote.getLifeForm().getCurrentDirection());	
@@ -136,11 +136,12 @@ public class TestInvoker
 		e.addWeapon1(pc, 0, 0);
 		
 		Command cmd = new AcquireCommand();
-		remote.setCommand(cmd, 3);
-		assertEquals(cmd, remote.getCommand(3));
+		remote.setCommand(cmd, Command.ACQUIRE);
+		assertEquals(cmd, remote.getCommand(Command.ACQUIRE));
 		remote.jbtAcquire.doClick();
 		assertEquals("Acquire",remote.getClickName());
-		assertEquals(pc, remote.getLifeForm().getWeapon());	
+		assertEquals(pc, remote.getLifeForm().getWeapon());
+	
 	}
 	
 	@Test
@@ -155,16 +156,16 @@ public class TestInvoker
 		e.addWeapon1(pc, 0, 0);
 		
 		Command cmd = new AcquireCommand();
-		remote.setCommand(cmd, 3);
-		assertEquals(cmd, remote.getCommand(3));
+		remote.setCommand(cmd, Command.ACQUIRE);
+		assertEquals(cmd, remote.getCommand(Command.ACQUIRE));
 		remote.jbtAcquire.doClick();
 		assertEquals("Acquire",remote.getClickName());
 		assertEquals(pc, remote.getLifeForm().getWeapon());	
 		
 		//testing dropping the weapon
 		cmd = new DropCommand();
-		remote.setCommand(cmd, 4);
-		assertEquals(cmd, remote.getCommand(4));
+		remote.setCommand(cmd, Command.DROP);
+		assertEquals(cmd, remote.getCommand(Command.DROP));
 		remote.jbtDrop.doClick();
 		assertEquals("Drop",remote.getClickName());
 		assertNull(remote.getLifeForm().getWeapon());	
@@ -180,8 +181,8 @@ public class TestInvoker
 		entity.changeDirection(LifeForm.SOUTH);
 		
 		Command cmd = new MoveCommand();
-		remote.setCommand(cmd, 5);
-		assertEquals(cmd, remote.getCommand(5));
+		remote.setCommand(cmd, Command.MOVE);
+		assertEquals(cmd, remote.getCommand(Command.MOVE));
 		remote.jbtMovePlayer.doClick();
 		assertEquals("Move",remote.getClickName());
 		assertEquals(3, remote.getLifeForm().getRowCell());
@@ -202,8 +203,8 @@ public class TestInvoker
 		assertEquals(attacker, remote.getLifeForm());
 		
 		Command cmd = new AttackCommand();
-		remote.setCommand(cmd, 2);
-		assertEquals(cmd, remote.getCommand(2));
+		remote.setCommand(cmd, Command.ATTACK);
+		assertEquals(cmd, remote.getCommand(Command.ATTACK));
 		remote.jbtAttack.doClick();
 		assertEquals("Attack",remote.getClickName());
 		assertEquals(target, e.getTarget(1, 0));	
@@ -223,15 +224,15 @@ public class TestInvoker
 		e.addWeapon1(p, 3, 0);
 		
 		Command cmd = new AcquireCommand();
-		remote.setCommand(cmd, 3);
-		assertEquals(cmd, remote.getCommand(3));
+		remote.setCommand(cmd, Command.ACQUIRE);
+		assertEquals(cmd, remote.getCommand(Command.ACQUIRE));
 		remote.jbtAcquire.doClick();
 		assertEquals("Acquire",remote.getClickName());
 		assertEquals(p, remote.getLifeForm().getWeapon());	
 		
 		cmd = new ReloadCommand();
-		remote.setCommand(cmd, 1);
-		assertEquals(cmd, remote.getCommand(1));
+		remote.setCommand(cmd, Command.RELOAD);
+		assertEquals(cmd, remote.getCommand(Command.RELOAD));
 		remote.jbtReload.doClick();
 		assertEquals("Reload",remote.getClickName());
 		assertEquals(remote.getLifeForm().getWeapon().getMaxAmmo(), remote.getLifeForm().getWeapon().getRemainingAmmo());
@@ -249,11 +250,11 @@ public class TestInvoker
 	public void testSetCommand()
 	{
 		Command cmd = new MoveCommand();
-		remote.setCommand(cmd, 2);
-		assertEquals(cmd, remote.getCommand(2));
+		remote.setCommand(cmd, Command.MOVE);
+		assertEquals(cmd, remote.getCommand(Command.MOVE));
 		String name = "Test";
 		MockCommand cmd2 = new MockCommand(name);
-		remote.setCommand(cmd2, 1);
+		remote.setCommand(cmd2, Command.RELOAD);
 		assertEquals(name, cmd2.getName());	
 	}
 	

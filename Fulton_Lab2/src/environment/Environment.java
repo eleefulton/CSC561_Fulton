@@ -3,12 +3,14 @@ package environment;
 import exceptions.EnvironmentException;
 import exceptions.ExistingWorldException;
 import lifeform.LifeForm;
+import ui.UI;
 import weapon.Weapon;
 
 /**
  * Keeps track of a grid of cells and information about the number of cells per
  * row and column
- *
+ * @author Ethan Fulton
+ * @author Moumouni Noma
  */
 public class Environment
 {
@@ -16,6 +18,7 @@ public class Environment
 	private int cols;
 	private Cell[][] cells;
 	private static Environment theWorld; // the unique Environment instance.
+	private UI gameUI;
 
 	/**
 	 * private class constructor.
@@ -37,6 +40,7 @@ public class Environment
 				cells[i][j] = new Cell();
 			}
 		}
+		gameUI = new UI(this);
 	}
 
 	/**
@@ -119,6 +123,7 @@ public class Environment
 		cells[r][c].addLifeForm(l);
 		l.setRowCell(r); // set the row position of the lifeForm
 		l.setColCell(c); // set the row position of the lifeForm
+		updateUI();
 	}
 
 	/**
@@ -135,6 +140,7 @@ public class Environment
 		{
 			return false;
 		}
+		updateUI();
 		return cells[r][c].removeLifeForm();
 	}
 
@@ -161,6 +167,7 @@ public class Environment
 			return;
 		}
 		cells[row][col].addWeapon1(weap);
+		updateUI();
 	}
 
 	/**
@@ -193,6 +200,7 @@ public class Environment
 			return;
 		}
 		cells[row][col].addWeapon2(weap);
+		updateUI();
 	}
 
 	/**
@@ -342,6 +350,7 @@ public class Environment
 				addLifeForm(l, r, newCol);
 			}
 		}
+		updateUI();
 	}
 
 	/**
@@ -428,7 +437,16 @@ public class Environment
 		{
 			addWeapon2(w, r, c);
 		}
+		updateUI();
 		return returnWeapon;
 
+	}
+	
+	/**
+	 * Updates the game display when there are changes.
+	 */
+	public void updateUI()
+	{
+		gameUI.updateGrid();
 	}
 }
